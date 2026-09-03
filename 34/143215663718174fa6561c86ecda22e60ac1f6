@@ -1,0 +1,25 @@
+deploy/kubernetes/chart/templates/validate.yaml
+  s_b8e07c8146c6ca::t_2c6b7c27698019 252-262
+deploy/kubernetes/chart/scripts/test-service-nodeport.sh
+  s_b8e07c8146c6ca::t_5495f766c39761 97-128
+deploy/kubernetes/chart/values.yaml
+  s_b8e07c8146c6ca::t_b5e8eb0b033848 559-564
+deploy/kubernetes/chart/templates/minio.yaml
+  s_b8e07c8146c6ca::t_7322c5426a061c 2,19-45
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.6.14",
+  "base_commit_sha": "34143215663718174fa6561c86ecda22e60ac1f6",
+  "prompts": {},
+  "sessions": {
+    "s_b8e07c8146c6ca": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "42710a56-6163-476a-b2ad-ddcab92812a0",
+        "model": "glm-5.2"
+      },
+      "human_author": "wangshuai <ws13021151806@163.com>"
+    }
+  }
+}
