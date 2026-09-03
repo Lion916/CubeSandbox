@@ -1,4 +1,5 @@
 {{- if eq (include "cube.minioBuiltinEnabled" .) "true" }}
+# Headless Service — required by the StatefulSet for stable DNS. Always created.
 apiVersion: v1
 kind: Service
 metadata:
@@ -15,6 +16,33 @@ spec:
     - name: minio
       port: {{ .Values.minio.port | default 9000 }}
       targetPort: minio
+{{- $minioSvcType := .Values.minio.service.type | default "ClusterIP" -}}
+{{- if has $minioSvcType (list "NodePort" "LoadBalancer") }}
+---
+# Extra Service for external access (NodePort / LoadBalancer). The Headless
+# Service above stays for StatefulSet DNS; this one lets compute nodes outside
+# the cluster reach MinIO without manual kubectl patch.
+apiVersion: v1
+kind: Service
+metadata:
+  name: {{ include "cube.minioName" . }}-external
+  labels:
+    {{- include "cube.labels" . | nindent 4 }}
+    app.kubernetes.io/component: minio
+spec:
+  type: {{ $minioSvcType }}
+  selector:
+    {{- include "cube.selectorLabels" . | nindent 4 }}
+    app.kubernetes.io/component: minio
+  ports:
+    - name: minio
+      port: {{ .Values.minio.port | default 9000 }}
+      targetPort: minio
+      {{- $minioNodePort := .Values.minio.service.nodePort | default "" | toString -}}
+      {{- if ne $minioNodePort "" }}
+      nodePort: {{ $minioNodePort | int }}
+      {{- end }}
+{{- end }}
 ---
 apiVersion: apps/v1
 kind: StatefulSet

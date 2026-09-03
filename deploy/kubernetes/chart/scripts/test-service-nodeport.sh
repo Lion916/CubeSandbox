@@ -94,4 +94,36 @@ fi
 grep -q 'cubeProxy.service.nodePorts.htttp is not supported' "$TMP_DIR/unknown.err" \
   || fail_msg "missing unknown nodePorts key guard message"
 
+# MinIO NodePort Service must render with the specified nodePort.
+helm template minio-nodeport "$CHART_DIR" $COMMON_SETS \
+  --set minio.service.type=NodePort \
+  --set minio.service.nodePort=30090 \
+  > "$TMP_DIR/minio-np.yaml"
+
+awk '
+  /^kind: Service$/ { in_svc=1; name=""; component=""; has_nodeport=0; next }
+  in_svc && /^  name: / { name=$2 }
+  in_svc && /app.kubernetes.io\/component: / { component=$2 }
+  in_svc && /nodePort: 30090/ { has_nodeport=1 }
+  in_svc && /^---$/ { in_svc=0 }
+  in_svc && name != "" && component == "minio" && has_nodeport { minio_np=1 }
+  END {
+    if (!minio_np) { print "minio nodePort 30090 missing"; exit 1 }
+  }
+' "$TMP_DIR/minio-np.yaml" || fail_msg "MinIO NodePort Service not rendered as expected"
+
+# MinIO default ClusterIP must not create external Service or nodePort.
+if grep -q 'cube-sandbox-minio-external' "$TMP_DIR/default.yaml"; then
+  fail_msg "default ClusterIP render unexpectedly includes MinIO external Service"
+fi
+
+# MinIO ClusterIP + nodePort must fail render.
+if helm template minio-bad-np "$CHART_DIR" $COMMON_SETS \
+  --set minio.service.nodePort=30090 \
+  >"$TMP_DIR/minio-bad.out" 2>"$TMP_DIR/minio-bad.err"; then
+  fail_msg "expected fail when ClusterIP minio sets nodePort"
+fi
+grep -q 'minio.service.nodePort requires service.type' "$TMP_DIR/minio-bad.err" \
+  || fail_msg "missing minio ClusterIP+nodePort guard message"
+
 echo "Service nodePort guard passed"
