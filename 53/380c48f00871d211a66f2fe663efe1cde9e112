@@ -1,0 +1,19 @@
+deploy/kubernetes/chart/templates/validate.yaml
+  s_b8e07c8146c6ca::t_2c6b7c27698019 278-279
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.6.14",
+  "base_commit_sha": "53380c48f00871d211a66f2fe663efe1cde9e112",
+  "prompts": {},
+  "sessions": {
+    "s_b8e07c8146c6ca": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "42710a56-6163-476a-b2ad-ddcab92812a0",
+        "model": "glm-5.2"
+      },
+      "human_author": "wangshuai <ws13021151806@163.com>"
+    }
+  }
+}
