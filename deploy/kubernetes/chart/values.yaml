@@ -224,6 +224,11 @@ controlPlane:
     args: []
     env: []
     nodeIPs: []
+    # Inline CubeMaster configuration YAML. When empty (default), the chart
+    # renders files/cube-master/conf.yaml as a Secret. Set this to provide
+    # a custom configuration without forking the chart, e.g.:
+    #   --set-file controlPlane.master.configInline=my-conf.yaml
+    configInline: ""
     service:
       type: ClusterIP
       port: 8089
@@ -1137,6 +1142,20 @@ hostPaths:
   # /run/vc/vm/{id}/chapi and /run/vc/vm/{id}/cube.sock need this tree to
   # remain on a filesystem that is not torn down with the Pod overlay.
   runVc: /data/cubelet/run/vc
+
+# Optional overrides for container-side mountPaths. By default each
+# volumeMount uses the same path as the hostPath above. When a hostPath is
+# changed (e.g. dataCubelet → /data02/cubelet), code inside the container
+# may still expect the original /data/cubelet path. Set the matching key
+# here to keep the container mountPath unchanged while the host directory
+# moves. Only the keys listed below are honoured; unknown keys are ignored.
+#
+# Example:
+#   hostPaths:
+#     dataCubelet: /data02/cubelet
+#   containerPaths:
+#     dataCubelet: /data/cubelet
+containerPaths: {}
 
 # COS volume plugin credentials (volume-cos.conf). Plugin binaries ship in
 # cube-master / cubelet images; this Secret mounts the conf next to them.

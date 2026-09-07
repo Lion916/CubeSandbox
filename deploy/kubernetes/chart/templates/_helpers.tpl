@@ -979,6 +979,20 @@ Kubernetes API path prefix for the cube-node DaemonSet (health-test).
 {{- end -}}
 
 {{/*
+Resolve the container-side mountPath for a hostPath key.
+Returns containerPaths.<key> when set, otherwise hostPaths.<key>.
+This lets operators change the host directory without breaking
+in-container path expectations (code may hardcode /data/…).
+Usage: include "cube.containerPath" (dict "key" "dataCubelet" "context" .)
+*/}}
+{{- define "cube.containerPath" -}}
+{{- $key := .key -}}
+{{- $ctx := .context -}}
+{{- $override := index (default dict $ctx.Values.containerPaths) $key -}}
+{{- if $override }}{{ $override }}{{- else }}{{ index $ctx.Values.hostPaths $key }}{{- end -}}
+{{- end -}}
+
+{{/*
 Big Pod: shared volumeMounts for component install/run containers.
 Toolbox is mounted whole at the fixed path.
 */}}
@@ -986,23 +1000,23 @@ Toolbox is mounted whole at the fixed path.
 - name: toolbox
   mountPath: /usr/local/services/cubetoolbox
 - name: data-cubelet
-  mountPath: {{ .Values.hostPaths.dataCubelet }}
+  mountPath: {{ include "cube.containerPath" (dict "key" "dataCubelet" "context" .) }}
   mountPropagation: Bidirectional
 - name: data-log
-  mountPath: {{ .Values.hostPaths.dataLog }}
+  mountPath: {{ include "cube.containerPath" (dict "key" "dataLog" "context" .) }}
 - name: data-cube-shim
-  mountPath: {{ .Values.hostPaths.dataCubeShim }}
+  mountPath: {{ include "cube.containerPath" (dict "key" "dataCubeShim" "context" .) }}
   mountPropagation: Bidirectional
 - name: data-snapshot-pack
-  mountPath: {{ .Values.hostPaths.dataSnapshotPack }}
+  mountPath: {{ include "cube.containerPath" (dict "key" "dataSnapshotPack" "context" .) }}
 - name: data-cube-shared
-  mountPath: {{ .Values.hostPaths.dataCubeShared }}
+  mountPath: {{ include "cube.containerPath" (dict "key" "dataCubeShared" "context" .) }}
   mountPropagation: Bidirectional
 - name: data-shared
-  mountPath: {{ .Values.hostPaths.dataShared }}
+  mountPath: {{ include "cube.containerPath" (dict "key" "dataShared" "context" .) }}
   mountPropagation: Bidirectional
 - name: tmp-cube
-  mountPath: {{ .Values.hostPaths.tmpCube }}
+  mountPath: {{ include "cube.containerPath" (dict "key" "tmpCube" "context" .) }}
   mountPropagation: Bidirectional
 - name: run-containerd
   mountPath: /run/containerd
@@ -1015,7 +1029,7 @@ Toolbox is mounted whole at the fixed path.
 {{- define "cube.nodeDataplaneVolumeMounts" -}}
 {{- include "cube.nodeToolboxVolumeMounts" . }}
 - name: bootstrap-state
-  mountPath: {{ .Values.hostPaths.bootstrapState }}
+  mountPath: {{ include "cube.containerPath" (dict "key" "bootstrapState" "context" .) }}
 - name: dev
   mountPath: /dev
 - name: sys
@@ -1048,9 +1062,9 @@ Installer: toolbox only (no dataplane mounts).
 - name: toolbox
   mountPath: /usr/local/services/cubetoolbox
 - name: bootstrap-state
-  mountPath: {{ .Values.hostPaths.bootstrapState }}
+  mountPath: {{ include "cube.containerPath" (dict "key" "bootstrapState" "context" .) }}
 - name: data-cubelet
-  mountPath: {{ .Values.hostPaths.dataCubelet }}
+  mountPath: {{ include "cube.containerPath" (dict "key" "dataCubelet" "context" .) }}
 {{- end -}}
 
 {{- define "cube.installerComponentEnv" -}}
@@ -1081,28 +1095,28 @@ Bootstrap: host mutation mounts for pvm / node-init.
   mountPath: /lib/modules
   readOnly: true
 - name: bootstrap-state
-  mountPath: {{ .Values.hostPaths.bootstrapState }}
+  mountPath: {{ include "cube.containerPath" (dict "key" "bootstrapState" "context" .) }}
 {{- end -}}
 
 {{- define "cube.bootstrapDataVolumeMounts" -}}
 - name: data-cubelet
-  mountPath: {{ .Values.hostPaths.dataCubelet }}
+  mountPath: {{ include "cube.containerPath" (dict "key" "dataCubelet" "context" .) }}
   mountPropagation: Bidirectional
 - name: data-log
-  mountPath: {{ .Values.hostPaths.dataLog }}
+  mountPath: {{ include "cube.containerPath" (dict "key" "dataLog" "context" .) }}
 - name: data-cube-shim
-  mountPath: {{ .Values.hostPaths.dataCubeShim }}
+  mountPath: {{ include "cube.containerPath" (dict "key" "dataCubeShim" "context" .) }}
   mountPropagation: Bidirectional
 - name: data-snapshot-pack
-  mountPath: {{ .Values.hostPaths.dataSnapshotPack }}
+  mountPath: {{ include "cube.containerPath" (dict "key" "dataSnapshotPack" "context" .) }}
 - name: data-cube-shared
-  mountPath: {{ .Values.hostPaths.dataCubeShared }}
+  mountPath: {{ include "cube.containerPath" (dict "key" "dataCubeShared" "context" .) }}
   mountPropagation: Bidirectional
 - name: data-shared
-  mountPath: {{ .Values.hostPaths.dataShared }}
+  mountPath: {{ include "cube.containerPath" (dict "key" "dataShared" "context" .) }}
   mountPropagation: Bidirectional
 - name: tmp-cube
-  mountPath: {{ .Values.hostPaths.tmpCube }}
+  mountPath: {{ include "cube.containerPath" (dict "key" "tmpCube" "context" .) }}
   mountPropagation: Bidirectional
 {{- end -}}
 

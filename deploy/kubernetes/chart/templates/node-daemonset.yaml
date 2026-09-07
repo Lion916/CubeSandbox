@@ -47,7 +47,7 @@ spec:
               value: {{ .Values.hostPaths.bootstrapState | quote }}
           volumeMounts:
             - name: bootstrap-state
-              mountPath: {{ .Values.hostPaths.bootstrapState }}
+              mountPath: {{ include "cube.containerPath" (dict "key" "bootstrapState" "context" .) }}
           {{- with .Values.cubeNodeBootstrap.waitResources }}
           resources:
             {{- toYaml . | nindent 12 }}
@@ -213,7 +213,7 @@ spec:
               mountPath: /etc/cube/ca
               readOnly: true
             - name: data-log
-              mountPath: {{ .Values.hostPaths.dataLog }}
+              mountPath: {{ include "cube.containerPath" (dict "key" "dataLog" "context" .) }}
             - name: cube-egress-run
               mountPath: /var/run/openresty
             - name: toolbox
@@ -346,9 +346,9 @@ spec:
           {{- end }}
           volumeMounts:
             - name: data-cubelet
-              mountPath: {{ .Values.hostPaths.dataCubelet }}
+              mountPath: {{ include "cube.containerPath" (dict "key" "dataCubelet" "context" .) }}
             - name: data-log
-              mountPath: {{ .Values.hostPaths.dataLog }}
+              mountPath: {{ include "cube.containerPath" (dict "key" "dataLog" "context" .) }}
             - name: dev
               mountPath: /dev
             - name: sys

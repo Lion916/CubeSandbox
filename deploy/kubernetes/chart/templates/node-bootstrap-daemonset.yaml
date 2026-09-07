@@ -68,7 +68,7 @@ spec:
               value: {{ ternary "1" "0" .Values.bootstrap.nodeInit.enabled | quote }}
           volumeMounts:
             - name: bootstrap-state
-              mountPath: {{ .Values.hostPaths.bootstrapState }}
+              mountPath: {{ include "cube.containerPath" (dict "key" "bootstrapState" "context" .) }}
         - name: wait-pvm-host
           image: {{ include "cube.cubeImage" (dict "image" .Values.images.nodeInit "context" $) | quote }}
           imagePullPolicy: {{ .Values.images.nodeInit.pullPolicy }}
@@ -203,7 +203,7 @@ spec:
             {{- end }}
           volumeMounts:
             - name: bootstrap-state
-              mountPath: {{ .Values.hostPaths.bootstrapState }}
+              mountPath: {{ include "cube.containerPath" (dict "key" "bootstrapState" "context" .) }}
           {{- with .Values.cubeNodeBootstrap.resources }}
           resources:
             {{- toYaml . | nindent 12 }}

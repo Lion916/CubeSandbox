@@ -249,6 +249,17 @@
 {{- if and (eq (include "cube.minioBuiltinEnabled" .) "true") .Values.minio.rootPassword (lt (len (printf "%s" .Values.minio.rootPassword)) 8) }}
 {{- fail "minio.rootPassword must be at least 8 characters when set (leave empty to generate one)" }}
 {{- end }}
+{{- $minioSvcType := .Values.minio.service.type | default "ClusterIP" -}}
+{{- $minioNodePort := .Values.minio.service.nodePort | default "" | toString -}}
+{{- if and (ne $minioNodePort "") (not (has $minioSvcType (list "NodePort" "LoadBalancer"))) }}
+{{- fail (printf "minio.service.nodePort requires service.type NodePort or LoadBalancer (got %s)" $minioSvcType) }}
+{{- end }}
+{{- if ne $minioNodePort "" }}
+{{- $minioNP := $minioNodePort | int -}}
+{{- if or (lt $minioNP 30000) (gt $minioNP 32767) }}
+{{- fail (printf "minio.service.nodePort must be in 30000-32767 (got %v)" $minioNodePort) }}
+{{- end }}
+{{- end }}
 {{- if eq (include "cube.s3lvolEnabled" .) "true" }}
 {{- if not ((.Values.images.cubeS3lvol).repository) }}
 {{- fail "cubeS3lvol.enabled=true requires images.cubeS3lvol.repository" }}
@@ -275,15 +286,6 @@
 {{- fail "cubeS3lvol.s3 values must not contain double quotes (s3.cfg is double-quoted TOML)" }}
 {{- end }}
 {{- end }}
-{{- $minioSvcType := .Values.minio.service.type | default "ClusterIP" -}}
-{{- $minioNodePort := .Values.minio.service.nodePort | default "" | toString -}}
-{{- if and (ne $minioNodePort "") (not (has $minioSvcType (list "NodePort" "LoadBalancer"))) }}
-{{- fail (printf "minio.service.nodePort requires service.type NodePort or LoadBalancer (got %s)" $minioSvcType) }}
-{{- end }}
-{{- if ne $minioNodePort "" }}
-{{- $minioNP := $minioNodePort | int -}}
-{{- if or (lt $minioNP 30000) (gt $minioNP 32767) }}
-{{- fail (printf "minio.service.nodePort must be in 30000-32767 (got %v)" $minioNodePort) }}
 {{- end }}
 {{- end }}
 {{- if eq (include "cube.opsEnabled" .) "true" }}
