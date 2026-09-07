@@ -1,0 +1,41 @@
+deploy/kubernetes/chart/templates/master.yaml
+  s_b8e07c8146c6ca::t_6010856c1b9661 103-104
+deploy/kubernetes/chart/templates/_helpers.tpl
+  s_b8e07c8146c6ca::t_c9f7e42bc93006 1103,1106,1108,1111,1113,1116,1119
+  s_b8e07c8146c6ca::t_5d64922ef6aa77 982-994,1003,1006,1008,1011,1013,1016,1019
+  s_b8e07c8146c6ca::t_28f1d07a55769f 1098
+  s_b8e07c8146c6ca::t_84de09bcb155d4 1065,1067
+  s_b8e07c8146c6ca::t_fbfe634cda5200 1032
+  s_b8e07c8146c6ca::t_3e0406baea3de2 981
+deploy/kubernetes/chart/templates/node-bootstrap-daemonset.yaml
+  s_b8e07c8146c6ca::t_76618cc52f9b88 71
+  s_b8e07c8146c6ca::t_9065fd1241d5f1 206
+deploy/kubernetes/chart/templates/node-daemonset.yaml
+  s_b8e07c8146c6ca::t_2a210536942a0a 208
+  s_b8e07c8146c6ca::t_9207554ee23cbe 47
+  s_b8e07c8146c6ca::t_a388f31ff16a7d 50
+deploy/kubernetes/chart/templates/tests/node-health.yaml
+  s_b8e07c8146c6ca::t_190f2afc35caa8 476,479
+deploy/kubernetes/chart/values.yaml
+  s_b8e07c8146c6ca::t_0bfeed903e9429 222-226
+  s_b8e07c8146c6ca::t_a503037e6fd321 1086-1098
+  s_b8e07c8146c6ca::t_57df40e5c265df 1099
+deploy/kubernetes/chart/templates/master-config-secret.yaml
+  s_b8e07c8146c6ca::t_1925c9019c0109 2-7,9,15
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.6.14",
+  "base_commit_sha": "d195cdc5cd3a041f9006b478a65b4fed95643a85",
+  "prompts": {},
+  "sessions": {
+    "s_b8e07c8146c6ca": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "42710a56-6163-476a-b2ad-ddcab92812a0",
+        "model": "glm-5.2"
+      },
+      "human_author": "wangshuai <ws13021151806@163.com>"
+    }
+  }
+}
