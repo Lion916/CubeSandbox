@@ -1,0 +1,26 @@
+Cubelet/network/runtime/systemnet/device.go
+  s_67f5be5a72fe9a::t_ff098618e54a76 145-149,158-160,173-174,180-258
+  s_67f5be5a72fe9a::t_5a9d5dc5ff9fec 259
+Cubelet/network/runtime/controller.go
+  s_67f5be5a72fe9a::t_e5767a4746727f 22
+  s_67f5be5a72fe9a::t_6ad793c2ba2d2e 203-209
+Cubelet/network/runtime/systemnet/device_test.go
+  s_67f5be5a72fe9a::t_cc29c52c9c9970 595-600,614-620,633-638
+  s_67f5be5a72fe9a::t_4e67453e25300b 583-594,601-613,621-632,639-697
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.6.14",
+  "base_commit_sha": "e37ebae4ae2d2fcb107b7a9bfd47f2fc491a0b5c",
+  "prompts": {},
+  "sessions": {
+    "s_67f5be5a72fe9a": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "1b0f5f30-2c94-4fbd-a8ba-acdff30e531d",
+        "model": "deepseek-v4-flash-vision"
+      },
+      "human_author": "wangshuai <ws13021151806@163.com>"
+    }
+  }
+}
