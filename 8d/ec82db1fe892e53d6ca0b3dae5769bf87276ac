@@ -1,0 +1,22 @@
+Cubelet/network/runtime/systemnet/device.go
+  s_67f5be5a72fe9a::t_7b6411b64f51c5 185-186
+  s_67f5be5a72fe9a::t_4526aa0bd45f6c 146-151
+Cubelet/network/runtime/controller.go
+  s_67f5be5a72fe9a::t_ee687ec1b44cbe 203-204
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.6.14",
+  "base_commit_sha": "8dec82db1fe892e53d6ca0b3dae5769bf87276ac",
+  "prompts": {},
+  "sessions": {
+    "s_67f5be5a72fe9a": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "1b0f5f30-2c94-4fbd-a8ba-acdff30e531d",
+        "model": "deepseek-v4-flash-vision"
+      },
+      "human_author": "wangshuai <ws13021151806@163.com>"
+    }
+  }
+}
