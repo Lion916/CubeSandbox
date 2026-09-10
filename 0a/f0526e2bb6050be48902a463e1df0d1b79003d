@@ -1,0 +1,49 @@
+Cubelet/network/runtime/systemnet/device.go
+  s_67f5be5a72fe9a::t_ff098618e54a76 145,154,164-165,178-179,185-186,189-192,194,196-198,202,204-208,212,214-218,220-223,225-226,228-230,236,240-252,260-264,267,269-270,274-275,277-278,280
+  s_67f5be5a72fe9a::t_3f5cbc199e1dfb 193,195,203,213,219,224,227
+  s_67f5be5a72fe9a::t_e59fd60c52b6f9 199-201,209-211
+  s_67f5be5a72fe9a::t_4526aa0bd45f6c 146-150
+  s_67f5be5a72fe9a::t_5a9d5dc5ff9fec 281
+  s_67f5be5a72fe9a::t_7b6411b64f51c5 187-188
+  s_67f5be5a72fe9a::t_6e5e4b2a54f08c 163
+  s_67f5be5a72fe9a::t_64d9f60aa2e9cc 151-153
+  s_67f5be5a72fe9a::t_e7ec6957f6bd6d 231-235,237-239
+  s_67f5be5a72fe9a::t_5a71ab5bf17f79 253-259,265-266,268,271-273,276,279
+Cubelet/network/runtime/controller.go
+  s_67f5be5a72fe9a::t_e5767a4746727f 22
+  s_67f5be5a72fe9a::t_bb782374dd42c9 204-208
+  s_67f5be5a72fe9a::t_ee687ec1b44cbe 203
+Cubelet/network/runtime/systemnet/device_test.go
+  s_67f5be5a72fe9a::t_15f40fea859b75 766-783,785-800,802-819,821-838,840-841
+  s_67f5be5a72fe9a::t_a329602ac01f1d 843-892
+  s_67f5be5a72fe9a::t_e2e92b019db19a 697-698
+  s_67f5be5a72fe9a::t_7cd2ac11c86cdb 839
+  s_67f5be5a72fe9a::t_cc29c52c9c9970 595-600,614-620,633-638
+  s_67f5be5a72fe9a::t_65b10ad8fffa12 607
+  s_67f5be5a72fe9a::t_4e67453e25300b 583-594,601-606,608-613,621-625,627-632,639-640,642-647,649-695,842
+  s_67f5be5a72fe9a::t_b1128cf476c9e5 626
+  s_67f5be5a72fe9a::t_521033d8e6672b 801
+  s_67f5be5a72fe9a::t_06d3054a60abdd 758-759
+  s_67f5be5a72fe9a::t_5212a9c7b6df32 720
+  s_67f5be5a72fe9a::t_8e0e31b8f04b03 714-715
+  s_67f5be5a72fe9a::t_a6c54dc8533afb 641,648
+  s_67f5be5a72fe9a::t_d541c2e6b026b1 696,699-713,716-719,721-757,760-765
+  s_67f5be5a72fe9a::t_ea76e11634364c 784
+  s_67f5be5a72fe9a::t_32d0525be9242a 820
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.6.14",
+  "base_commit_sha": "0af0526e2bb6050be48902a463e1df0d1b79003d",
+  "prompts": {},
+  "sessions": {
+    "s_67f5be5a72fe9a": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "1b0f5f30-2c94-4fbd-a8ba-acdff30e531d",
+        "model": "deepseek-v4-flash-vision"
+      },
+      "human_author": null
+    }
+  }
+}
