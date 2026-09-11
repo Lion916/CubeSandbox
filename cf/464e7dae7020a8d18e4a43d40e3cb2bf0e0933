@@ -1,0 +1,29 @@
+CubeShim/shim/src/sandbox/sb.rs
+  s_0e52ce53aa8762::t_140a3b10b92fa4 886-888,890-891
+  s_c763d5d89ded47::t_6c0e557c29ca9e 42
+  s_c763d5d89ded47::t_d112f94add9a83 889
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.6.14",
+  "base_commit_sha": "cf464e7dae7020a8d18e4a43d40e3cb2bf0e0933",
+  "prompts": {},
+  "sessions": {
+    "s_0e52ce53aa8762": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "6021ecb2-dedc-4260-9362-eba334d270a9",
+        "model": "unknown"
+      },
+      "human_author": "wangshuai <ws13021151806@163.com>"
+    },
+    "s_c763d5d89ded47": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "f9fb8379-3f31-4123-a6d2-bef642857aba",
+        "model": "glm-5.2"
+      },
+      "human_author": null
+    }
+  }
+}
