@@ -1,0 +1,60 @@
+CubeOps/internal/warehouse/unpack.go
+  s_74eec44bd651c1::t_ef5b6bbddaeeaa 273
+  s_74eec44bd651c1::t_7ab8b7a2f4f927 238
+deploy/one-click/install.sh
+  s_74eec44bd651c1::t_d447bc2c255b80 2385
+  s_74eec44bd651c1::t_15e70f64559c54 1111-1141
+  s_74eec44bd651c1::t_2f4957c5fc6dcd 1908
+  s_74eec44bd651c1::t_c7bec077ca8d78 1142-1143,1301-1303,1307-1317
+  s_74eec44bd651c1::t_72f502993ae64b 359-367
+  s_74eec44bd651c1::t_c4a33e34a582aa 1332
+  s_74eec44bd651c1::t_f1e1fd80791aab 1144-1145
+  s_74eec44bd651c1::t_cdb73e5f38a9a6 1324
+deploy/kubernetes/images/scripts/component-entrypoint.sh
+  s_74eec44bd651c1::t_b217ef77832f8b 127
+  s_74eec44bd651c1::t_87f8b7decfc458 154-155
+  s_74eec44bd651c1::t_73918671006b54 351,358
+  s_74eec44bd651c1::t_4e438ba6297e83 471-473,489,902
+  s_74eec44bd651c1::t_9c43818251f90e 486-488
+  s_74eec44bd651c1::t_8971b5664242a1 901
+  s_74eec44bd651c1::t_f725f5d0ae65ae 903-905
+  s_74eec44bd651c1::t_d1431688170952 423,496,517-526,894-895,906-908,917-924
+Cubelet/pkg/warehouse/install.go
+  s_74eec44bd651c1::t_e47bc49225eda7 118-119
+deploy/kubernetes/chart/values.yaml
+  s_74eec44bd651c1::t_0be09dda24956e 860-866
+CubeOps/internal/warehouse/disk.go
+  s_880860a6b5ba40::t_c0e976b97629cb 67-68
+Cubelet/pkg/cubelet/versioninfo/collector.go
+  s_880860a6b5ba40::t_939b938b366c7c 18,412-413
+deploy/kubernetes/chart/templates/validate.yaml
+  s_880860a6b5ba40::t_bddff37282840f 146-148
+deploy/one-click/scripts/cube-diag/check-procs.sh
+  s_880860a6b5ba40::t_7653fbc237da83 47,439-447
+deploy/kubernetes/chart/templates/node-bootstrap-daemonset.yaml
+  s_74eec44bd651c1::t_66e4d0341434fa 92-93,168-169
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.6.14",
+  "base_commit_sha": "c71db4499b5b26495998d7781c50a6e6129c8a4a",
+  "prompts": {},
+  "sessions": {
+    "s_74eec44bd651c1": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "b5016d14-7c65-486d-a992-d05e794ba876",
+        "model": "deepseek-v4.1-flash-1017"
+      },
+      "human_author": "wangshuai <ws13021151806@163.com>"
+    },
+    "s_880860a6b5ba40": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "fab43900-d587-4ab0-9112-786567a1a87c",
+        "model": "deepseek-v4.1-flash-1017"
+      },
+      "human_author": "wangshuai <ws13021151806@163.com>"
+    }
+  }
+}
