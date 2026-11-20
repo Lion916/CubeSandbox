@@ -1,0 +1,1007 @@
+.github/workflows/cube-s3lvol-test.yml
+  s_74eec44bd651c1::t_f4f4c75c13fe13 8,13,57-71
+.github/workflows/release-docker-images.yml
+  s_74eec44bd651c1::t_50e2e14dfb1fb9 5-9,819-821,823-866,870,872,876,880-914,933-934,953-954,957-962,997-999,1004-1005,1008-1011
+.github/workflows/release-sync-images-check.yml
+  s_74eec44bd651c1::t_1394d285fcf126 1-63
+.github/workflows/terraform-validate.yml
+  s_74eec44bd651c1::t_af6f74cdf253bb 21-24,91-99
+.github/workflows/unit-test-check.yml
+  s_74eec44bd651c1::t_4d3e39742094db 412-419,469-475,590-592
+.gitignore
+  s_74eec44bd651c1::t_2885d6e5a3edd2 102-113
+CubeAPI/Cargo.lock
+  s_74eec44bd651c1::t_57a30e9b272b2b 536-539,622-627,860-878,1015,1044-1056,1262-1270,1498-1573,1783-1805,2011,2013,2540-2550,2585-2610,2640,2642,2645
+CubeAPI/Cargo.toml
+  s_74eec44bd651c1::t_c2283c7d186b4d 48-57,100-101
+CubeAPI/src/config/mod.rs
+  s_74eec44bd651c1::t_d0f242d057902b 21-27,31-42,149-150
+CubeAPI/src/cubemaster/mod.rs
+  s_74eec44bd651c1::t_ba2e70c66fa125 66-67,71,163-164,168,251-252,256,329-330,334,436-437,441,1329-1330,1397,1635,1801-1802,1817-1818,2808,2835,2867,2887,2918,2921-3135
+CubeAPI/src/handlers/snapshots.rs
+  s_74eec44bd651c1::t_4ff27e421f5ffa 52
+CubeAPI/src/main.rs
+  s_74eec44bd651c1::t_68158bbaf6803d 17,102-107,235-236,252-253
+CubeAPI/src/middleware/auth.rs
+  s_74eec44bd651c1::t_a50e759e341c91 14,22
+CubeAPI/src/middleware/rate_limit.rs
+  s_74eec44bd651c1::t_e017526a30492b 6,10,15-22,28-55,62-356
+CubeAPI/src/models/mod.rs
+  s_74eec44bd651c1::t_5ecbba1b5bd906 864-867,910-913,924-926,936,951-952,987-988
+CubeAPI/src/openapi.rs
+  s_74eec44bd651c1::t_1a6072d7a58dac 56-59,104-108
+CubeAPI/src/routes.rs
+  s_74eec44bd651c1::t_75d4a80a3cd242 70,77-78
+CubeAPI/src/services/sandboxes.rs
+  s_74eec44bd651c1::t_7cee03aeffaa4a 351,2233-2299
+CubeAPI/src/services/snapshots.rs
+  s_74eec44bd651c1::t_1f1c1aef523e57 42,45-49,57,75-79,431,526,600,732-739,1041,1110-1187
+CubeAPI/src/state.rs
+  s_74eec44bd651c1::t_31fd61f8cab94b 11,18-19,22-30,50-57,70-71,79-109
+CubeAPI/src/telemetry.rs
+  s_74eec44bd651c1::t_53a1c4781ddf27 1-509
+CubeMaster/Makefile
+  s_74eec44bd651c1::t_eb5ee7e7557001 136
+CubeMaster/cmd/cubemaster/app/main.go
+  s_74eec44bd651c1::t_88da24ffc597bf 25,40,50,73-86,132-134,379-443
+CubeMaster/cmd/cubemaster/app/webhook_assembly_test.go
+  s_74eec44bd651c1::t_9c365316e82995 1-70
+CubeMaster/cmd/cubemaster/app/webhook_async_destruction_test.go
+  s_74eec44bd651c1::t_2b8043e012d9e6 1-125
+CubeMaster/cmd/cubemaster/app/webhook_lifecycle_test.go
+  s_74eec44bd651c1::t_c1575a3fa51b07 1-106
+CubeMaster/cmd/cubemaster/app/webhook_shutdown_test.go
+  s_74eec44bd651c1::t_177c3a7a890cde 1-73
+CubeMaster/cmd/cubemaster/app/webhook_test.go
+  s_74eec44bd651c1::t_bcb7e5f59699fc 1-89
+CubeMaster/cmd/cubemastercli/commands/cubebox/snapshot.go
+  s_74eec44bd651c1::t_77edb063e76bd9 36,65,131,141,154
+CubeMaster/cmd/cubemastercli/commands/cubebox/snapshot_recovery.go
+  s_74eec44bd651c1::t_d218d7514c934a 1-55
+CubeMaster/cmd/cubemastercli/commands/cubebox/template.go
+  s_74eec44bd651c1::t_9d2aedfb71ff81 199-206,912,977
+CubeMaster/go.mod
+  s_74eec44bd651c1::t_e5e8f32b1276f7 39,60-64,172-173,175-176
+CubeMaster/go.sum
+  s_74eec44bd651c1::t_0c4c2444afda41 32-33,147-150,338-345,354-357,430-431
+CubeMaster/internal/webhooktest/metrics.go
+  s_74eec44bd651c1::t_b46ddf70f06588 1-32
+CubeMaster/internal/webhooktest/process.go
+  s_74eec44bd651c1::t_9b2fbc9a14d5ec 1-29
+CubeMaster/internal/webhooktest/runtime.go
+  s_74eec44bd651c1::t_b6e48cec830942 1-200
+CubeMaster/internal/webhooktest/uploads.go
+  s_74eec44bd651c1::t_3f8c2f30b303ea 1-59
+CubeMaster/pkg/base/bufferqueue/bufferqueue_test.go
+  s_74eec44bd651c1::t_e807b9f0748379 8,35-41,46,48,50,72-73,75-76,78,81-85,121
+CubeMaster/pkg/base/config/config.go
+  s_74eec44bd651c1::t_c1dbc315caa405 35,835,1378-1437
+CubeMaster/pkg/base/config/config_test.go
+  s_74eec44bd651c1::t_bcd0d5fcf6757f 12,18,58-118
+CubeMaster/pkg/base/config/webhook.go
+  s_74eec44bd651c1::t_6994a88372b59e 1-195
+CubeMaster/pkg/base/config/webhook_test.go
+  s_74eec44bd651c1::t_95817338244c43 1-103
+CubeMaster/pkg/base/constants/constants.go
+  s_74eec44bd651c1::t_7253812ad0bf78 85-88,134
+CubeMaster/pkg/base/db/models/artifact_placement.go
+  s_74eec44bd651c1::t_01e444ff71e766 15-22
+CubeMaster/pkg/base/db/models/snapshot.go
+  s_74eec44bd651c1::t_08e0d4125f8c33 18-36
+CubeMaster/pkg/base/retry/backoff.go
+  s_74eec44bd651c1::t_41de3f223de6f8 13-14,20-23
+CubeMaster/pkg/base/retry/backoff_test.go
+  s_74eec44bd651c1::t_b1a4a87b68a856 17-18,26,29
+CubeMaster/pkg/base/semaphore/semaphore_test.go
+  s_74eec44bd651c1::t_8116def0f33492 56-59,75,82
+CubeMaster/pkg/base/telemetry/middleware.go
+  s_74eec44bd651c1::t_1eba5c27e83fe7 1-48
+CubeMaster/pkg/base/telemetry/telemetry.go
+  s_74eec44bd651c1::t_579ef62212b8cf 1-253
+CubeMaster/pkg/base/telemetry/telemetry_test.go
+  s_74eec44bd651c1::t_4c5926548d1f0f 1-373
+CubeMaster/pkg/cubelet/actions.go
+  s_74eec44bd651c1::t_84713ea917c707 16,57,73,88,99,192-193,197,239-241,243
+CubeMaster/pkg/cubelet/trace_propagation_test.go
+  s_74eec44bd651c1::t_6cc64ea2857b35 1-103
+CubeMaster/pkg/cubeproxy/admin.go
+  s_74eec44bd651c1::t_7a8d88dc75877a 14,29-33,239-240,260-272
+CubeMaster/pkg/cubeproxy/admin_test.go
+  s_74eec44bd651c1::t_f35bb07ba3c1e3 169-200
+CubeMaster/pkg/lifecycle/webhook_timeout_business_redis_test.go
+  s_74eec44bd651c1::t_3e6027bbaafc43 1-122
+CubeMaster/pkg/localcache/db_cache.go
+  s_74eec44bd651c1::t_42f76d4d76ec60 80-82,168
+CubeMaster/pkg/localcache/db_cache_test.go
+  s_74eec44bd651c1::t_112cb98c593d2d 10,155-198
+CubeMaster/pkg/localcache/export.go
+  s_74eec44bd651c1::t_f460bcc816ff11 189-201
+CubeMaster/pkg/localcache/node_absence.go
+  s_74eec44bd651c1::t_8adc86481e5794 1-63
+CubeMaster/pkg/localcache/node_absence_test.go
+  s_74eec44bd651c1::t_58331888a96be5 1-163
+CubeMaster/pkg/localcache/node_cache.go
+  s_74eec44bd651c1::t_41dfb317b06701 43-46,233-238,251-255
+CubeMaster/pkg/pausesnap/delete_paused_test.go
+  s_74eec44bd651c1::t_a1d24feff2fb28 303-320,378-430
+CubeMaster/pkg/pausesnap/store.go
+  s_74eec44bd651c1::t_eb90fb5a29c5f9 297-301
+CubeMaster/pkg/sandboxspec/store.go
+  s_74eec44bd651c1::t_81e8cc2e34e830 463
+CubeMaster/pkg/sandboxspec/store_test.go
+  s_74eec44bd651c1::t_463d8362159361 32,44-45,48
+CubeMaster/pkg/sandboxspec/webhook_test.go
+  s_74eec44bd651c1::t_458543a3fbd9bd 1-54
+CubeMaster/pkg/server/server.go
+  s_74eec44bd651c1::t_1efab0208a11d2 23,116
+CubeMaster/pkg/service/httpservice/common/gin_response.go
+  s_74eec44bd651c1::t_435e701f41a02b 11,13-15,28-45
+CubeMaster/pkg/service/httpservice/common/gin_response_test.go
+  s_74eec44bd651c1::t_c0f111eba7ee8e 15,17-20,75-118
+CubeMaster/pkg/service/httpservice/cube/cubeboxutil.go
+  s_74eec44bd651c1::t_507431a2003024 19-21,25,33,256-261,265-266,272-275,427-431,494,503-505,507,513-515,517,523,525-532,547-548,551
+CubeMaster/pkg/service/httpservice/cube/fork.go
+  s_74eec44bd651c1::t_5a338ebe933c1b 129,136-138,140,329
+CubeMaster/pkg/service/httpservice/cube/fork_test.go
+  s_74eec44bd651c1::t_27a43e061a0bf9 89
+CubeMaster/pkg/service/httpservice/cube/routes.go
+  s_74eec44bd651c1::t_ed8497d7b389b8 62
+CubeMaster/pkg/service/httpservice/cube/sandbox_create.go
+  s_74eec44bd651c1::t_8c0714c4988769 13-15,18,24,29-44,84-100,103-104,119-124,126,128-131,151-154,160,178-181,187-191,217-220
+CubeMaster/pkg/service/httpservice/cube/sandbox_create_test.go
+  s_74eec44bd651c1::t_424fe09d1edff9 11,16-19,21,29-109,180-230
+CubeMaster/pkg/service/httpservice/cube/sandbox_delete.go
+  s_74eec44bd651c1::t_a4f3c2a7e269df 16,46-48
+CubeMaster/pkg/service/httpservice/cube/snapshot.go
+  s_74eec44bd651c1::t_949bceabb22398 19,29-31,35,62,138,173-182,406-413,422-424,441,450,464-467,478,490-491,517,558-564,572-580,585,629,653-656,911,992
+CubeMaster/pkg/service/httpservice/cube/snapshot_create_recovery.go
+  s_74eec44bd651c1::t_efe6c9460eb650 1-28
+CubeMaster/pkg/service/httpservice/cube/snapshot_create_recovery_test.go
+  s_74eec44bd651c1::t_ab47255ac95c62 1-49
+CubeMaster/pkg/service/httpservice/cube/snapshot_create_ref.go
+  s_74eec44bd651c1::t_74450327947ea2 1-62
+CubeMaster/pkg/service/httpservice/cube/snapshot_create_ref_test.go
+  s_74eec44bd651c1::t_dd7b42c7fb7309 1-137
+CubeMaster/pkg/service/httpservice/cube/snapshot_expiry_test.go
+  s_74eec44bd651c1::t_12d33b947823b8 1-64
+CubeMaster/pkg/service/httpservice/cube/snapshot_labels_test.go
+  s_74eec44bd651c1::t_666c0ffaa50e48 1-76
+CubeMaster/pkg/service/httpservice/cube/snapshot_test.go
+  s_74eec44bd651c1::t_9096b497c816c8 15,17,23,27,35-36,59,118,136-246,312-313,353,390-394,397-398,406-422,535-719
+CubeMaster/pkg/service/httpservice/cube/template.go
+  s_74eec44bd651c1::t_cdc7a64cbdbba6 445-461,463
+CubeMaster/pkg/service/httpservice/cube/template_commit.go
+  s_74eec44bd651c1::t_7052ed8188742c 13,21-23,63-71,99,134,150,171,185
+CubeMaster/pkg/service/httpservice/cube/template_commit_test.go
+  s_74eec44bd651c1::t_796c5f0483bfd7 20,28,34-38,45,230-284
+CubeMaster/pkg/service/httpservice/cube/template_from_image.go
+  s_74eec44bd651c1::t_a7ca2c39eccde4 21,28-29,100-103,114,138-146,154
+CubeMaster/pkg/service/httpservice/cube/template_from_image_remote.go
+  s_74eec44bd651c1::t_2381bebb75e3df 17,21-22,59-65,67,72,74-75,79,83-84,93-98,100-102,104,147-148,158-160,162-172,191-192,205
+CubeMaster/pkg/service/httpservice/cube/template_from_image_remote_span_test.go
+  s_74eec44bd651c1::t_b849d6ccb21150 1-200
+CubeMaster/pkg/service/httpservice/cube/template_from_image_remote_test.go
+  s_74eec44bd651c1::t_95273caba4c045 14,144
+CubeMaster/pkg/service/httpservice/cube/template_job_callback.go
+  s_74eec44bd651c1::t_18b9f213862cb3 21,23-24,62,158,160,173-182,190,232,240,255
+CubeMaster/pkg/service/httpservice/cube/template_job_callback_span_test.go
+  s_74eec44bd651c1::t_80e391d665f5c4 1-112
+CubeMaster/pkg/service/httpservice/cube/template_test.go
+  s_74eec44bd651c1::t_23d2fe879fdb10 285-322
+CubeMaster/pkg/service/httpservice/cube/update.go
+  s_74eec44bd651c1::t_b63ae16744a364 13,21-23,35-42,47,55,69-71
+CubeMaster/pkg/service/httpservice/cube/update_span_test.go
+  s_74eec44bd651c1::t_298279e17d1d5b 1-150
+CubeMaster/pkg/service/httpservice/cube/webhook_create_cancellation_test.go
+  s_74eec44bd651c1::t_456433f8ac07a6 1-96
+CubeMaster/pkg/service/httpservice/cube/webhook_test.go
+  s_74eec44bd651c1::t_48f0f9a97cc448 1-264
+CubeMaster/pkg/service/httpservice/middleware/gin_middleware.go
+  s_74eec44bd651c1::t_65ac00648ee023 60-61
+CubeMaster/pkg/service/httpservice/middleware/gin_middleware_telemetry_test.go
+  s_74eec44bd651c1::t_49b9e89d7a8716 1-94
+CubeMaster/pkg/service/sandbox/queue_span_test.go
+  s_74eec44bd651c1::t_96c30bdc2477c2 1-90
+CubeMaster/pkg/service/sandbox/sandbox_info.go
+  s_74eec44bd651c1::t_0bb4412c8ca58d 17,105-114,123-133,141,149-150,156,164,167,183,186-187,189-190,194,200-202,226-228
+CubeMaster/pkg/service/sandbox/sandbox_info_pause_test.go
+  s_74eec44bd651c1::t_2b078b005255fc 306-320,323,330-369
+CubeMaster/pkg/service/sandbox/sandbox_info_test.go
+  s_74eec44bd651c1::t_925a546deb3c69 1-97
+CubeMaster/pkg/service/sandbox/sandbox_remove.go
+  s_74eec44bd651c1::t_2100176473d020 27,83-89,124-125
+CubeMaster/pkg/service/sandbox/sandbox_resume_pause.go
+  s_74eec44bd651c1::t_b356392ad5de6b 18,30,33,74-75,78-80,104-120,144,159-161,172-175,186-209,244-245,247-251,269,519-520,531,537-551,577-579,625-628
+CubeMaster/pkg/service/sandbox/sandbox_resume_pause_test.go
+  s_74eec44bd651c1::t_e9440de1aecc2e 27-74
+CubeMaster/pkg/service/sandbox/sandbox_run.go
+  s_74eec44bd651c1::t_701c90e49ca9d9 18,22-23,31,44,64-69,71,107-116,158-160,205-208,234,397-408,410-412,426-430,432,434,437,482-485,492-493,550-552,624-628,651-652,654
+CubeMaster/pkg/service/sandbox/sandbox_timeout.go
+  s_74eec44bd651c1::t_012f19f707f504 16,64-66,115-117
+CubeMaster/pkg/service/sandbox/sandbox_update.go
+  s_74eec44bd651c1::t_3768c0fb0d4947 14,22,24-25,28-89,97-110,180,317-320
+CubeMaster/pkg/service/sandbox/sandbox_update_trace_test.go
+  s_74eec44bd651c1::t_cb65ac559423cc 1-366
+CubeMaster/pkg/service/sandbox/snapshot_create_dispatch_test.go
+  s_74eec44bd651c1::t_edf144798de9ae 1-28
+CubeMaster/pkg/service/sandbox/types/types.go
+  s_74eec44bd651c1::t_ef355c19d09156 129-137,634,754-759
+CubeMaster/pkg/service/sandbox/util.go
+  s_74eec44bd651c1::t_c473fe10969119 1090
+CubeMaster/pkg/service/sandbox/webhook.go
+  s_74eec44bd651c1::t_92854910c27d7a 1-34
+CubeMaster/pkg/service/sandbox/webhook_delivery_recovery_test.go
+  s_74eec44bd651c1::t_84cc000a978b9f 1-94
+CubeMaster/pkg/service/sandbox/webhook_test.go
+  s_74eec44bd651c1::t_4e735548251d5e 1-514
+CubeMaster/pkg/service/sandbox/webhook_updates_destruction_test.go
+  s_74eec44bd651c1::t_0d8ceafda9601c 1-551
+CubeMaster/pkg/task/export.go
+  s_74eec44bd651c1::t_b14b9028ad0c5c 73-94,131
+CubeMaster/pkg/task/handlers.go
+  s_74eec44bd651c1::t_d167e7432b2499 33,294-296
+CubeMaster/pkg/task/webhook.go
+  s_74eec44bd651c1::t_26294f8dcefc8f 1-10
+CubeMaster/pkg/task/webhook_test.go
+  s_74eec44bd651c1::t_82e3f844ab406e 1-73
+CubeMaster/pkg/tcclient/client.go
+  s_74eec44bd651c1::t_bd9e8292e254e2 24,102
+CubeMaster/pkg/tcclient/client_test.go
+  s_74eec44bd651c1::t_661d4c39373877 14-18,21-25,134-165
+CubeMaster/pkg/templatecenter/artifact_cleanup.go
+  s_74eec44bd651c1::t_75e6eeaf4cc23f 18-20,49-56
+CubeMaster/pkg/templatecenter/artifact_deferred_placement_mysql_test.go
+  s_74eec44bd651c1::t_20207a9ab7e72a 1-460
+CubeMaster/pkg/templatecenter/artifact_gc.go
+  s_74eec44bd651c1::t_5c920385727ec9 168,171-177
+CubeMaster/pkg/templatecenter/artifact_lifecycle.go
+  s_74eec44bd651c1::t_53cb64fb135ec1 152-153,195-196,198-211,220-225,282-285,312-313,320-321
+CubeMaster/pkg/templatecenter/artifact_lifecycle_test.go
+  s_74eec44bd651c1::t_19eb981358b570 13,15-17,21-64
+CubeMaster/pkg/templatecenter/artifact_placement.go
+  s_74eec44bd651c1::t_e33aece63139e0 10,15-17,26,33-37,41-45,73-75,80-92,94-233
+CubeMaster/pkg/templatecenter/artifact_placement_absence_test.go
+  s_74eec44bd651c1::t_031c120624d150 1-60
+CubeMaster/pkg/templatecenter/cache.go
+  s_74eec44bd651c1::t_a9b5c8226322fb 13-15,20,119,123-124,126
+CubeMaster/pkg/templatecenter/distribution.go
+  s_74eec44bd651c1::t_7843382bd2bb36 21,28-29,189-192,216,227-237,296-302,334-339,341,344-350,355,359-363,410
+CubeMaster/pkg/templatecenter/distribution_span_test.go
+  s_74eec44bd651c1::t_b0c47fdb2346a6 1-326
+CubeMaster/pkg/templatecenter/image_job_reconciler.go
+  s_74eec44bd651c1::t_226a52bc9a0dba 20-22,239-243,259,264,268,271
+CubeMaster/pkg/templatecenter/image_job_reconciler_test.go
+  s_74eec44bd651c1::t_d6521484cb3c69 107-119
+CubeMaster/pkg/templatecenter/image_job_runner.go
+  s_74eec44bd651c1::t_edafc000e0a6f6 10,18,21-22,83,89-96,163-167,169-172,175-177,183,187,194-195,199-204,207,239,247-251
+CubeMaster/pkg/templatecenter/remote_build_resume.go
+  s_74eec44bd651c1::t_731713a8bc3da8 21,23-24,249,251-256,344-351
+CubeMaster/pkg/templatecenter/replica_backfill_reconciler_test.go
+  s_74eec44bd651c1::t_9a7e3582291adc 67-68,148-149,195
+CubeMaster/pkg/templatecenter/replica_span_test.go
+  s_74eec44bd651c1::t_d7e11a2378349c 1-257
+CubeMaster/pkg/templatecenter/request_validation.go
+  s_74eec44bd651c1::t_e2b9905bc242e9 159-173
+CubeMaster/pkg/templatecenter/snapshot_artifact_reference_test.go
+  s_74eec44bd651c1::t_5ba4a127187604 21
+CubeMaster/pkg/templatecenter/snapshot_create_recovery.go
+  s_74eec44bd651c1::t_01100c3a218c79 1-78
+CubeMaster/pkg/templatecenter/snapshot_create_recovery_test.go
+  s_74eec44bd651c1::t_842c85a91bfba1 1-71
+CubeMaster/pkg/templatecenter/snapshot_create_ref.go
+  s_74eec44bd651c1::t_fcd957e471b8cd 1-101
+CubeMaster/pkg/templatecenter/snapshot_create_span_test.go
+  s_74eec44bd651c1::t_031e2e0ba56238 1-921
+CubeMaster/pkg/templatecenter/snapshot_expiry_postgres_test.go
+  s_74eec44bd651c1::t_2c6f9bf9bb538c 1-53
+CubeMaster/pkg/templatecenter/snapshot_expiry_safety_test.go
+  s_74eec44bd651c1::t_e83e5ae00867df 1-134
+CubeMaster/pkg/templatecenter/snapshot_expiry_test.go
+  s_74eec44bd651c1::t_aea1f050c8ac65 1-160
+CubeMaster/pkg/templatecenter/snapshot_ops.go
+  s_74eec44bd651c1::t_5cd5bc8c729070 14,20,31-33,42,85,121-124,128-130,145-160,162-166,170-261,265,268,277,279,303,307,324,344,381,390,392,452-473,483,488-490,495-508,510-511,520-521,528-529,536-538,540-541,544-552,574,578-580,593-598,618-620,628,647,655,659,664,671-682,695-709,734-735,791,819-831,835,849,851,855-868,876,884-886,888,890-891,893-910,914,923-924,930,937,941-946,1153-1163,1165,1170-1178,1180-1183,1187,1195,1661,1689-1690,1695,1734-1740,1742,1745-1751,1855-1876,1882,1899-1901
+CubeMaster/pkg/templatecenter/snapshot_ops_test.go
+  s_74eec44bd651c1::t_25edb93e642ab6 22,118-128,158,172-182,271,329,589-591,633-635,684-686,724-798,942-945,987
+CubeMaster/pkg/templatecenter/snapshot_reconciler.go
+  s_74eec44bd651c1::t_4d556c55fc3d90 131-133,151-200,428
+CubeMaster/pkg/templatecenter/snapshot_rollback_span_test.go
+  s_74eec44bd651c1::t_966401c491610c 1-495
+CubeMaster/pkg/templatecenter/snapshot_runtime_ref.go
+  s_74eec44bd651c1::t_ef947b4aef8ea4 229-236,449-451,499-509,663-666
+CubeMaster/pkg/templatecenter/snapshot_table.go
+  s_74eec44bd651c1::t_39163e097d987d 147
+CubeMaster/pkg/templatecenter/snapshot_tombstone.go
+  s_74eec44bd651c1::t_c08bd0c9be4c44 60,64-81,83-94,181-186,268-270,310-312
+CubeMaster/pkg/templatecenter/snapshot_tombstone_test.go
+  s_74eec44bd651c1::t_42b6313e423bdd 41-91,176-196,214-254
+CubeMaster/pkg/templatecenter/snapshot_view.go
+  s_74eec44bd651c1::t_af24aaab67a701 41
+CubeMaster/pkg/templatecenter/store.go
+  s_74eec44bd651c1::t_80dee1708ad2b9 17-19,30,91-99,651,729-733,742-743,746,756-761,763,766,802-810,912,925-931,934,945,954,962,964,969,975,980,1031-1033,1304-1310,1967-1982,1985-1993,1995-1996,2000,2004-2007,2035-2037
+CubeMaster/pkg/templatecenter/store_test.go
+  s_74eec44bd651c1::t_01a09a4acd0ae1 49,61,111,512-514,522,534,575,602
+CubeMaster/pkg/templatecenter/template_commit.go
+  s_74eec44bd651c1::t_54a1a22b2b29bd 19,25-26,46-66,89,179,187-188,247,256-266,271,276,279-281,283-289,295-296,306-307,310,323-326,329,339-343,345,365-379,384-389,394-396,400,406-408,410,413,430,441,447,456-458
+CubeMaster/pkg/templatecenter/template_commit_span_test.go
+  s_74eec44bd651c1::t_f9d2987239513f 1-544
+CubeMaster/pkg/templatecenter/template_image_test.go
+  s_74eec44bd651c1::t_bd09ad5c8f18ad 2152-2225
+CubeMaster/pkg/templatecenter/template_request.go
+  s_74eec44bd651c1::t_14121df93fe10a 66-68
+CubeMaster/pkg/templatecenter/template_request_test.go
+  s_74eec44bd651c1::t_19a1dcef0e0381 4-6,9-12,14,83-159
+CubeMaster/pkg/templatecenter/webhook.go
+  s_74eec44bd651c1::t_3bba2c7d25f1aa 1-38
+CubeMaster/pkg/templatecenter/webhook_provenance_test.go
+  s_74eec44bd651c1::t_d55f0d3b77b12e 1-26
+CubeMaster/pkg/templatecenter/webhook_test.go
+  s_74eec44bd651c1::t_ceee3ec092dd08 1-231
+CubeMaster/pkg/webhook/README.md
+  s_74eec44bd651c1::t_2292ccefb5b5f5 1-56
+CubeMaster/pkg/webhook/README_zh.md
+  s_74eec44bd651c1::t_b250f5b4927bcf 1-43
+CubeMaster/pkg/webhook/capture.go
+  s_74eec44bd651c1::t_aa389e7bc56bed 1-93
+CubeMaster/pkg/webhook/capture_test.go
+  s_74eec44bd651c1::t_b67f888829bab5 1-146
+CubeMaster/pkg/webhook/construction_external_test.go
+  s_74eec44bd651c1::t_a49afc45aa8653 1-68
+CubeMaster/pkg/webhook/encode.go
+  s_74eec44bd651c1::t_9141a4b014a4d6 1-202
+CubeMaster/pkg/webhook/encode_test.go
+  s_74eec44bd651c1::t_20c78de58404b6 1-211
+CubeMaster/pkg/webhook/event.go
+  s_74eec44bd651c1::t_828f74cd3ba4b2 1-68
+CubeMaster/pkg/webhook/event_snapshot_external_test.go
+  s_74eec44bd651c1::t_c450f35c39589e 1-96
+CubeMaster/pkg/webhook/lifecycle.go
+  s_74eec44bd651c1::t_177f2baba0a6d3 1-249
+CubeMaster/pkg/webhook/lifecycle_test.go
+  s_74eec44bd651c1::t_962f728cce9d5d 1-124
+CubeMaster/pkg/webhook/protocol.go
+  s_74eec44bd651c1::t_940ca37ff628e9 1-39
+CubeMaster/pkg/webhook/publish.go
+  s_74eec44bd651c1::t_847d4c22ba376b 1-66
+CubeMaster/pkg/webhook/publish_test.go
+  s_74eec44bd651c1::t_09837e684f2e1d 1-274
+CubeMaster/pkg/webhook/runtime.go
+  s_74eec44bd651c1::t_8d5280b975fe3e 1-404
+CubeMaster/pkg/webhook/runtime_external_test.go
+  s_74eec44bd651c1::t_ab0d9476c4da9d 1-810
+CubeMaster/pkg/webhook/runtime_test.go
+  s_74eec44bd651c1::t_41bcfb80623f69 1-644
+CubeMaster/pkg/webhook/sender.go
+  s_74eec44bd651c1::t_30914a1ee071f9 1-187
+CubeMaster/pkg/webhook/sender_test.go
+  s_74eec44bd651c1::t_402979858304e9 1-329
+CubeMaster/pkg/webhook/store.go
+  s_74eec44bd651c1::t_75d6d93c1e95da 1-78
+CubeMaster/pkg/webhook/store_external_test.go
+  s_74eec44bd651c1::t_1779d33f2075b2 1-117
+CubeMaster/pkg/webhook/store_memory.go
+  s_74eec44bd651c1::t_3aaa759163681d 1-192
+CubeMaster/pkg/webhook/store_memory_test.go
+  s_74eec44bd651c1::t_4c3c34e9ffefee 1-250
+CubeMaster/pkg/webhook/subscription.go
+  s_74eec44bd651c1::t_5f43ecc1b27be0 1-62
+CubeMaster/pkg/webhook/updates.go
+  s_74eec44bd651c1::t_c1792c4cec597d 1-96
+CubeMaster/pkg/webhook/updates_test.go
+  s_74eec44bd651c1::t_89fa792717eab3 1-63
+CubeNet/cubevs/dns_upload_test.go
+  s_74eec44bd651c1::t_b6784f9e314949 9,11,36-42,71-80,316-325,330,332-350,426-428
+CubeNet/src/dns_upload_test.bpf.c
+  s_74eec44bd651c1::t_dec1e24f288d94 39-53
+CubeOps/internal/handler/store_test.go
+  s_74eec44bd651c1::t_e288161d2db54f 37-38
+CubeOps/internal/nodemanagement/model/node.go
+  s_74eec44bd651c1::t_35f86f71e0179d 42-45,56-57
+CubeOps/internal/nodemanagement/model/quota.go
+  s_74eec44bd651c1::t_7224303083765f 116-119
+CubeOps/internal/nodemanagement/service/quota.go
+  s_74eec44bd651c1::t_955cba08d7ed89 10,288-293,515-516,521-525,528,530-531,536-543,621-626
+CubeOps/internal/nodemanagement/service/quota_test.go
+  s_74eec44bd651c1::t_f082f8ee4b1d5b 394-436
+CubeOps/internal/nodemanagement/service/service_test.go
+  s_74eec44bd651c1::t_c33de3d923d0c0 902-907
+CubeOps/internal/nodemanagement/service/snapshot.go
+  s_74eec44bd651c1::t_af1849ebff6819 372-377
+CubeOps/internal/warehouse/catalog.go
+  s_74eec44bd651c1::t_bf710847f75552 8,95,176-323
+CubeOps/internal/warehouse/catalog_test.go
+  s_74eec44bd651c1::t_29107a2db00039 123-199
+CubeOps/quota-config-manual.md
+  s_74eec44bd651c1::t_52f62fc6cd4154 184-186,188
+CubeS3lvol/README.md
+  s_74eec44bd651c1::t_d2599223bef966 33,411-458
+CubeS3lvol/make_release.sh
+  s_74eec44bd651c1::t_59a762ca7d0701 34,273,275
+CubeS3lvol/scripts/prune_restart_logs.py
+  s_74eec44bd651c1::t_e1e3e2ae77a256 1-57
+CubeS3lvol/scripts/rcow_start.sh
+  s_74eec44bd651c1::t_f482c8d1e25c9b 251-254
+CubeS3lvol/test/run_all.sh
+  s_74eec44bd651c1::t_bcd8854114fb86 92,110-117,198-203,210,382,636-638
+CubeS3lvol/test/test_log_rotation.py
+  s_74eec44bd651c1::t_6329bef55f5ff8 1-431
+CubeShim/Cargo.lock
+  s_74eec44bd651c1::t_065902b0774b2c 142-163,196-242,258-263,513-515,1255-1267,1537-1542,1585-1590,1797-1857,1916-1921,1974-1993,2082-2092,2107,2126-2138,2146,2716-2721,2908-2918,2958-3027,3064,3068-3078,3166,3181
+CubeShim/shim/Cargo.toml
+  s_74eec44bd651c1::t_c7c9ebaac1d333 43-45
+CubeShim/shim/src/container/container_mgr.rs
+  s_74eec44bd651c1::t_6cdfd19c78e647 261-353
+CubeShim/shim/src/container/mod.rs
+  s_74eec44bd651c1::t_86842ab95b0f04 34,273-280,282,626,664-666,714,725-727,1383-1431
+CubeShim/shim/src/lib.rs
+  s_74eec44bd651c1::t_dbbf6146ab6a29 13
+CubeShim/shim/src/sandbox/sb.rs
+  s_74eec44bd651c1::t_4db8f988ce56dd 49,56,384,631-632,641-644,648-654,656-671,673-675,677,679-682,684-686,688-703,946-948,984-994,1042,1046-1049,1054,1076,1078-1080,1085-1089,1091-1098,1102-1106,1108-1113,1115-1118,1120-1125,1127-1129,1131-1187,1189-1191,1194-1197,1225,1243,1249,1256,2048-2071,2073-2084,2086-2105,2107,2115-2127,2129-2134,2136-2137,2139-2142,2144,2146-2151,2153-2155,2157-2160,2162-2165,2167-2169,2262,2279,2281-2282,2287-2288,2444-2524,2549-2566,2620-2646
+CubeShim/shim/src/service/srv.rs
+  s_74eec44bd651c1::t_03eab3e7f406bf 7,25,38,81
+CubeShim/shim/src/service/task_srv.rs
+  s_74eec44bd651c1::t_6ae2e293da8d62 35,275,305,326,331,370,390,429,445-446,697,701,733
+CubeShim/shim/src/service/update_ext.rs
+  s_74eec44bd651c1::t_8190818e9a5fe7 7,20,143,157-167,174,179-182,218,237,260,262-318,337,345-349,354-364,368-467
+CubeShim/shim/src/telemetry.rs
+  s_74eec44bd651c1::t_c05b246f337654 1-433
+CubeTemplateCenter/Makefile
+  s_74eec44bd651c1::t_667b4d0e02ed49 1,12,26-29,31-42
+CubeTemplateCenter/README.md
+  s_74eec44bd651c1::t_6498454acb4fe2 13-16
+CubeTemplateCenter/README_EN.md
+  s_74eec44bd651c1::t_9dec909e7d91fb 19-22
+CubeTemplateCenter/README_zh.md
+  s_74eec44bd651c1::t_1d8e7cf3438f54 19-22
+CubeTemplateCenter/cmd/templatecenter/app/main.go
+  s_74eec44bd651c1::t_0375be8c74d933 19,60-65,146-153
+CubeTemplateCenter/go.mod
+  s_74eec44bd651c1::t_a16db18dd723d2 9,11,19-21,32,34,37,42-43,52,55-56,58,64,68,75,77,97-99,101,103,109,126,132-134,137-142,154
+CubeTemplateCenter/go.sum
+  s_74eec44bd651c1::t_3d93e08354d92e 35-36,58-59,97,159-160,198-199,313,336-339,342-345,348-349,410,440-441,502-503
+CubeTemplateCenter/pkg/api/internal.go
+  s_74eec44bd651c1::t_95ad5298ccb03b 24,67-68
+CubeTemplateCenter/pkg/build/build.go
+  s_74eec44bd651c1::t_d4d873bf982b85 23,32-33,42-43,98-109,143-148,160-162,169-175,184-191,252-256,260,262,266,269,271-272,275-277,279,285-286,292,339,344,395-402,410-416,420-437,448-459,550,557-560,562-569,595-601,603,608,612,614,619,622,624,671-791,832-834
+CubeTemplateCenter/pkg/build/build_cleanup_span_test.go
+  s_74eec44bd651c1::t_384c5e9694ee36 1-92
+CubeTemplateCenter/pkg/build/build_cleanup_test.go
+  s_74eec44bd651c1::t_61bc66fdf331d7 1-327
+CubeTemplateCenter/pkg/build/build_lock_span_test.go
+  s_74eec44bd651c1::t_14c41907328394 1-166
+CubeTemplateCenter/pkg/build/build_publish_span_test.go
+  s_74eec44bd651c1::t_22073e04f28de9 1-92
+CubeTemplateCenter/pkg/build/deleter.go
+  s_74eec44bd651c1::t_b6f6e98108f416 217-237,239-240,245,251-253,256-280
+CubeTemplateCenter/pkg/build/deleter_test.go
+  s_74eec44bd651c1::t_d36cfef828a9c3 80-90
+CubeTemplateCenter/pkg/build/executor.go
+  s_74eec44bd651c1::t_ccf6e2d397dacd 17,199-205,244-245
+CubeTemplateCenter/pkg/build/executor_trace_test.go
+  s_74eec44bd651c1::t_bf58ad38543471 1-116
+CubeTemplateCenter/pkg/build/purge_test.go
+  s_74eec44bd651c1::t_0213e94347e08e 1-231
+CubeTemplateCenter/pkg/build/reporter.go
+  s_74eec44bd651c1::t_78c477f799b9ce 20,22-23,78-79,94-104,106,112,125-134,137,139-140,142,163
+CubeTemplateCenter/pkg/build/reporter_trace_test.go
+  s_74eec44bd651c1::t_f691373d7c7cc3 1-191
+CubeTemplateCenter/pkg/build/s3client.go
+  s_74eec44bd651c1::t_89a7b370cf285e 8,23-25,36,60-61,72-73
+CubeTemplateCenter/pkg/image/ext4.go
+  s_74eec44bd651c1::t_f001e34e9b034d 19-21,226-239,244,250,253,291-295,297-298,304,307-308,311-312,324-325,329,331-337,342,348,351
+CubeTemplateCenter/pkg/image/types.go
+  s_74eec44bd651c1::t_809b0f240c16f2 124-130
+CubeTemplateCenter/pkg/reconcile/mysql_testutil_test.go
+  s_74eec44bd651c1::t_3f581a0e60cbf3 1-132
+CubeTemplateCenter/pkg/reconcile/reconciler.go
+  s_74eec44bd651c1::t_6b56d4c4c7c78a 76-79,185-187,213-216,220
+CubeTemplateCenter/pkg/reconcile/reconciler_deferred_filter_mysql_test.go
+  s_74eec44bd651c1::t_d8dff282d3f9e3 1-116
+CubeTemplateCenter/pkg/reconcile/reconciler_test.go
+  s_74eec44bd651c1::t_5c89b4f3344dbd 177-184
+Cubelet/Makefile
+  s_74eec44bd651c1::t_4c7f6cae5c0740 140-147
+Cubelet/config/config.toml
+  s_74eec44bd651c1::t_ff1cd925a9a7f1 61-73
+Cubelet/dynamicconf/conf.yaml
+  s_74eec44bd651c1::t_93ed747270f8e2 33-40
+Cubelet/go.mod
+  s_74eec44bd651c1::t_877203baa7f704 158-159,161-162,214-221
+Cubelet/go.sum
+  s_74eec44bd651c1::t_f87f0ad3a42326 279-280,607-608,937-940,957-958,1527-1528
+Cubelet/internal/cube/server/images/ext4image/destroy.go
+  s_74eec44bd651c1::t_dd8951b9dcd423 55-62
+Cubelet/internal/cube/server/images/ext4image/resume_test.go
+  s_74eec44bd651c1::t_f07f57947953fa 1-546
+Cubelet/internal/cube/server/images/ext4image/sparse_test.go
+  s_74eec44bd651c1::t_a04cc9dc4cbdba 128,171,219
+Cubelet/internal/cube/server/images/ext4image/utils.go
+  s_74eec44bd651c1::t_79d6734ff2f939 22,101-108,110,114-148,151-163,165-166,168-211,213-226,229-231,268-272,276-280,287-293,371,377-456
+Cubelet/pkg/config/config.go
+  s_74eec44bd651c1::t_498763e53ce8d4 10,23-28,57-70,199-207,221-230
+Cubelet/pkg/config/overcommit_factor_test.go
+  s_74eec44bd651c1::t_e953a63f78db47 1-48
+Cubelet/pkg/constants/const.go
+  s_74eec44bd651c1::t_8e47fe49769b55 213-217,261-265,268-277
+Cubelet/pkg/cubelet/cubelet_test.go
+  s_74eec44bd651c1::t_43c7483666f7ef 355-357,373-408
+Cubelet/pkg/cubelet/node_status.go
+  s_74eec44bd651c1::t_cfc8d0d79f070b 11,525,530,538,542,577-580,599-600,706,728-753
+Cubelet/pkg/cubelet/node_status_quota_test.go
+  s_74eec44bd651c1::t_be0902eb008a82 114-124,128-152
+Cubelet/pkg/masterclient/client.go
+  s_74eec44bd651c1::t_f707aaf4a37374 56-60
+Cubelet/pkg/restartpolicy/policy.go
+  s_74eec44bd651c1::t_fc27c3387270e5 180-188,191
+Cubelet/pkg/restartpolicy/policy_test.go
+  s_74eec44bd651c1::t_c4034360f37d64 76,78-100,102-105
+Cubelet/pkg/store/cubebox/cubebox.go
+  s_74eec44bd651c1::t_aba99a3907a936 75-81
+Cubelet/pkg/store/cubebox/deepcopy.go
+  s_74eec44bd651c1::t_cd83c6605307e4 164
+Cubelet/pkg/store/cubebox/deepcopy_test.go
+  s_74eec44bd651c1::t_f88a3d86aa21bc 265-307
+Cubelet/pkg/store/cubebox/writable_layer.go
+  s_74eec44bd651c1::t_c162337020a500 1-99
+Cubelet/pkg/store/cubebox/writable_layer_test.go
+  s_74eec44bd651c1::t_1e253d36d69b22 1-66
+Cubelet/pkg/telemetry/telemetry.go
+  s_74eec44bd651c1::t_f6813556715b1b 1-196
+Cubelet/pkg/telemetry/telemetry_test.go
+  s_74eec44bd651c1::t_15b7233407d421 1-288
+Cubelet/pkg/telnet/telnet.go
+  s_74eec44bd651c1::t_4295656f9a4a09 90,146-160
+Cubelet/pkg/telnet/telnet_test.go
+  s_74eec44bd651c1::t_f9d96c0086b085 457-482
+Cubelet/plugins/cbri/cubeboxcbri/coldboot.go
+  s_74eec44bd651c1::t_f6e6224ab09e41 14,16,194-232
+Cubelet/plugins/cbri/cubeboxcbri/coldboot_test.go
+  s_74eec44bd651c1::t_ff82cd506f5217 13,15,275-324
+Cubelet/plugins/cbri/cubeboxcbri/create_sandbox_annotation_passthrough_test.go
+  s_74eec44bd651c1::t_f4c4913b589b0a 1-47
+Cubelet/plugins/cbri/cubeboxcbri/cubebox.go
+  s_74eec44bd651c1::t_79bb80291c6429 302-305,395-401
+Cubelet/plugins/cube/internals/cgroup/handle/interface.go
+  s_74eec44bd651c1::t_1ea4db9fbb91b7 17-24
+Cubelet/plugins/cube/internals/cgroup/handle/v1/manager.go
+  s_74eec44bd651c1::t_0312fbcfdb62fa 115-123
+Cubelet/plugins/cube/internals/cgroup/handle/v2/manager.go
+  s_74eec44bd651c1::t_5ab0174c2460f4 271-278
+Cubelet/plugins/cube/internals/cgroup/local.go
+  s_74eec44bd651c1::t_a463e06a959e4c 32,113-123,242,340-343,397-401
+Cubelet/plugins/cube/internals/cgroup/plugin.go
+  s_74eec44bd651c1::t_133aa4a2cf1adb 35-43
+Cubelet/plugins/cube/internals/cgroup/pool.go
+  s_74eec44bd651c1::t_5311031015d113 9,12,14,65-71,106,193,200-232,234,245-251,258-260,266-415,418-424,428-485,488-489,494,496-514,767
+Cubelet/plugins/cube/internals/cgroup/pool_cpuset_test.go
+  s_74eec44bd651c1::t_3bfdbb69133984 1-370
+Cubelet/plugins/cube/internals/cubes/restart.go
+  s_74eec44bd651c1::t_5ce0a7f50b0d7d 20,53,200-207
+Cubelet/plugins/workflow/engine.go
+  s_74eec44bd651c1::t_b7f764eff9df41 18-20,33,160,163-165,461-472,474-478,610-612,617-624,634,671,675,699-700,702
+Cubelet/plugins/workflow/telemetry_scope_test.go
+  s_74eec44bd651c1::t_ae6a9fae0b7f46 1-201
+Cubelet/services/cubebox/appsnapshot.go
+  s_74eec44bd651c1::t_963ee7ede0aaa5 30,37-38,80-92,161,400-402,644-649,930-931,934-937,940-943,945,955,957
+Cubelet/services/cubebox/appsnapshot_span_test.go
+  s_74eec44bd651c1::t_c56dc7f04a39d6 1-122
+Cubelet/services/cubebox/cube_container_create.go
+  s_74eec44bd651c1::t_751b871f0044d9 65,168,289-290,1320,1322-1324,1327-1331,1339,1348-1373,1419,1495-1496,1498,1503,1565-1566,1584-1586,1588,1633-1635,1638
+Cubelet/services/cubebox/cube_container_create_test.go
+  s_74eec44bd651c1::t_405afb49cf00a7 1268-1285
+Cubelet/services/cubebox/events.go
+  s_74eec44bd651c1::t_5a053492b49141 287,441-445
+Cubelet/services/cubebox/events_exit_test.go
+  s_74eec44bd651c1::t_4f226a13660d3c 1-172
+Cubelet/services/cubebox/pause_cow.go
+  s_74eec44bd651c1::t_14260d3bacc0e6 24,31-32,145-217,238,375-405,449-465,507-508,536,549,558-563,567,595,646-647,652,656-665,675-676,691-693,784-785,905-992,1012,1125-1126,1129,1138,1144,1146
+Cubelet/services/cubebox/pause_cow_test.go
+  s_74eec44bd651c1::t_ab30dacfd49bb2 8,10,20,81-289,507,514-516
+Cubelet/services/cubebox/pause_span_test.go
+  s_74eec44bd651c1::t_bdf26a5944785d 1-83
+Cubelet/services/cubebox/probe.go
+  s_74eec44bd651c1::t_0762b25957e9d6 27,89,92
+Cubelet/services/cubebox/resource.go
+  s_74eec44bd651c1::t_f0a3e8ea504e92 44-53
+Cubelet/services/cubebox/restart.go
+  s_74eec44bd651c1::t_d1b0140d3bd393 171-177,252-255,277-281,316-318,368,371,377-382
+Cubelet/services/cubebox/restart_bookkeeping_test.go
+  s_74eec44bd651c1::t_0d234908636310 11,58-127,189-248,263-280,285-289,295-296,304-309,430-463
+Cubelet/services/cubebox/restart_stabilize.go
+  s_74eec44bd651c1::t_7af17e8f44f870 1-202
+Cubelet/services/cubebox/restart_stabilize_test.go
+  s_74eec44bd651c1::t_b8ae07eccea7bc 1-418
+Cubelet/services/cubebox/restartmgr.go
+  s_74eec44bd651c1::t_e1fe6b00287834 408,451-455,457-459,642-688
+Cubelet/services/cubebox/resume_reconcile_test.go
+  s_74eec44bd651c1::t_f07ac53c9040c5 23-24,44-46,70
+Cubelet/services/cubebox/rollback.go
+  s_74eec44bd651c1::t_6cdce051bccf72 10,22,27-28,39-43,49-61,89-115,127,131-134,143,169-171,173,185,203,216,225,240,247-252,259,264,290-294,313,325,333
+Cubelet/services/cubebox/rollback_span_test.go
+  s_74eec44bd651c1::t_cbd9b4c1b473d5 1-188
+Cubelet/services/cubebox/service.go
+  s_74eec44bd651c1::t_100a5ddbcd9555 25-26,39,231,335-343,349-353,355-362,389-392,896,899-901,942,949-957,1049-1052,1075-1078,1084,1086,1092,1094,1193-1196,1198,1200
+Cubelet/services/cubebox/service_test.go
+  s_74eec44bd651c1::t_527fff6c812212 9,25,27-121
+Cubelet/services/cubebox/snapshot_base_memory.go
+  s_74eec44bd651c1::t_bebc13ba0e3a1b 11,15,355-359,362,378-382,385,422-426
+Cubelet/services/cubebox/snapshot_expiry_fallback_test.go
+  s_74eec44bd651c1::t_9682ea88910ba3 1-61
+Cubelet/services/cubebox/snapshot_runtime_compat.go
+  s_74eec44bd651c1::t_d308b0ea1859eb 50-53
+Cubelet/services/cubebox/template_commit_span_test.go
+  s_74eec44bd651c1::t_65eee454332ab0 1-135
+Cubelet/services/cubebox/template_ops.go
+  s_74eec44bd651c1::t_fee4682ebe04cb 23,30-32,42-69,119,121,124-127,129,142,187,203,234,274-275,280-284,299-302,305-308,315,320,331-334,343,351,354-355,363,373-377,382,392-398,455-463,465,535,538,540,542-543,546-549,554,559,581-594
+Cubelet/services/cubebox/update.go
+  s_74eec44bd651c1::t_ea33d11840129e 26,32-33,41-54,96-100,102-104,136-139
+Cubelet/services/cubebox/writable_layer.go
+  s_74eec44bd651c1::t_e33b894749cc3e 1-19
+Cubelet/services/images/service.go
+  s_74eec44bd651c1::t_7a9f958dae9be8 28,37-38,216-226
+Cubelet/services/server/server.go
+  s_74eec44bd651c1::t_7d05db10312f9c 36,43,140-145,147-153,249,406-415
+Cubelet/storage/cubecow_snapshot_artifacts_test.go
+  s_74eec44bd651c1::t_cda45792d5960f 67,75-76,82-84,87,95,100,102
+Cubelet/storage/s3_metadata.go
+  s_74eec44bd651c1::t_9ccbb2b5b95bf8 17,72,828-846
+Cubelet/storage/s3_metadata_mount_test.go
+  s_74eec44bd651c1::t_9d106a700a52ba 1-53
+Cubelet/storage/s3_volume_manager.go
+  s_74eec44bd651c1::t_b04adee0d99187 345-347,349
+Makefile
+  s_74eec44bd651c1::t_efc5748596c43c 11,177-179,295,515-516,519-526,534-537
+README.md
+  s_74eec44bd651c1::t_2fb686474e6c46 56-72,396
+README_zh.md
+  s_74eec44bd651c1::t_cf5dbf84126352 56-72,396
+agent/rustjail/src/process.rs
+  s_74eec44bd651c1::t_2df91ca7808919 882-883,885,895,897,899,905-907
+agent/src/util.rs
+  s_74eec44bd651c1::t_f597549b54d9cd 86,296-329,338-342,344,346-348
+configs/kernel-oc9.aarch64.config
+  s_74eec44bd651c1::t_075b2f0e865e69 1232-1233,1235-1236,1288,1364
+configs/kernel-oc9.x86_64.config
+  s_74eec44bd651c1::t_657f9188aa6e6d 1092-1098
+configs/single-node/cubelet.yaml
+  s_74eec44bd651c1::t_dc1da7b5d98e72 11-18
+configs/single-node/cubemaster.yaml
+  s_74eec44bd651c1::t_be0b6616bf08d9 144-161
+cube-lifecycle-manager/internal/cubemasterclient/client.go
+  s_74eec44bd651c1::t_5489fe424eae44 37-39,80,82
+cube-lifecycle-manager/internal/cubemasterclient/client_test.go
+  s_74eec44bd651c1::t_60c2c14b342604 53-59,61-80,102-124
+cube-lifecycle-manager/internal/sweeper/sweeper_test.go
+  s_74eec44bd651c1::t_1c64370cc0bc6e 460-511
+cubecow/src/engine/reflink.rs
+  s_74eec44bd651c1::t_c7cf5dee4016f2 2289-2355
+cubecow/src/engine/s3.rs
+  s_74eec44bd651c1::t_04e71dfe032397 1997-2075
+deploy/kubernetes/chart/README.md
+  s_74eec44bd651c1::t_288bedf3d0dcab 752-765
+deploy/kubernetes/chart/files/cube-master/conf.yaml
+  s_74eec44bd651c1::t_ce5467c16f3b5d 52-59,61
+deploy/kubernetes/chart/scripts/test-helm-test-guards.sh
+  s_74eec44bd651c1::t_54277290d4f850 234-264,352-400
+deploy/kubernetes/chart/templates/_helpers.tpl
+  s_74eec44bd651c1::t_08ccc03b07032a 479-489,515-517
+deploy/kubernetes/chart/templates/lifecycle-manager.yaml
+  s_74eec44bd651c1::t_33b3ed72b7113c 28-32,34
+deploy/kubernetes/chart/templates/master.yaml
+  s_74eec44bd651c1::t_60caca4086fe7f 22-24,26-30,57-66
+deploy/kubernetes/chart/templates/mysql.yaml
+  s_74eec44bd651c1::t_db85b770674446 62-65
+deploy/kubernetes/chart/templates/proxy.yaml
+  s_74eec44bd651c1::t_afd62c71850856 152-155
+deploy/kubernetes/chart/values.yaml
+  s_74eec44bd651c1::t_46f496904a2c3c 655-660
+deploy/one-click/README.md
+  s_74eec44bd651c1::t_8c9a8653eb597c 182-236
+deploy/one-click/README_zh.md
+  s_74eec44bd651c1::t_1a506649fb99d2 171-200
+deploy/one-click/build-release-bundle.sh
+  s_74eec44bd651c1::t_3b44a6e22c5c55 976-986,988-989
+deploy/one-click/env.example
+  s_74eec44bd651c1::t_2fbfcebe135d59 302-326,539-544
+deploy/one-click/lib/common.sh
+  s_74eec44bd651c1::t_ad1ce7b2259ca1 528-529,570-582,717-785
+deploy/one-click/scripts/logrotate/cube-sandbox-logrotate.service
+  s_74eec44bd651c1::t_3b9aecb051016d 4
+deploy/one-click/scripts/logrotate/cube-sandbox-logrotate.timer
+  s_74eec44bd651c1::t_97b8ede93da858 4,7
+deploy/one-click/scripts/logrotate/install-logrotate.sh
+  s_74eec44bd651c1::t_0ddff789495471 5,24-28,77-81,83,85,87,94-95,98,102,107-110,112-121,123-147,149-215,217-218
+deploy/one-click/scripts/logrotate/s3lvol
+  s_74eec44bd651c1::t_9681c1608a5b10 1-21
+deploy/one-click/scripts/logrotate/s3lvol_policy.py
+  s_74eec44bd651c1::t_c2b93d7588f53a 1-122
+deploy/one-click/support/docker-compose.yaml.template
+  s_74eec44bd651c1::t_445dacefe17a3e 17-20
+deploy/one-click/tests/test_cubeshim_logrotate.sh
+  s_74eec44bd651c1::t_929b10434e19d7 34-36,58,77-83,111,210,245
+deploy/one-click/tests/test_package_layout.sh
+  s_74eec44bd651c1::t_3c7b3e3419c3ec 390-393
+deploy/one-click/tests/test_s3lvol_hot_upgrade.sh
+  s_74eec44bd651c1::t_9d094fb35fec0e 627-697,722-724
+deploy/one-click/tests/test_sync_release_images.sh
+  s_74eec44bd651c1::t_196707b3e0edf6 1-358
+deploy/one-click/tests/test_toggle_inputs.sh
+  s_74eec44bd651c1::t_133abb254dae7f 9-10,50-52,56-58,62-65,71-72,83-85,316-487,498-509
+deploy/pvm/configs/pvm_guest
+  s_74eec44bd651c1::t_f1295889c7bf79 1102-1103
+docker/Dockerfile.builder
+  s_74eec44bd651c1::t_889316b2ba0484 120
+docs/.vitepress/config.mjs
+  s_74eec44bd651c1::t_ec71c9fe62f244 208,317-318,455,564-565
+docs/architecture/juicefs-storage.md
+  s_74eec44bd651c1::t_b2110d0c2519ec 7,13,15,17-19,21,23-38,42,44,46,48,50,52-144,146,148
+docs/changelog/index.md
+  s_74eec44bd651c1::t_0bb922bf0a240f 27
+docs/dev/templatecenter-design.md
+  s_74eec44bd651c1::t_a14777070e35e3 255-296,308-326
+docs/guide/bare-metal-deploy.md
+  s_74eec44bd651c1::t_2180ec8ed240d3 73-99
+docs/guide/cubemaster-scheduler-config.md
+  s_74eec44bd651c1::t_a7eefa1db08619 30-35,38,149
+docs/guide/kubernetes/install.md
+  s_74eec44bd651c1::t_e81a702c40ea74 166-169,353-422
+docs/guide/lifecycle.md
+  s_74eec44bd651c1::t_993025803a3a04 20-24,151-152,180,182,184,312
+docs/guide/node-operations.md
+  s_74eec44bd651c1::t_ab6be03595b69f 8,10,12,21,23,25,47,92,94
+docs/guide/service-management.md
+  s_74eec44bd651c1::t_507115b36095ea 302-303,345-424
+docs/guide/snapshot-rollback-clone.md
+  s_74eec44bd651c1::t_4788e90814028f 65-106
+docs/guide/tracing.md
+  s_74eec44bd651c1::t_d9ef44a000bd65 1-101
+docs/guide/troubleshooting/index.md
+  s_74eec44bd651c1::t_9a097b46ab3760 62
+docs/guide/troubleshooting/sdk-connect-stream-routing.md
+  s_74eec44bd651c1::t_8bf02c7c5d9fa5 1-47
+docs/guide/tutorials/sdk/go.md
+  s_74eec44bd651c1::t_c2295c4a85b2a7 63,70-123
+docs/guide/webhooks.md
+  s_74eec44bd651c1::t_105c82d79efe20 1-311
+docs/zh/architecture/juicefs-storage.md
+  s_74eec44bd651c1::t_b34aa73bca458e 7,13,15,17-19,21,23,25,27,29,31,33-38,40,42-144,146,148
+docs/zh/changelog/index.md
+  s_74eec44bd651c1::t_b137b0ad90a748 27
+docs/zh/dev/templatecenter-design.md
+  s_74eec44bd651c1::t_2a005dc5ea07a7 237-250,261-273
+docs/zh/guide/bare-metal-deploy.md
+  s_74eec44bd651c1::t_8a0ac25bb7313b 72-95
+docs/zh/guide/cubemaster-scheduler-config.md
+  s_74eec44bd651c1::t_21549c61b6d938 30-35,38,149
+docs/zh/guide/kubernetes/install.md
+  s_74eec44bd651c1::t_510fbe89fb3135 164-167,352-401
+docs/zh/guide/lifecycle.md
+  s_74eec44bd651c1::t_142494e97d1577 20-24,151-152,180,182,184,312
+docs/zh/guide/node-operations.md
+  s_74eec44bd651c1::t_061d6d44a583f4 8,10,12,21,23,47,92,94
+docs/zh/guide/snapshot-rollback-clone.md
+  s_74eec44bd651c1::t_9cc342481131a0 65-99
+docs/zh/guide/tracing.md
+  s_74eec44bd651c1::t_c323601c672758 1-101
+docs/zh/guide/troubleshooting/index.md
+  s_74eec44bd651c1::t_dc7b8124715a05 62
+docs/zh/guide/troubleshooting/sdk-connect-stream-routing.md
+  s_74eec44bd651c1::t_887061b28a1764 1-47
+docs/zh/guide/tutorials/sdk/go.md
+  s_74eec44bd651c1::t_8e1e614f55c582 63,70-114
+docs/zh/guide/webhooks.md
+  s_74eec44bd651c1::t_1769fb412220f8 1-258
+openapi.yml
+  s_74eec44bd651c1::t_c8013fa4a69f45 247-290,627,644-645,650-651,722,1589-1692,1702-1707,1726-1737,1742-1747,1757,1806-1808,1903-1909,2115-2151,2341-2356,2412-2416,2509-2667,2718-2725,2779-2782,2881-2884,2917-2919,3138-3142,3171-3175,3186-3188,3356-3359,3536-3553
+pkgs/cubedb/migrate/migrate_postgres_test.go
+  s_74eec44bd651c1::t_3efbf0b80922cd 194-195
+pkgs/cubedb/migrate/migrations/mysql/20261107154800_snapshot_expiry.sql
+  s_74eec44bd651c1::t_88c39ba98571f2 1-24
+pkgs/cubedb/migrate/migrations/mysql/20261112071208_artifact_placement_deferred_at.sql
+  s_74eec44bd651c1::t_ea9578d2e3092a 1-48
+pkgs/cubedb/migrate/migrations/postgres/20261107154800_snapshot_expiry.sql
+  s_74eec44bd651c1::t_9172aa29b686e7 1-26
+pkgs/cubedb/migrate/migrations/postgres/20261112071208_artifact_placement_deferred_at.sql
+  s_74eec44bd651c1::t_9120cf97366001 1-35
+pkgs/proto/doc/api.md
+  s_74eec44bd651c1::t_517c84f81c479d 604
+pkgs/proto/services/cubebox/v1/cubebox.pb.go
+  s_74eec44bd651c1::t_55821da9955c81 3803-3808,3904-3910,7332,7345-7347
+pkgs/proto/services/cubebox/v1/cubebox.proto
+  s_74eec44bd651c1::t_f20a12fb2cc01b 735-738
+scripts/sync-release-images.sh
+  s_74eec44bd651c1::t_a44c1553eece0f 1-223
+sdk/go/README.md
+  s_74eec44bd651c1::t_fbf759c84a92d8 78-99,200,210-299,525-552,572-585
+sdk/go/aligned_test.go
+  s_74eec44bd651c1::t_730e0d1d51c6a0 455-484
+sdk/go/commands_stream_test.go
+  s_74eec44bd651c1::t_94cf36f272e4b3 1-178
+sdk/go/connect.go
+  s_74eec44bd651c1::t_9ee7e19e805b7f 10,13-15,17,26-29,62-64,97-278
+sdk/go/coverage_test.go
+  s_74eec44bd651c1::t_23f942ef1f558f 7,9,688-1209
+sdk/go/envd.go
+  s_74eec44bd651c1::t_62cd1fba914edd 104-105,107-108,111,170,225,233-241,244-245,247,249-257,260-265,324,365-367,375-377,427-433,437-449,610-612,614
+sdk/go/errors.go
+  s_74eec44bd651c1::t_68a62a28e38eed 13,133-134,139-141,145-157
+sdk/go/errors_body_test.go
+  s_74eec44bd651c1::t_82bdcd4624a2ae 1-61
+sdk/go/files.go
+  s_74eec44bd651c1::t_58f10381f87c99 50,109-134
+sdk/go/files_upload.go
+  s_74eec44bd651c1::t_2249f0f991f463 1-310
+sdk/go/files_upload_http_test.go
+  s_74eec44bd651c1::t_e61d0fd14d7906 1-230
+sdk/go/files_upload_integration_test.go
+  s_74eec44bd651c1::t_9859dfcbf6db46 1-85
+sdk/go/files_upload_lifecycle_test.go
+  s_74eec44bd651c1::t_5d3bea4ee382b7 1-187
+sdk/go/files_upload_test.go
+  s_74eec44bd651c1::t_66f1ae19772127 1-488
+sdk/go/files_upload_transport_test.go
+  s_74eec44bd651c1::t_841e5737dc887b 1-394
+sdk/go/integration_test.go
+  s_74eec44bd651c1::t_e7d65c34016571 251,253-255,263-265
+sdk/go/models.go
+  s_74eec44bd651c1::t_b08ade6644f4c7 144-150
+sdk/go/pty.go
+  s_74eec44bd651c1::t_0123185b7c6709 127-129,392-394,396,447-448,451-459,465-470
+sdk/go/routing_response_test.go
+  s_74eec44bd651c1::t_dbecb111b91c1a 1-226
+sdk/go/sdk_test.go
+  s_74eec44bd651c1::t_e56c0680eb2467 1358-1459,2348-2558
+sdk/go/snapshot.go
+  s_74eec44bd651c1::t_662a5bb2a27b26 24-30,98,102-104,109-115
+sdk/node/src/commands.ts
+  s_74eec44bd651c1::t_e3ba07bcc632c8 308-309,329,332,355-359
+sdk/node/src/index.ts
+  s_74eec44bd651c1::t_5e8ee9df6f9507 16
+sdk/node/src/models.ts
+  s_74eec44bd651c1::t_8f29987cee3fcf 168,170,173,177
+sdk/node/src/sandbox.ts
+  s_74eec44bd651c1::t_41c6b8a5df71a1 179-183,902,904-909
+sdk/node/test/commands.test.ts
+  s_74eec44bd651c1::t_5860683a9e266e 210-257
+sdk/node/test/mcp.test.ts
+  s_74eec44bd651c1::t_810795f1c0e63a 225
+sdk/node/test/snapshots.test.ts
+  s_74eec44bd651c1::t_f0025ebab4c7b9 113-128
+sdk/python/cubesandbox/_commands.py
+  s_74eec44bd651c1::t_ef33399b6ed55c 138-139,167,169,188-192
+sdk/python/cubesandbox/_models.py
+  s_74eec44bd651c1::t_c11c43470556cb 204,212
+sdk/python/cubesandbox/_transport.py
+  s_74eec44bd651c1::t_d3ea5e70e0cc17 39-41
+sdk/python/cubesandbox/sandbox.py
+  s_74eec44bd651c1::t_f4037cb6eacd88 858,875-877,900-903
+sdk/python/tests/test_sandbox.py
+  s_74eec44bd651c1::t_c6305f926c81a4 1848-1906,2535-2561,2620-2637
+tests/e2e/sdk_compat/README.md
+  s_74eec44bd651c1::t_ef0fb888ae124e 20,50-95,191-192,417-418,472-480,587-594,620-621
+tests/e2e/sdk_compat/README_zh.md
+  s_74eec44bd651c1::t_073eca07f48d1e 47-84,173-174,363-364,405-412,543-549,576,578-579
+tests/e2e/sdk_compat/adapters/api_adapter.py
+  s_74eec44bd651c1::t_fd104642bb641e 188-202,206-211,215-223,236
+tests/e2e/sdk_compat/adapters/e2b_adapter.py
+  s_74eec44bd651c1::t_ab0a55353e1d06 17,27-29,52-54,61-70,287-300
+tests/e2e/sdk_compat/cases/framework/test_e2b_adapter.py
+  s_74eec44bd651c1::t_e7dfa38b53a678 1-133
+tests/e2e/sdk_compat/cases/framework/test_restart_policy_helpers.py
+  s_74eec44bd651c1::t_7acd2a65bd4096 8-9,15,19,85-115,118-123
+tests/e2e/sdk_compat/cases/framework/test_snapshot_cleanup.py
+  s_74eec44bd651c1::t_7b431901ac80ff 1-126
+tests/e2e/sdk_compat/cases/framework/test_volume_api_adapter.py
+  s_74eec44bd651c1::t_4e0b1f0163e8d2 1-258
+tests/e2e/sdk_compat/cases/framework/test_volume_config.py
+  s_74eec44bd651c1::t_62e6e0af66f70b 1-322
+tests/e2e/sdk_compat/cases/framework/test_webhook.py
+  s_74eec44bd651c1::t_a8f20ab440e357 1-145
+tests/e2e/sdk_compat/cases/lifecycle/test_cold_start_mounts.py
+  s_74eec44bd651c1::t_e0bd499f8fb81e 160,254,368,426,488
+tests/e2e/sdk_compat/cases/lifecycle/test_filesystem_only_snapshot.py
+  s_74eec44bd651c1::t_7043451491daff 62-63,140-142,144,754-985
+tests/e2e/sdk_compat/cases/lifecycle/test_restart_policy.py
+  s_74eec44bd651c1::t_f1b31207017493 130-132,682,685,687,689-694,696,703,710-712,763-829
+tests/e2e/sdk_compat/cases/lifecycle/test_snapshot_delete_reference.py
+  s_74eec44bd651c1::t_ad19677f29bb47 15-16,220-284
+tests/e2e/sdk_compat/cases/lifecycle/test_webhook.py
+  s_74eec44bd651c1::t_d0556da3d076c4 1-154
+tests/e2e/sdk_compat/cases/lifecycle/test_webhook_boundaries.py
+  s_74eec44bd651c1::t_fab1fdb74840e5 1-209
+tests/e2e/sdk_compat/cases/lifecycle/test_webhook_completion_boundaries.py
+  s_74eec44bd651c1::t_3957769becbcc5 1-398
+tests/e2e/sdk_compat/cases/lifecycle/test_webhook_delivery.py
+  s_74eec44bd651c1::t_45272fc0a385a2 1-310
+tests/e2e/sdk_compat/cases/lifecycle/test_webhook_s3_boundaries.py
+  s_74eec44bd651c1::t_492ef7981a27d6 1-39
+tests/e2e/sdk_compat/cases/lifecycle/test_webhook_storage.py
+  s_74eec44bd651c1::t_a2e5449cdcff73 1-77
+tests/e2e/sdk_compat/cases/lifecycle/test_webhook_tls.py
+  s_74eec44bd651c1::t_17eadbf59f3ab8 1-51
+tests/e2e/sdk_compat/cases/network/test_template_network_merge.py
+  s_74eec44bd651c1::t_35a3c7a51b75d9 24-26,36-41,43-45,159-164
+tests/e2e/sdk_compat/cases/templates/test_alias.py
+  s_74eec44bd651c1::t_d97e27e3d1d65f 13,32-33
+tests/e2e/sdk_compat/cases/templates/test_backend.py
+  s_74eec44bd651c1::t_d2ab09a6ccd928 20
+tests/e2e/sdk_compat/cases/templates/test_template_user.py
+  s_74eec44bd651c1::t_52b0cc9cca9f5f 11-15,39,51,134-136
+tests/e2e/sdk_compat/cases/volume/conftest.py
+  s_74eec44bd651c1::t_382b43b1f1b470 9-11,13-14
+tests/e2e/sdk_compat/cases/volume/test_private_data.py
+  s_74eec44bd651c1::t_8aa7123948a651 1-296
+tests/e2e/sdk_compat/cases/volume/test_snapshot_reference.py
+  s_74eec44bd651c1::t_cad4e2c33b3491 51-53
+tests/e2e/sdk_compat/cases/volume/test_snapshot_volume_mounts.py
+  s_74eec44bd651c1::t_d75ea623715ad5 50-52
+tests/e2e/sdk_compat/conftest.py
+  s_74eec44bd651c1::t_39bf65d6691c8c 383-427
+tests/e2e/sdk_compat/docs/case-authoring.md
+  s_74eec44bd651c1::t_f30c78d1a4030f 141-145
+tests/e2e/sdk_compat/docs/test-coverage.md
+  s_74eec44bd651c1::t_b89eea8d6da8d5 231-262
+tests/e2e/sdk_compat/docs/zh/case-authoring.md
+  s_74eec44bd651c1::t_b8885b63417814 347-350
+tests/e2e/sdk_compat/docs/zh/test-coverage.md
+  s_74eec44bd651c1::t_59fbd1927d9800 182-208
+tests/e2e/sdk_compat/env.example
+  s_74eec44bd651c1::t_71d49f4af18e13 73,113-116,135-138,140-141,143,147-156
+tests/e2e/sdk_compat/framework/config.py
+  s_74eec44bd651c1::t_9a53449a4a0028 51-52,106-110
+tests/e2e/sdk_compat/framework/network_probe.py
+  s_74eec44bd651c1::t_2fd0bb7ad4bc73 19
+tests/e2e/sdk_compat/framework/restart_policy.py
+  s_74eec44bd651c1::t_e45462c9d7f70c 24-26,28,30-44,46-108,112-133,203-210,216-219,240
+tests/e2e/sdk_compat/framework/volume.py
+  s_74eec44bd651c1::t_dfc85eab182db5 6,10,13-14,29-30,39-157,208-210,220,227-231
+tests/e2e/sdk_compat/framework/webhook.py
+  s_74eec44bd651c1::t_9183cdaddb2d72 1-126
+tests/e2e/sdk_compat/framework/webhook_resources.py
+  s_74eec44bd651c1::t_9744f380c84f59 1-82
+tests/e2e/sdk_compat/pytest.ini
+  s_74eec44bd651c1::t_5f943c637f82af 21-22
+tests/e2e/sdk_compat/requirements.txt
+  s_74eec44bd651c1::t_a7dd25ec08cae5 5
+tests/e2e/webhook/README.md
+  s_74eec44bd651c1::t_e2a47cdd5df24c 1-214
+tests/e2e/webhook/env.example
+  s_74eec44bd651c1::t_f84f2b057d7b49 1-64
+tests/e2e/webhook/receiver.py
+  s_74eec44bd651c1::t_e3ed8a4152e51d 1-166
+tests/e2e/webhook/storage_proxy.py
+  s_74eec44bd651c1::t_0b3e5e05e5bdab 1-86
+tests/e2e/webhook/test_receiver.py
+  s_74eec44bd651c1::t_699f574be579b9 1-183
+tests/e2e/webhook/test_resources.py
+  s_74eec44bd651c1::t_1ddc73a9a97ec8 1-110
+tests/e2e/webhook/test_storage_proxy.py
+  s_74eec44bd651c1::t_91a495c80f58eb 1-70
+tests/unittest/run.sh
+  s_74eec44bd651c1::t_2f5a27be68e285 17-21,25-26,31-36,67,96-98,100-102,125-131,151-153,178-192,217,245-260,262-263,265-266,276-288,290,294,296,299-311,332-337,341-352,357-368,379,400,411-641,649-651
+web/src/api/generated/schema.ts
+  s_74eec44bd651c1::t_ae838dd755079a 7,14-15,24,31-32,34,41,48,51-66,73,80,89,96,98,105,112,115-131,153-168,185-248,258,322-385,402-418,441-508,518-523,574-599,606-620,622-867,869-872,875,883-904,907-1011,1032-1035,1084-1141,1145-1164,1180-1188,1193-1194,1196-1200,1204-1209,1212-1217,1220,1228-1252,1263-1267,1272-1295,1305-1308,1311-1358,1363-1381,1417,1461-1492,1499-1514,1524,1533,1539,1542-1570,1589,1596-1600,1602-2838,2843,2846-2847,2855-2856,2861,2866,2870-2875,2880-2881,2886,2889,2909,2914-2917,2923,2928,2930,2950,2955-2958,2964,2970,2973,2993,2995-3010,3012-3013,3018-3019,3021-3022,3025-3027,3029-3030,3049,3053,3056-3058,3060-3063,3068,3071-3072,3091,3103,3107-3108,3116-3124,3134,3152-3162,3165,3168-3170,3173-3176,3181,3187,3190,3210,3214,3217-3221,3223-3224,3229,3232,3241-3242,3250,3261,3270,3276,3279-3288,3299,3303,3306-3310,3312-3313,3318,3321-3322,3330-3339,3350,3355-3356,3362,3368,3371-3372,3380-3381,3389,3400,3402,3405-3406,3412-3420,3425,3428,3437
+web/src/locales/en/nodeDetail.json
+  s_74eec44bd651c1::t_73a7d59e02aca1 76-78
+web/src/locales/zh/nodeDetail.json
+  s_74eec44bd651c1::t_27c99516ca3904 76-78
+web/src/mocks/fixtures/warehouse.ts
+  s_74eec44bd651c1::t_41775651a6f15c 286-380,400-401
+deploy/one-click/install.sh
+  s_74eec44bd651c1::t_7a6fc51448d989 52,63-65,302-304,1563-1566,1568-1574,1599-1601,1603-1604,1647,1784,1794-1795,2128-2134,2412-2413,2556-2562
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.6.14",
+  "base_commit_sha": "e163ab00419a0f74de12201c18c14a695b90ffde",
+  "prompts": {},
+  "sessions": {
+    "s_74eec44bd651c1": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "b5016d14-7c65-486d-a992-d05e794ba876",
+        "model": "deepseek-v4.1-flash-1017"
+      },
+      "human_author": "wangshuai <ws13021151806@163.com>"
+    }
+  }
+}
