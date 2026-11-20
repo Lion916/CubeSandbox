@@ -1,0 +1,29 @@
+CubeMaster/pkg/service/sandbox/sandbox_resume_pause.go
+  s_74eec44bd651c1::t_a4ac9d82c070af 466-469,471-475
+  s_74eec44bd651c1::t_d53ee80ed626d9 671-688
+  s_74eec44bd651c1::t_81956888acf9f2 78-82
+CubeMaster/pkg/restoreplace/placement_test.go
+  s_74eec44bd651c1::t_1a2502c81e5453 511-626
+CubeMaster/pkg/restoreplace/placement.go
+  s_74eec44bd651c1::t_cf6e46fa6f1445 368-385
+  s_74eec44bd651c1::t_9c0120541a2208 225-227
+  s_74eec44bd651c1::t_c7964ee680e319 173-180
+CubeMaster/pkg/service/sandbox/sandbox_resume_pause_test.go
+  s_74eec44bd651c1::t_26f7ad5e1172cd 322-341
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.6.14",
+  "base_commit_sha": "9a73448516420bea504bcd0329ed1fea04444170",
+  "prompts": {},
+  "sessions": {
+    "s_74eec44bd651c1": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "b5016d14-7c65-486d-a992-d05e794ba876",
+        "model": "deepseek-v4.1-flash-1017"
+      },
+      "human_author": "wangshuai <ws13021151806@163.com>"
+    }
+  }
+}
