@@ -1,0 +1,42 @@
+deploy/kubernetes/images/cube-kernel/Dockerfile
+  s_74eec44bd651c1::t_1e4fc2bfe0f93f 9
+  s_74eec44bd651c1::t_f028a3f2b7cebd 41,55-61,65,81-87
+deploy/one-click/build-vm-assets.sh
+  s_74eec44bd651c1::t_12cfd30a5b6314 27
+  s_74eec44bd651c1::t_0bfe612329ef55 166-172,180-182,187
+  s_74eec44bd651c1::t_8724e8df6067f2 145-154
+deploy/one-click/assets/kernel-artifacts/README.md
+  s_74eec44bd651c1::t_e5486ac203fbd5 5
+  s_74eec44bd651c1::t_ceeb327e61002e 15
+.github/workflows/release-kernel.yml
+  s_74eec44bd651c1::t_e2027a4b04d44d 58,71-80,85-87,92-94
+  s_74eec44bd651c1::t_3d617a8d0af6c5 149-159,161-166
+  s_74eec44bd651c1::t_28afffd02ae852 467
+  s_74eec44bd651c1::t_ddcdf4f219d178 103-108
+  s_74eec44bd651c1::t_8fe03e0859b89d 398
+  s_74eec44bd651c1::t_956c36755e5d58 198-202,207
+  s_74eec44bd651c1::t_a5a73e678f72fd 208
+deploy/one-click/build-release-bundle.sh
+  s_74eec44bd651c1::t_63368cc9d8e614 718-719
+  s_74eec44bd651c1::t_a887869b82bbe0 484,486,494,502-503
+deploy/one-click/build.env.example
+  s_74eec44bd651c1::t_8ecbfe1366d2a6 73-75
+.github/workflows/release-docker-images.yml
+  s_74eec44bd651c1::t_490b47e6415cba 507-519
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.6.14",
+  "base_commit_sha": "e5acba35a89d22a98a5e61b6208e1633168e783b",
+  "prompts": {},
+  "sessions": {
+    "s_74eec44bd651c1": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "b5016d14-7c65-486d-a992-d05e794ba876",
+        "model": "deepseek-v4.1-flash-1017"
+      },
+      "human_author": "wangshuai <ws13021151806@163.com>"
+    }
+  }
+}
