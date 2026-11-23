@@ -1,0 +1,22 @@
+hypervisor/hypervisor/src/kvm/mod.rs
+  s_74eec44bd651c1::t_f705a4d71a9cb2 2437
+  s_74eec44bd651c1::t_b0604cf24252b4 2438
+  s_74eec44bd651c1::t_a814d809663f9b 2483
+  s_74eec44bd651c1::t_20cf744bee4560 2484
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.6.14",
+  "base_commit_sha": "2c7c90cde49497ac890b16038b518763bf682c7d",
+  "prompts": {},
+  "sessions": {
+    "s_74eec44bd651c1": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "b5016d14-7c65-486d-a992-d05e794ba876",
+        "model": "deepseek-v4.1-flash-1017"
+      },
+      "human_author": "wangshuai <ws13021151806@163.com>"
+    }
+  }
+}
