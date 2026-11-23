@@ -1,0 +1,20 @@
+CubeShim/shim/src/hypervisor/config.rs
+  s_74eec44bd651c1::t_c85074ad178e90 530-535
+  s_74eec44bd651c1::t_204724454fe449 104-112
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.6.14",
+  "base_commit_sha": "0d45f775c4a07d5f47a16fae8238b600c21742ca",
+  "prompts": {},
+  "sessions": {
+    "s_74eec44bd651c1": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "b5016d14-7c65-486d-a992-d05e794ba876",
+        "model": "deepseek-v4.1-flash-1017"
+      },
+      "human_author": "wangshuai <ws13021151806@163.com>"
+    }
+  }
+}

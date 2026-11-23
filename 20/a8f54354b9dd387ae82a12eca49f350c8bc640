@@ -1,0 +1,29 @@
+scripts/build-kernel.sh
+  s_74eec44bd651c1::t_beb5461fa08cdb 44-49
+  s_74eec44bd651c1::t_f3b2bb1b1b26ef 32
+  s_74eec44bd651c1::t_af3df9842f0120 20-22
+  s_74eec44bd651c1::t_d3acad83148745 72-74,76,78,82
+  s_74eec44bd651c1::t_2e81bc6d9deb35 77,79-81
+configs/kernel-kvm.fragment
+  s_74eec44bd651c1::t_8f216bfdd02473 1-12
+Makefile
+  s_74eec44bd651c1::t_a5e13c91c2caec 647,649-651,657,664-667
+  s_74eec44bd651c1::t_5d5ddf1f753b75 43-47,49,51-52
+  s_74eec44bd651c1::t_3add9e70ddc832 195
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.6.14",
+  "base_commit_sha": "20a8f54354b9dd387ae82a12eca49f350c8bc640",
+  "prompts": {},
+  "sessions": {
+    "s_74eec44bd651c1": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "b5016d14-7c65-486d-a992-d05e794ba876",
+        "model": "deepseek-v4.1-flash-1017"
+      },
+      "human_author": "wangshuai <ws13021151806@163.com>"
+    }
+  }
+}
