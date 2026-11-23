@@ -1,0 +1,19 @@
+configs/kernel-kvm.fragment
+  s_74eec44bd651c1::t_df7d1a08516819 13-19
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.6.14",
+  "base_commit_sha": "c3eb5567c50763c247da8296c01d7e5aeb32336d",
+  "prompts": {},
+  "sessions": {
+    "s_74eec44bd651c1": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "b5016d14-7c65-486d-a992-d05e794ba876",
+        "model": "deepseek-v4.1-flash-1017"
+      },
+      "human_author": "wangshuai <ws13021151806@163.com>"
+    }
+  }
+}
