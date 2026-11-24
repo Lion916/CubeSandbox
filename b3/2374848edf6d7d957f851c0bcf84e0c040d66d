@@ -1,0 +1,39 @@
+hypervisor/hypervisor/src/cpu.rs
+  s_74eec44bd651c1::t_41e1bd078c1991 140-149
+hypervisor/vmm/src/seccomp_filters.rs
+  s_74eec44bd651c1::t_2b528b008667c1 392
+  s_74eec44bd651c1::t_491e8b6bc0336e 379
+  s_74eec44bd651c1::t_8093b63620d99c 351
+  s_74eec44bd651c1::t_002e42bc1f6757 362
+hypervisor/hypervisor/src/kvm/mod.rs
+  s_74eec44bd651c1::t_f705a4d71a9cb2 2437
+  s_74eec44bd651c1::t_0446ac2d19422d 2415
+  s_74eec44bd651c1::t_afa4c758161f3c 2178-2181
+  s_74eec44bd651c1::t_a814d809663f9b 2483
+  s_74eec44bd651c1::t_20cf744bee4560 2484
+  s_74eec44bd651c1::t_f343f8e2fd4cc7 2412-2414,2416-2436,2439-2482,2485-2495
+  s_74eec44bd651c1::t_72def659466b70 2042
+  s_74eec44bd651c1::t_b0604cf24252b4 2438
+  s_74eec44bd651c1::t_729bdaad333c4d 2496
+CubeShim/shim/src/hypervisor/config.rs
+  s_74eec44bd651c1::t_c85074ad178e90 530-535
+  s_74eec44bd651c1::t_204724454fe449 104-112
+hypervisor/hypervisor/src/kvm/x86_64/mod.rs
+  s_74eec44bd651c1::t_80058d5692ed8f 122-126
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.6.14",
+  "base_commit_sha": "b32374848edf6d7d957f851c0bcf84e0c040d66d",
+  "prompts": {},
+  "sessions": {
+    "s_74eec44bd651c1": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "b5016d14-7c65-486d-a992-d05e794ba876",
+        "model": "deepseek-v4.1-flash-1017"
+      },
+      "human_author": "wangshuai <ws13021151806@163.com>"
+    }
+  }
+}
