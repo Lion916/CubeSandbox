@@ -348,6 +348,7 @@ fn create_vmm_ioctl_seccomp_rule_kvm() -> Result<Vec<SeccompRule>, BackendError>
     const KVM_GET_LAPIC: u64 = 0x8400_ae8e;
     const KVM_GET_MSR_INDEX_LIST: u64 = 0xc004_ae02;
     const KVM_GET_MSRS: u64 = 0xc008_ae88;
+    const KVM_GET_NESTED_STATE: u64 = 0xc080_aeb2;
     const KVM_GET_SREGS: u64 = 0x8138_ae83;
     const KVM_GET_XCRS: u64 = 0x8188_aea6;
     const KVM_GET_XSAVE: u64 = 0x9000_aea4;
@@ -358,6 +359,7 @@ fn create_vmm_ioctl_seccomp_rule_kvm() -> Result<Vec<SeccompRule>, BackendError>
     const KVM_SET_IDENTITY_MAP_ADDR: u64 = 0x4008_ae48;
     const KVM_SET_LAPIC: u64 = 0x4400_ae8f;
     const KVM_SET_MSRS: u64 = 0x4008_ae89;
+    const KVM_SET_NESTED_STATE: u64 = 0x4080_aeb3;
     const KVM_SET_SREGS: u64 = 0x4138_ae84;
     const KVM_SET_TSS_ADDR: u64 = 0xae47;
     const KVM_SET_XCRS: u64 = 0x4188_aea7;
@@ -374,6 +376,7 @@ fn create_vmm_ioctl_seccomp_rule_kvm() -> Result<Vec<SeccompRule>, BackendError>
         and![Cond::new(1, ArgLen::Dword, Eq, KVM_GET_LAPIC)?],
         and![Cond::new(1, ArgLen::Dword, Eq, KVM_GET_MSR_INDEX_LIST)?],
         and![Cond::new(1, ArgLen::Dword, Eq, KVM_GET_MSRS)?],
+        and![Cond::new(1, ArgLen::Dword, Eq, KVM_GET_NESTED_STATE)?],
         and![Cond::new(1, ArgLen::Dword, Eq, KVM_GET_SREGS)?],
         and![Cond::new(1, ArgLen::Dword, Eq, KVM_GET_XCRS,)?],
         and![Cond::new(1, ArgLen::Dword, Eq, KVM_GET_XSAVE,)?],
@@ -386,6 +389,7 @@ fn create_vmm_ioctl_seccomp_rule_kvm() -> Result<Vec<SeccompRule>, BackendError>
         and![Cond::new(1, ArgLen::Dword, Eq, KVM_SET_SREGS)?],
         and![Cond::new(1, ArgLen::Dword, Eq, KVM_SET_TSS_ADDR,)?],
         and![Cond::new(1, ArgLen::Dword, Eq, KVM_SET_MSRS)?],
+        and![Cond::new(1, ArgLen::Dword, Eq, KVM_SET_NESTED_STATE)?],
         and![Cond::new(1, ArgLen::Dword, Eq, KVM_SET_XCRS,)?],
         and![Cond::new(1, ArgLen::Dword, Eq, KVM_SET_XSAVE,)?],
         and![Cond::new(1, ArgLen::Dword, Eq, KVM_SET_GUEST_DEBUG,)?],

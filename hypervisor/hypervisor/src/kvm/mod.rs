@@ -2039,6 +2039,7 @@ impl cpu::Vcpu for KvmVcpu {
             xsave: xsave.into(),
             xcrs,
             mp_state,
+            nested_state: self.get_nested_state()?,
         }
         .into())
     }
@@ -2173,6 +2174,10 @@ impl cpu::Vcpu for KvmVcpu {
         }
 
         self.set_vcpu_events(&state.vcpu_events)?;
+
+        // Restore the nested (L1 hypervisor) state last: it depends on CPUID and
+        // the vCPU registers already being in place.
+        self.set_nested_state(state.nested_state.as_deref())?;
 
         Ok(())
     }
@@ -2402,5 +2407,90 @@ impl KvmVcpu {
             .unwrap()
             .set_vcpu_events(events)
             .map_err(|e| cpu::HypervisorCpuError::SetVcpuEvents(e.into()))
+    }
+}
+
+#[cfg(target_arch = "x86_64")]
+// KVM_GET_NESTED_STATE / KVM_SET_NESTED_STATE encode sizeof(struct
+// kvm_nested_state) (128 bytes: 8-byte header + 120-byte union).
+const KVM_GET_NESTED_STATE: libc::c_ulong = 0xc080_aeb2;
+#[cfg(target_arch = "x86_64")]
+const KVM_SET_NESTED_STATE: libc::c_ulong = 0x4080_aeb3;
+#[cfg(target_arch = "x86_64")]
+const KVM_NESTED_STATE_HEADER_SIZE: usize = 128;
+// kvm_nested_state embeds one 4KiB VMCS/VMCB; 8KiB leaves headroom for the
+// header and any future in-tree growth.
+#[cfg(target_arch = "x86_64")]
+const KVM_NESTED_STATE_MAX_SIZE: usize = KVM_NESTED_STATE_HEADER_SIZE + 8192;
+
+#[cfg(target_arch = "x86_64")]
+impl KvmVcpu {
+    /// Save the nested (L1 hypervisor) VMX/SVM state.
+    ///
+    /// Returns `Ok(None)` when the vCPU does not expose VMX/SVM (or the host
+    /// kernel predates the ioctl): such snapshots have no nested state to save
+    /// and must stay restorable on hosts without nested virtualization.
+    fn get_nested_state(&self) -> cpu::Result<Option<Vec<u8>>> {
+        let fd = self.fd.lock().unwrap();
+        let mut buf = vec![0u8; KVM_NESTED_STATE_MAX_SIZE];
+        // kvm_nested_state.size (offset 4) is the buffer length on input.
+        let size = buf.len() as u32;
+        buf[4..8].copy_from_slice(&size.to_le_bytes());
+
+        // SAFETY: `buf` is a writable, correctly sized kvm_nested_state buffer
+        // and the vCPU fd outlives this call.
+        let ret = unsafe { libc::ioctl(fd.as_raw_fd(), KVM_GET_NESTED_STATE, buf.as_mut_ptr()) };
+        if ret < 0 {
+            let err = std::io::Error::last_os_error();
+            return match err.raw_os_error() {
+                Some(libc::EINVAL) | Some(libc::ENOTTY) => Ok(None),
+                _ => Err(cpu::HypervisorCpuError::GetNestedState(err.into())),
+            };
+        }
+
+        let used = u32::from_le_bytes([buf[4], buf[5], buf[6], buf[7]]) as usize;
+        if used < KVM_NESTED_STATE_HEADER_SIZE || used > buf.len() {
+            return Err(cpu::HypervisorCpuError::GetNestedState(
+                std::io::Error::new(
+                    std::io::ErrorKind::InvalidData,
+                    format!("KVM_GET_NESTED_STATE returned size {used}"),
+                )
+                .into(),
+            ));
+        }
+        buf.truncate(used);
+        Ok(Some(buf))
+    }
+
+    /// Restore the nested (L1 hypervisor) VMX/SVM state saved by
+    /// [`Self::get_nested_state`].
+    fn set_nested_state(&self, state: Option<&[u8]>) -> cpu::Result<()> {
+        let state = match state {
+            Some(state) => state,
+            None => return Ok(()),
+        };
+        if state.len() < KVM_NESTED_STATE_HEADER_SIZE {
+            return Err(cpu::HypervisorCpuError::SetNestedState(
+                std::io::Error::new(
+                    std::io::ErrorKind::InvalidData,
+                    format!("nested state buffer too small: {}", state.len()),
+                )
+                .into(),
+            ));
+        }
+
+        let mut buf = state.to_vec();
+        let size = buf.len() as u32;
+        buf[4..8].copy_from_slice(&size.to_le_bytes());
+        let fd = self.fd.lock().unwrap();
+        // SAFETY: `buf` is a valid kvm_nested_state buffer for the duration of
+        // the call and the vCPU fd outlives it.
+        let ret = unsafe { libc::ioctl(fd.as_raw_fd(), KVM_SET_NESTED_STATE, buf.as_ptr()) };
+        if ret < 0 {
+            return Err(cpu::HypervisorCpuError::SetNestedState(
+                std::io::Error::last_os_error().into(),
+            ));
+        }
+        Ok(())
     }
 }

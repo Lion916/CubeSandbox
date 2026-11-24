@@ -119,6 +119,11 @@ pub struct VcpuKvmState {
     pub xsave: XsaveState,
     pub xcrs: ExtendedControlRegisters,
     pub mp_state: MpState,
+    /// Nested (L1 hypervisor) VMX/SVM state, as returned by
+    /// KVM_GET_NESTED_STATE. `None` for snapshots created before this field
+    /// existed, or when the host/guest does not expose nested virtualization.
+    #[serde(default, skip_serializing_if = "Option::is_none")]
+    pub nested_state: Option<Vec<u8>>,
 }
 
 impl From<StandardRegisters> for kvm_regs {

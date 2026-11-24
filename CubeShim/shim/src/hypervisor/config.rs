@@ -101,7 +101,15 @@ impl VmConfig {
             "panic=1".to_string(),
         ];
         #[cfg(target_arch = "x86_64")]
-        params.extend(["no_timer_check".to_string(), "noreplace-smp".to_string()]);
+        params.extend([
+            "no_timer_check".to_string(),
+            "noreplace-smp".to_string(),
+            // kvm_intel disables nested VMX by default; kvm_amd defaults to on
+            // but set it explicitly so both vendors behave the same. These are
+            // no-ops on kernels without the KVM drivers built in.
+            "kvm-intel.nested=1".to_string(),
+            "kvm-amd.nested=1".to_string(),
+        ]);
         params.extend(["printk.devkmsg=on".to_string()]);
         // virtio-console on every architecture: output is batched through a
         // virtqueue and drained off the vCPU thread, while a UART console traps
@@ -519,7 +527,12 @@ mod tests {
             "panic=1".to_string(),
         ];
         #[cfg(target_arch = "x86_64")]
-        params.extend(["no_timer_check".to_string(), "noreplace-smp".to_string()]);
+        params.extend([
+            "no_timer_check".to_string(),
+            "noreplace-smp".to_string(),
+            "kvm-intel.nested=1".to_string(),
+            "kvm-amd.nested=1".to_string(),
+        ]);
         params.extend(["printk.devkmsg=on".to_string()]);
         params.push("console=hvc0".to_string());
         params.extend([

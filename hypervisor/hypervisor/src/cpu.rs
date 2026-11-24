@@ -137,6 +137,16 @@ pub enum HypervisorCpuError {
     #[error("Failed to get Vcpu events: {0}")]
     GetVcpuEvents(#[source] anyhow::Error),
     ///
+    /// Getting nested (L1 hypervisor) VMX/SVM state error
+    ///
+    #[error("Failed to get nested virtualization state: {0}")]
+    GetNestedState(#[source] anyhow::Error),
+    ///
+    /// Setting nested (L1 hypervisor) VMX/SVM state error
+    ///
+    #[error("Failed to set nested virtualization state: {0}")]
+    SetNestedState(#[source] anyhow::Error),
+    ///
     /// Setting Vcpu events error
     ///
     #[error("Failed to set Vcpu events: {0}")]
