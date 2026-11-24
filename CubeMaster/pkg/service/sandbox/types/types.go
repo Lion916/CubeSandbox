@@ -75,7 +75,13 @@ type CreateCubeSandboxReq struct {
 	CreateTimeEnvVars map[string]string `json:"create_time_env_vars,omitempty"`
 	DistributionScope []string          `json:"distribution_scope,omitempty"`
 	InstanceType      string            `json:"instance_type,omitempty"`
-	NetworkType       string            `json:"network_type,omitempty"`
+	// instanceTypeExplicit records whether the caller supplied instance_type
+	// in the request body. It is never serialized: Master uses it to tell
+	// "client chose this pool" apart from "default applied here", so a create
+	// from a template can inherit the template's pool instead of forcing the
+	// default one.
+	instanceTypeExplicit bool
+	NetworkType          string `json:"network_type,omitempty"`
 	// Backend is the CoW store (xfs｜s3) for snapshot restore / create-from-snap.
 	// Empty means xfs.
 	Backend string `json:"backend,omitempty"`
@@ -131,6 +137,20 @@ func (r *CreateCubeSandboxReq) UnmarshalJSON(data []byte) error {
 		r.RequestID = envelope.SnakeRequestID
 	}
 	return nil
+}
+
+// MarkInstanceTypeExplicit records that instance_type came from the caller
+// rather than from Master's default.
+func (r *CreateCubeSandboxReq) MarkInstanceTypeExplicit() {
+	if r != nil {
+		r.instanceTypeExplicit = true
+	}
+}
+
+// InstanceTypeExplicit reports whether the caller supplied instance_type.
+// Internal builders that assign InstanceType directly keep this false.
+func (r *CreateCubeSandboxReq) InstanceTypeExplicit() bool {
+	return r != nil && r.instanceTypeExplicit
 }
 
 type CreateCubeSandboxRes struct {

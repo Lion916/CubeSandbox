@@ -214,6 +214,12 @@ func prepareTemplateCommitRequest(ctx context.Context, requestID, sandboxID, tem
 	if source.Request == nil {
 		source.Request = &sandboxtypes.Request{}
 	}
+	// The template inherits the sandbox's pool. A commit override usually
+	// leaves instance_type empty, and defaulting it to cubebox would register a
+	// KVM sandbox's template in the wrong partition.
+	if strings.TrimSpace(source.InstanceType) == "" {
+		source.InstanceType = strings.TrimSpace(base.InstanceType)
+	}
 	source.RequestID = requestID
 	if source.Annotations == nil {
 		source.Annotations = map[string]string{}

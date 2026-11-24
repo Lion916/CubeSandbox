@@ -508,6 +508,122 @@ func TestDecideFilesystemColdBootIgnoresHostFacts(t *testing.T) {
 	}
 }
 
+func TestDecideOriginRequiresMatchingInstanceType(t *testing.T) {
+	resetPlacementSeams(t)
+	origin := &node.Node{InsID: "node-a", IP: "10.0.0.1", Healthy: true, InstanceType: "cubebox"}
+	lookupNodeFn = func(nodeID, nodeIP string) *node.Node { return origin }
+	selectPinnedFn = func(sel *selctx.SelectorCtx, pinned node.NodeList) (*node.Node, error) {
+		t.Fatal("origin in another pool must not be probed")
+		return nil, nil
+	}
+
+	in := s3ReadyInput("node-a")
+	in.Backend = constants.SnapshotBackendXFS
+	in.InstanceType = "cubebox-kvm"
+	_, err := Decide(context.Background(), in)
+	if err == nil || !strings.Contains(err.Error(), "cannot restore cross-node") {
+		t.Fatalf("want origin pool rejection, got %v", err)
+	}
+}
+
+func TestDecideCrossNodeFiltersCandidatesByInstanceType(t *testing.T) {
+	resetPlacementSeams(t)
+	origin := isolatedOrigin("node-a", "10.0.0.1")
+	origin.InstanceType = "cubebox-kvm"
+	peer := &node.Node{InsID: "node-c", IP: "10.0.0.3", Healthy: true, InstanceType: "cubebox-kvm"}
+	otherPool := &node.Node{InsID: "node-b", IP: "10.0.0.2", Healthy: true, InstanceType: "cubebox"}
+	byID := map[string]*node.Node{"node-a": origin, "node-b": otherPool, "node-c": peer}
+	lookupNodeFn = func(nodeID, nodeIP string) *node.Node {
+		if n, ok := byID[nodeID]; ok {
+			return n
+		}
+		return nil
+	}
+	listCompatibleFn = func(ctx context.Context, origin *nodemeta.HostFacts) ([]compatibleCandidate, error) {
+		return []compatibleCandidate{
+			{NodeID: "node-b", NodeIP: "10.0.0.2"},
+			{NodeID: "node-c", NodeIP: "10.0.0.3"},
+		}, nil
+	}
+	selectNodeFn = func(ctx context.Context, instanceType string, reqRes *selctx.RequestResource, scope []string) (*node.Node, error) {
+		for _, s := range scope {
+			if s == "node-b" || s == "10.0.0.2" {
+				t.Fatalf("candidate from another instance type leaked into scope: %v", scope)
+			}
+		}
+		return peer, nil
+	}
+
+	in := s3ReadyInput("node-a")
+	in.InstanceType = "cubebox-kvm"
+	got, err := Decide(context.Background(), in)
+	if err != nil {
+		t.Fatalf("Decide: %v", err)
+	}
+	if !got.CrossNode || got.NodeID != "node-c" {
+		t.Fatalf("want cross-node node-c, got %+v", got)
+	}
+}
+
+func TestDecideCrossNodeNoPeerInSameInstanceType(t *testing.T) {
+	resetPlacementSeams(t)
+	origin := isolatedOrigin("node-a", "10.0.0.1")
+	otherPool := &node.Node{InsID: "node-b", IP: "10.0.0.2", Healthy: true, InstanceType: "cubebox"}
+	lookupNodeFn = func(nodeID, nodeIP string) *node.Node {
+		if nodeID == "node-b" {
+			return otherPool
+		}
+		return origin
+	}
+	listCompatibleFn = func(ctx context.Context, origin *nodemeta.HostFacts) ([]compatibleCandidate, error) {
+		return []compatibleCandidate{{NodeID: "node-b", NodeIP: "10.0.0.2"}}, nil
+	}
+	selectNodeFn = func(ctx context.Context, instanceType string, reqRes *selctx.RequestResource, scope []string) (*node.Node, error) {
+		t.Fatal("must not select when every candidate belongs to another pool")
+		return nil, nil
+	}
+
+	in := s3ReadyInput("node-a")
+	in.InstanceType = "cubebox-kvm"
+	_, err := Decide(context.Background(), in)
+	if err == nil || !strings.Contains(err.Error(), "no compatible node") {
+		t.Fatalf("want no-compatible-node, got %v", err)
+	}
+}
+
+func TestDecideFilesystemColdBootFiltersCandidatesByInstanceType(t *testing.T) {
+	resetPlacementSeams(t)
+	origin := &node.Node{InsID: "node-a", IP: "10.0.0.1", Healthy: false, InstanceType: "cubebox-kvm"}
+	peer := &node.Node{InsID: "node-b", IP: "10.0.0.2", Healthy: true, InstanceType: "cubebox-kvm"}
+	lookupNodeFn = func(nodeID, nodeIP string) *node.Node {
+		if nodeID == "node-b" {
+			return peer
+		}
+		return origin
+	}
+	listColdBootFn = func(ctx context.Context, instanceType string) ([]compatibleCandidate, error) {
+		return []compatibleCandidate{{NodeID: "node-b", NodeIP: "10.0.0.2"}}, nil
+	}
+	selectNodeFn = func(ctx context.Context, instanceType string, reqRes *selctx.RequestResource, scope []string) (*node.Node, error) {
+		return peer, nil
+	}
+
+	got, err := Decide(context.Background(), Input{
+		SnapshotID:   "snap-fs",
+		Backend:      constants.SnapshotBackendS3,
+		RemoteStatus: constants.RemoteStatusReady,
+		OriginNodeID: "node-a",
+		InstanceType: "cubebox-kvm",
+		Kind:         FilesystemColdBoot,
+	})
+	if err != nil {
+		t.Fatalf("Decide: %v", err)
+	}
+	if !got.CrossNode || got.NodeID != "node-b" {
+		t.Fatalf("want cross-node node-b, got %+v", got)
+	}
+}
+
 func TestDecideMemoryRestoreStillRequiresHostFacts(t *testing.T) {
 	resetPlacementSeams(t)
 	origin := &node.Node{InsID: "node-a", IP: "10.0.0.1", Healthy: false}

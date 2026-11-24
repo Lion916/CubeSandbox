@@ -222,6 +222,30 @@ func TestPrepareTemplateCommitRequestUsesExplicitOverride(t *testing.T) {
 	}
 }
 
+func TestPrepareTemplateCommitRequestInheritsSandboxInstanceType(t *testing.T) {
+	origLoad := loadSandboxCreateRequestFn
+	defer func() { loadSandboxCreateRequestFn = origLoad }()
+
+	loadSandboxCreateRequestFn = func(context.Context, string) (*types.CreateCubeSandboxReq, error) {
+		return &types.CreateCubeSandboxReq{
+			InstanceType: "cubebox-kvm",
+			Annotations:  map[string]string{},
+			Labels:       map[string]string{},
+		}, nil
+	}
+
+	// A commit override normally omits instance_type; it must not drop the
+	// sandbox's pool and register the template under the default one.
+	override := &types.CreateCubeSandboxReq{Annotations: map[string]string{}, Labels: map[string]string{}}
+	got, err := prepareTemplateCommitRequest(context.Background(), "req-1", "sb-1", "tpl-new", override)
+	if err != nil {
+		t.Fatalf("prepareTemplateCommitRequest: %v", err)
+	}
+	if got.InstanceType != "cubebox-kvm" {
+		t.Fatalf("instance type=%q, want cubebox-kvm", got.InstanceType)
+	}
+}
+
 func TestPrepareTemplateCommitRequestInheritsTemplateManagedQos(t *testing.T) {
 	origLoad := loadSandboxCreateRequestFn
 	defer func() { loadSandboxCreateRequestFn = origLoad }()

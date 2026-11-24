@@ -170,6 +170,14 @@ func Decide(ctx context.Context, in Input) (*Placement, error) {
 		if !scopeAllows(c.NodeID, c.NodeIP, in.RequestedScope) {
 			continue
 		}
+		// Instance type is a hard pool partition. The candidate came from host
+		// facts (memory restore) which know nothing about pools, so drop nodes
+		// outside the sandbox's pool before they enter the scope: otherwise a
+		// pre-existing snapshot could be restored onto a dedicated node (or a
+		// cubebox-kvm snapshot onto a node without nested KVM support).
+		if n := lookupNodeFn(c.NodeID, c.NodeIP); n != nil && !nodeServesInstanceType(n, in.InstanceType) {
+			continue
+		}
 		for _, key := range []string{c.NodeID, c.NodeIP} {
 			key = strings.TrimSpace(key)
 			if key == "" {
@@ -212,6 +220,9 @@ func originSchedulable(ctx context.Context, origin *node.Node, in Input) bool {
 		return false
 	}
 	if !origin.Healthy || !origin.SchedulingAllowed() {
+		return false
+	}
+	if !nodeServesInstanceType(origin, in.InstanceType) {
 		return false
 	}
 	scope := []string{origin.ID()}
@@ -352,6 +363,24 @@ func parseOriginHostFacts(raw string) *nodemeta.HostFacts {
 		return nil
 	}
 	return &facts
+}
+
+// nodeServesInstanceType reports whether n belongs to the pool the restore is
+// pinned to. A node without a recorded instance type does not filter, matching
+// the scheduler fallback for inventories that predate pool labels.
+func nodeServesInstanceType(n *node.Node, instanceType string) bool {
+	if n == nil {
+		return false
+	}
+	want := strings.TrimSpace(instanceType)
+	if want == "" {
+		return true
+	}
+	got := strings.TrimSpace(n.InstanceType)
+	if got == "" {
+		return true
+	}
+	return strings.EqualFold(got, want)
 }
 
 func nodeInRequestedScope(n *node.Node, scope []string) bool {

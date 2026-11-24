@@ -319,3 +319,23 @@ func TestResumeWithoutBindingFindsSandboxResumedOnAnotherNode(t *testing.T) {
 	require.Equal(t, []string{"10.0.0.1", "10.0.0.2"}, probed)
 	require.Equal(t, "10.0.0.2", localcache.GetSandboxCache(sandboxID).HostIP)
 }
+
+func TestEffectiveSandboxInstanceType(t *testing.T) {
+	t.Parallel()
+	for _, tc := range []struct {
+		name      string
+		requested string
+		spec      string
+		record    string
+		want      string
+	}{
+		{"spec wins over request default", "cubebox", "cubebox-kvm", "", "cubebox-kvm"},
+		{"spec wins over record", "cubebox", "cubebox-kvm", "cubebox", "cubebox-kvm"},
+		{"record used when spec missing", "cubebox", "", "cubebox-kvm", "cubebox-kvm"},
+		{"request used for legacy state", "cubebox-kvm", "", "", "cubebox-kvm"},
+		{"default when nothing known", "", "  ", "", "cubebox"},
+		{"spec whitespace ignored", "cubebox", "  ", "cubebox-kvm", "cubebox-kvm"},
+	} {
+		require.Equal(t, tc.want, effectiveSandboxInstanceType(tc.requested, tc.spec, tc.record), tc.name)
+	}
+}

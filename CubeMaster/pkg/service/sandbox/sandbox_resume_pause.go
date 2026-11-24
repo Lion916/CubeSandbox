@@ -75,6 +75,11 @@ func pauseSandbox(ctx context.Context, req *types.UpdateRequest, hostIP string) 
 	var fields webhook.LifecycleFields
 	if spec, specErr := sandboxspec.Get(ctx, req.SandboxID); specErr == nil && spec != nil {
 		req.Backend = spec.Backend
+		// The sandbox spec is authoritative for the instance type: the pause
+		// record and the follow-up resume placement must stay inside the pool
+		// the sandbox was created in, not whatever the update request defaulted
+		// to (cubebox).
+		req.InstanceType = effectiveSandboxInstanceType(req.InstanceType, spec.InstanceType, "")
 		if lifecyclePublisher.Enabled() {
 			template, fields = webhook.PrepareLifecycle(spec)
 		}
@@ -458,15 +463,16 @@ func resumeFromPauseSnapshot(ctx context.Context, req *types.UpdateRequest, host
 		return rsp
 	}
 
-	instanceType := strings.TrimSpace(req.InstanceType)
-	if instanceType == "" {
-		instanceType = rec.InstanceType
-	}
-	if instanceType == "" {
-		instanceType = cubebox.InstanceType_cubebox.String()
-	}
-
+	// The persisted sandbox spec is authoritative for the instance type, so a
+	// resume cannot silently move a sandbox (and its snapshot) into the default
+	// ``cubebox`` pool that this update request would otherwise fall back to.
+	// The pause record is only a fallback for specs predating the field.
 	createReq := loadResumeSandboxSpec(ctx, req.SandboxID)
+	specInstanceType := ""
+	if createReq != nil {
+		specInstanceType = createReq.InstanceType
+	}
+	instanceType := effectiveSandboxInstanceType(req.InstanceType, specInstanceType, rec.InstanceType)
 	placement, err := resumePlacement(ctx, rec, instanceType, createReq)
 	if err != nil {
 		rsp.Ret.RetCode = int(errorcode.ErrorCode_SelectNodesFailed)
@@ -660,6 +666,24 @@ var cleanupPausePackageAfterResume = func(ctx context.Context, requestID, sandbo
 				sandboxID, snapshotID, nodeIP, err)
 		}
 	}()
+}
+
+// effectiveSandboxInstanceType resolves the instance type a pause/resume must
+// use. Instance type is a hard scheduling partition (for example the dedicated
+// cubebox-kvm pool), so it must follow the state persisted for the sandbox
+// rather than the value the caller happened to send: HTTP update handlers
+// default InstanceType to cubebox and would otherwise drag a KVM sandbox (and
+// its snapshot) back into the standard pool on resume.
+//
+// Precedence: sandbox spec (authoritative), pause record, requested value,
+// then the cubebox default.
+func effectiveSandboxInstanceType(requested, spec, record string) string {
+	for _, candidate := range []string{spec, record, requested} {
+		if v := strings.TrimSpace(candidate); v != "" {
+			return v
+		}
+	}
+	return cubebox.InstanceType_cubebox.String()
 }
 
 // loadResumeSandboxSpec is the single sandboxspec.Get on the Resume path.

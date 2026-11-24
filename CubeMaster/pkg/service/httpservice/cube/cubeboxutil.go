@@ -490,6 +490,34 @@ func handleColdStartCompatibility(reqInOut *types.CreateCubeSandboxReq) error {
 	return nil
 }
 
+// inheritTemplateInstanceType keeps a template-based create in the template's
+// pool. Instance type is a hard scheduling partition (a dedicated cubebox-kvm
+// pool uses a different guest kernel), and Master's create DTO defaults the
+// field to cubebox, so without this a caller that omits instance_type would
+// silently pull a KVM template into the standard pool.
+//
+// An explicit client choice is honoured but must match the template when the
+// template records one; otherwise placement, template locality and snapshot
+// restore would all target the wrong pool.
+func inheritTemplateInstanceType(reqInOut, templateReq *types.CreateCubeSandboxReq) error {
+	if reqInOut == nil || templateReq == nil {
+		return nil
+	}
+	want := strings.TrimSpace(templateReq.InstanceType)
+	if want == "" {
+		return nil
+	}
+	got := strings.TrimSpace(reqInOut.InstanceType)
+	if reqInOut.InstanceTypeExplicit() && got != "" && !strings.EqualFold(got, want) {
+		return fmt.Errorf("template belongs to instance type %q, not %q", want, got)
+	}
+	reqInOut.InstanceType = want
+	if reqInOut.Labels != nil {
+		reqInOut.Labels[constants.CubeAnnotationsInsType] = want
+	}
+	return nil
+}
+
 //go:noinline
 func dealCubeboxCreateReqWithTemplateCenter(ctx context.Context, templateID string, reqInOut *types.CreateCubeSandboxReq) (err error) {
 	start := time.Now()
@@ -509,6 +537,9 @@ func dealCubeboxCreateReqWithTemplateCenter(ctx context.Context, templateID stri
 		return fmt.Errorf("failed to get template param from store: %w", err)
 	}
 	constants.NormalizeAppSnapshotAnnotations(templateReq.Annotations)
+	if err := inheritTemplateInstanceType(reqInOut, templateReq); err != nil {
+		return err
+	}
 	stageStart = time.Now()
 	kindCtx, kindSpan := telemetry.Start(ctx, telemetry.SpanTemplateKind,
 		trace.WithAttributes(attribute.String(telemetry.AttrTemplateID, templateID)))

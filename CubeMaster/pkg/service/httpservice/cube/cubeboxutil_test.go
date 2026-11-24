@@ -7,8 +7,53 @@ package cube
 import (
 	"testing"
 
+	"github.com/tencentcloud/CubeSandbox/CubeMaster/pkg/base/constants"
 	"github.com/tencentcloud/CubeSandbox/CubeMaster/pkg/service/sandbox/types"
 )
+
+func TestInheritTemplateInstanceType(t *testing.T) {
+	t.Parallel()
+	for _, tc := range []struct {
+		name     string
+		reqType  string
+		explicit bool
+		template string
+		want     string
+		wantErr  bool
+	}{
+		{"default follows template", "cubebox", false, "cubebox-kvm", "cubebox-kvm", false},
+		{"explicit same pool kept", "cubebox-kvm", true, "cubebox-kvm", "cubebox-kvm", false},
+		{"explicit other pool rejected", "cubebox", true, "cubebox-kvm", "cubebox", true},
+		{"legacy template leaves request alone", "cubebox", false, "", "cubebox", false},
+	} {
+		req := &types.CreateCubeSandboxReq{
+			InstanceType: tc.reqType,
+			Labels:       map[string]string{},
+		}
+		if tc.explicit {
+			req.MarkInstanceTypeExplicit()
+		}
+		tpl := &types.CreateCubeSandboxReq{InstanceType: tc.template}
+		err := inheritTemplateInstanceType(req, tpl)
+		if tc.wantErr {
+			if err == nil {
+				t.Fatalf("%s: expected error", tc.name)
+			}
+			continue
+		}
+		if err != nil {
+			t.Fatalf("%s: unexpected error %v", tc.name, err)
+		}
+		if req.InstanceType != tc.want {
+			t.Fatalf("%s: instance type=%q, want %q", tc.name, req.InstanceType, tc.want)
+		}
+		if tc.template != "" {
+			if got := req.Labels[constants.CubeAnnotationsInsType]; got != tc.want {
+				t.Fatalf("%s: label=%q, want %q", tc.name, got, tc.want)
+			}
+		}
+	}
+}
 
 func TestMergeEgressRulesPrependsRequestRulesAndKeepsSameNamedTemplateRules(t *testing.T) {
 	templateRules := []*types.EgressRule{

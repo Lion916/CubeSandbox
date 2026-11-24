@@ -230,12 +230,12 @@ func constructCreateReq(r *http.Request) (*types.CreateCubeSandboxReq, error) {
 	// any client-supplied value so metadata cannot spoof create/get_info/list.
 	delete(req.Labels, constants.CubeAnnotationAppSnapshotTemplateAlias)
 	constants.NormalizeAppSnapshotAnnotations(req.Annotations)
-	if req.InstanceType == "" {
-		if req.Annotations[constants.CubeAnnotationAppSnapshotTemplateID] != "" {
-			req.InstanceType = cubebox.InstanceType_cubebox.String()
-		} else {
-			req.InstanceType = cubebox.InstanceType_cubebox.String()
-		}
+	if strings.TrimSpace(req.InstanceType) != "" {
+		// Keep the client's choice distinguishable from the default so a
+		// template create can inherit the template's pool.
+		req.MarkInstanceTypeExplicit()
+	} else {
+		req.InstanceType = cubebox.InstanceType_cubebox.String()
 	}
 	if req.NetworkType == "" {
 		req.NetworkType = cubebox.NetworkType_tap.String()
