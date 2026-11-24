@@ -124,7 +124,7 @@ inventory_kernel_content_variants() {
 
   [[ -d "${src}" ]] || fail "kernel image bypass missing: ${src}"
 
-  for variant in bm pvm; do
+  for variant in bm pvm kvm; do
     file="${src}/vmlinux-${variant}"
     [[ -f "${file}" ]] || continue
     digest="$(file_sha256_hex "${file}")" || fail "cannot hash ${file}"
@@ -151,8 +151,8 @@ inventory_kernel_content_variants() {
     mv "${tmp}" "${dst}"
     log "inventory kernel ${variant} -> ${dst}"
   done
-  if [[ ! -f "${src}/vmlinux-bm" && ! -f "${src}/vmlinux-pvm" ]]; then
-    fail "cube-kernel inventory requires vmlinux-bm and/or vmlinux-pvm under ${src}"
+  if [[ ! -f "${src}/vmlinux-bm" && ! -f "${src}/vmlinux-pvm" && ! -f "${src}/vmlinux-kvm" ]]; then
+    fail "cube-kernel inventory requires vmlinux-bm and/or vmlinux-pvm/vmlinux-kvm under ${src}"
   fi
 }
 
@@ -348,14 +348,14 @@ atomic_replace_dir() {
   fail "cannot replace ${dst} (rename-aside failed)"
 }
 
-# Return vmlinux-bm|vmlinux-pvm from a symlink path, or empty.
+# Return vmlinux-bm|vmlinux-pvm|vmlinux-kvm from a symlink path, or empty.
 kernel_symlink_target() {
   local link="$1"
   local base
   [[ -L "${link}" ]] || return 0
   base="$(basename "$(readlink "${link}")")"
   case "${base}" in
-    vmlinux-bm|vmlinux-pvm) printf '%s\n' "${base}" ;;
+    vmlinux-bm|vmlinux-pvm|vmlinux-kvm) printf '%s\n' "${base}" ;;
   esac
 }
 
@@ -420,7 +420,7 @@ stage_component() {
       ln -sf "${dst}/bin/cube-runtime" /usr/local/bin/cube-runtime
       ;;
     cube-kernel)
-      [[ -e "${dst}/vmlinux-bm" || -e "${dst}/vmlinux-pvm" || -e "${dst}/vmlinux" ]] \
+      [[ -e "${dst}/vmlinux-bm" || -e "${dst}/vmlinux-pvm" || -e "${dst}/vmlinux-kvm" || -e "${dst}/vmlinux" ]] \
         || fail "missing guest kernel files under ${dst}"
       apply_effective_pvm_from_state
       select_guest_kernel "${preserved_kernel}"
@@ -468,7 +468,9 @@ kernel_version_json_needs_digest_rewrite() {
   local json="${dst}/version.json"
   local collapsed=""
 
-  [[ -f "${dst}/vmlinux-bm" || -f "${dst}/vmlinux-pvm" ]] || return 1
+  if [[ ! -f "${dst}/vmlinux-bm" && ! -f "${dst}/vmlinux-pvm" && ! -f "${dst}/vmlinux-kvm" ]]; then
+    return 1
+  fi
   if [[ ! -f "${json}" ]]; then
     return 0
   fi
@@ -481,13 +483,17 @@ kernel_version_json_needs_digest_rewrite() {
     printf '%s' "${collapsed}" | grep -Eq '"pvm"[[:space:]]*:[[:space:]]*\{[^}]*"digest_sha256"[[:space:]]*:[[:space:]]*"sha256:[0-9a-f]{64}"' \
       || return 0
   fi
+  if [[ -f "${dst}/vmlinux-kvm" ]]; then
+    printf '%s' "${collapsed}" | grep -Eq '"kvm"[[:space:]]*:[[:space:]]*\{[^}]*"digest_sha256"[[:space:]]*:[[:space:]]*"sha256:[0-9a-f]{64}"' \
+      || return 0
+  fi
   return 1
 }
 
 write_kernel_version_json_from_content() {
   local dst="$1"
   local json="${dst}/version.json"
-  local bm_digest pvm_digest bm_short pvm_short first=1
+  local bm_digest pvm_digest kvm_digest bm_short pvm_short kvm_short first=1
 
   {
     printf '{\n  "schema_version": 1,\n  "variants": {\n'
@@ -508,6 +514,16 @@ write_kernel_version_json_from_content() {
         [[ "${first}" == "1" ]] || printf ','
         printf '\n    "pvm": {"version": "%s", "digest_sha256": "sha256:%s"}' \
           "$(json_escape "${pvm_short}")" "$(json_escape "${pvm_digest}")"
+        first=0
+      fi
+    fi
+    if [[ -f "${dst}/vmlinux-kvm" ]]; then
+      kvm_digest="$(file_sha256_hex "${dst}/vmlinux-kvm")" || true
+      if [[ -n "${kvm_digest}" ]]; then
+        kvm_short="sha256-${kvm_digest:0:12}"
+        [[ "${first}" == "1" ]] || printf ','
+        printf '\n    "kvm": {"version": "%s", "digest_sha256": "sha256:%s"}' \
+          "$(json_escape "${kvm_short}")" "$(json_escape "${kvm_digest}")"
       fi
     fi
     printf '\n  }\n}\n'
@@ -875,14 +891,21 @@ patch_mvm_mtu() {
 }
 
 # select_guest_kernel [preserved_target]
-# preserved_target is vmlinux-bm|vmlinux-pvm captured before whole-tree replace.
+# preserved_target is vmlinux-bm|vmlinux-pvm|vmlinux-kvm captured before
+# whole-tree replace.
 select_guest_kernel() {
   local preserved="${1:-}"
   local dir="${TOOLBOX_ROOT}/cube-kernel-scf"
   local target=""
   local state_dir="${STATE_DIR:-/var/lib/cube-node-bootstrap}"
-  # 1) bootstrap effective-pvm wins
-  if [[ -f "${state_dir}/effective-pvm" ]]; then
+  # 1) bootstrap effective-kvm/effective-pvm wins (the two are mutually exclusive)
+  if [[ -f "${state_dir}/effective-kvm" ]]; then
+    case "$(tr -d '[:space:]' < "${state_dir}/effective-kvm" 2>/dev/null || true)" in
+      1) target="vmlinux-kvm" ;;
+      0) target="vmlinux-bm" ;;
+    esac
+  fi
+  if [[ -z "${target}" && -f "${state_dir}/effective-pvm" ]]; then
     case "$(tr -d '[:space:]' < "${state_dir}/effective-pvm" 2>/dev/null || true)" in
       1) target="vmlinux-pvm" ;;
       0) target="vmlinux-bm" ;;
@@ -891,10 +914,16 @@ select_guest_kernel() {
   # 2) else restore pre-replace / on-disk selection (node history; beats Chart env)
   if [[ -z "${target}" ]]; then
     case "${preserved}" in
-      vmlinux-bm|vmlinux-pvm) target="${preserved}" ;;
+      vmlinux-bm|vmlinux-pvm|vmlinux-kvm) target="${preserved}" ;;
     esac
   fi
-  # 3) else honor CUBE_PVM_ENABLE when explicitly set (first install / Chart intent)
+  # 3) else honor CUBE_KVM_ENABLE / CUBE_PVM_ENABLE when explicitly set
+  if [[ -z "${target}" && -n "${CUBE_KVM_ENABLE+x}" ]]; then
+    case "${CUBE_KVM_ENABLE}" in
+      1|true|TRUE|yes|YES) target="vmlinux-kvm" ;;
+      0|false|FALSE|no|NO) target="vmlinux-bm" ;;
+    esac
+  fi
   if [[ -z "${target}" && -n "${CUBE_PVM_ENABLE+x}" ]]; then
     case "${CUBE_PVM_ENABLE}" in
       1|true|TRUE|yes|YES) target="vmlinux-pvm" ;;

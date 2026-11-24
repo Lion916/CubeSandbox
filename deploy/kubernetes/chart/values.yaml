@@ -862,6 +862,13 @@ cubeNode:
   pvmGuestKernel:
     enabled: true
 
+  # Opt-in nested-KVM guest kernel variant (x86_64 only). Requires the
+  # cube-kernel image to carry vmlinux-kvm (kernel releases >= the KVM variant).
+  # Mutually exclusive with pvmGuestKernel.enabled; intended for dedicated
+  # node pools that expose host nested virtualization.
+  kvmGuestKernel:
+    enabled: false
+
   network:
     # Auto-detect the primary NIC in the Pod's netns (the host's with
     # hostNetwork) and patch Cubelet eth_name.

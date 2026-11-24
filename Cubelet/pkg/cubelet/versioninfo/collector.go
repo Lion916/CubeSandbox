@@ -15,7 +15,7 @@
 //  4. release-manifest.json for remaining installed binary components / kernel.
 //
 // Kernel identity prefers bootstrap-state/vmlinux-active, then the artifact
-// vmlinux symlink, and reports only the active bm|pvm variant.
+// vmlinux symlink, and reports only the active bm|pvm|kvm variant.
 //
 // Collection never blocks register/heartbeat: missing sources degrade gracefully.
 package versioninfo
@@ -409,6 +409,8 @@ func kernelVariantFromVmlinuxBase(base string) string {
 	switch base {
 	case "vmlinux-pvm":
 		return "pvm"
+	case "vmlinux-kvm":
+		return "kvm"
 	case "vmlinux-bm":
 		return "bm"
 	}

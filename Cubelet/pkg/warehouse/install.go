@@ -115,7 +115,8 @@ func validateTree(dir, name string) error {
 	case templatetypes.CubeComponentCubeKernel:
 		if !regularFile(filepath.Join(dir, "vmlinux")) &&
 			!regularFile(filepath.Join(dir, "vmlinux-bm")) &&
-			!regularFile(filepath.Join(dir, "vmlinux-pvm")) {
+			!regularFile(filepath.Join(dir, "vmlinux-pvm")) &&
+			!regularFile(filepath.Join(dir, "vmlinux-kvm")) {
 			return fmt.Errorf("missing vmlinux")
 		}
 	default:

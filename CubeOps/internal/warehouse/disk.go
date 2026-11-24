@@ -64,7 +64,8 @@ func ValidateInstalledTree(dir, component string) error {
 	case ComponentKernel:
 		if !fileExists(filepath.Join(dir, "vmlinux")) &&
 			!fileExists(filepath.Join(dir, "vmlinux-bm")) &&
-			!fileExists(filepath.Join(dir, "vmlinux-pvm")) {
+			!fileExists(filepath.Join(dir, "vmlinux-pvm")) &&
+			!fileExists(filepath.Join(dir, "vmlinux-kvm")) {
 			return fmt.Errorf("missing vmlinux")
 		}
 	default:

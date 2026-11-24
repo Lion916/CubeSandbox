@@ -89,6 +89,8 @@ spec:
               value: {{ ternary "1" "0" .Values.bootstrap.pvmHostKernel.enabled | quote }}
             - name: CUBE_PVM_ENABLE
               value: {{ ternary "1" "0" .Values.cubeNode.pvmGuestKernel.enabled | quote }}
+            - name: CUBE_KVM_ENABLE
+              value: {{ ternary "1" "0" .Values.cubeNode.kvmGuestKernel.enabled | quote }}
             - name: ALLOW_PVM_LABEL
               value: cube.tencent.com/allow-pvm-bootstrap
             - name: DESIRED_KERNEL_PATTERN
@@ -163,6 +165,8 @@ spec:
               value: {{ .Values.bootstrap.nodeInit.checkCubecowDeps | quote }}
             - name: CUBE_PVM_ENABLE
               value: {{ ternary "1" "0" .Values.cubeNode.pvmGuestKernel.enabled | quote }}
+            - name: CUBE_KVM_ENABLE
+              value: {{ ternary "1" "0" .Values.cubeNode.kvmGuestKernel.enabled | quote }}
             - name: CUBE_SANDBOX_NETWORK_CIDR
               value: {{ .Values.cubeNode.network.cidr | quote }}
             - name: CUBE_SANDBOX_NETWORK_CIDR_SKIP_CONFLICT_CHECK

@@ -44,7 +44,7 @@ Processes / components checked:
                          cube-sandbox-redis  session state, port 6379
                          cube-sandbox-mysql  metadata DB, port 3306
                          cube-sandbox-minio  S3 volume backend, port 9000
-  cube-kernel          vmlinux / vmlinux-pvm kernel image files;
+  cube-kernel          vmlinux / vmlinux-pvm / vmlinux-kvm kernel image files;
                        PVM variant checked against host environment
 
 Options:
@@ -435,6 +435,15 @@ check_cube_kernel() {
     else
       warn "cube_kernel_vmlinux_pvm" "${kernel_dir}/vmlinux-pvm not found (only needed on PVM hosts)"
     fi
+  fi
+
+  # Check the optional nested-KVM variant (x86_64 only).
+  if [[ -f "${kernel_dir}/vmlinux-kvm" ]]; then
+    local sz; sz="$(du -sh "${kernel_dir}/vmlinux-kvm" 2>/dev/null | cut -f1)"
+    pass "cube_kernel_vmlinux_kvm" "${kernel_dir}/vmlinux-kvm (${sz})"
+  elif [[ "$(uname -m)" == "x86_64" ]]; then
+    warn "cube_kernel_vmlinux_kvm" \
+      "${kernel_dir}/vmlinux-kvm not found — required for CUBE_KVM_ENABLE=1 (nested KVM sandboxes)"
   fi
 }
 

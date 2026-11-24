@@ -363,6 +363,15 @@ case "${CUBE_PVM_ENABLE}" in
   *) die "unsupported CUBE_PVM_ENABLE: ${CUBE_PVM_ENABLE} (expected 0 or 1)" ;;
 esac
 
+CUBE_KVM_ENABLE="${CUBE_KVM_ENABLE:-0}"
+case "${CUBE_KVM_ENABLE}" in
+  0|1) ;;
+  *) die "unsupported CUBE_KVM_ENABLE: ${CUBE_KVM_ENABLE} (expected 0 or 1)" ;;
+esac
+if [[ "${CUBE_KVM_ENABLE}" == "1" && "${CUBE_PVM_ENABLE}" == "1" ]]; then
+  die "CUBE_KVM_ENABLE=1 and CUBE_PVM_ENABLE=1 are mutually exclusive: PVM hosts do not expose nested VMX/SVM."
+fi
+
 print_path_hint() {
   {
     echo
@@ -1106,6 +1115,41 @@ See: https://cubesandbox.com/guide/pvm-deploy.html"
   esac
 }
 
+# Preflight for CUBE_KVM_ENABLE=1: the guest kernel variant only makes sense
+# when this host can expose nested VMX/SVM to the microVM.
+check_kvm_variant_preflight() {
+  [[ "${CUBE_KVM_ENABLE}" == "1" ]] || return 0
+
+  if [[ "$(uname -m)" != "x86_64" ]]; then
+    die "CUBE_KVM_ENABLE=1 is only supported on x86_64 (nested-KVM guest kernel)."
+  fi
+  if lsmod 2>/dev/null | grep -qE '^kvm_pvm[[:space:]]'; then
+    die "CUBE_KVM_ENABLE=1 is not supported on PVM hosts (kvm_pvm loaded): nested virtualization is unavailable."
+  fi
+  if [[ ! -e /dev/kvm ]]; then
+    die "CUBE_KVM_ENABLE=1 requires /dev/kvm on the host (enable VT-x/AMD-V and load kvm_intel/kvm_amd)."
+  fi
+  if ! grep -qE ' (vmx|svm)( |$)' /proc/cpuinfo 2>/dev/null; then
+    die "CUBE_KVM_ENABLE=1 requires a CPU with VT-x (vmx) or AMD-V (svm) exposed to this host."
+  fi
+
+  local nested=""
+  if [[ -r /sys/module/kvm_intel/parameters/nested ]]; then
+    nested="$(tr -d '[:space:]' < /sys/module/kvm_intel/parameters/nested)"
+  elif [[ -r /sys/module/kvm_amd/parameters/nested ]]; then
+    nested="$(tr -d '[:space:]' < /sys/module/kvm_amd/parameters/nested)"
+  fi
+  case "${nested}" in
+    Y|y|1|on) ;;
+    "")
+      log "WARNING: cannot read the kvm nested module parameter; ensure the host has nested virtualization enabled (kvm-intel.nested=1 / kvm-amd.nested=1)."
+      ;;
+    *)
+      die "CUBE_KVM_ENABLE=1 requires host nested virtualization: add 'kvm-intel.nested=1' (or 'kvm-amd.nested=1') to the host kernel command line and reboot (current=${nested})."
+      ;;
+  esac
+}
+
 check_cubelet_fs_preflight() {
   local cubelet_dir="/data/cubelet"
 
@@ -1261,21 +1305,30 @@ select_installed_kernel_vmlinux() {
   if [[ "${CUBE_PVM_ENABLE}" == "1" ]]; then
     target="vmlinux-pvm"
   fi
+  if [[ "${CUBE_KVM_ENABLE}" == "1" ]]; then
+    target="vmlinux-kvm"
+  fi
 
   ensure_file "${kernel_dir}/${target}"
   ln -sfn "${target}" "${kernel_dir}/vmlinux"
-  if [[ "${target}" == "vmlinux-pvm" ]]; then
-    log "CUBE_PVM_ENABLE=1, selected PVM guest kernel: ${kernel_dir}/vmlinux -> ${target}"
-  else
-    log "selected ordinary guest kernel: ${kernel_dir}/vmlinux -> ${target}"
-  fi
+  case "${target}" in
+    vmlinux-pvm)
+      log "CUBE_PVM_ENABLE=1, selected PVM guest kernel: ${kernel_dir}/vmlinux -> ${target}"
+      ;;
+    vmlinux-kvm)
+      log "CUBE_KVM_ENABLE=1, selected nested-KVM guest kernel: ${kernel_dir}/vmlinux -> ${target}"
+      ;;
+    *)
+      log "selected ordinary guest kernel: ${kernel_dir}/vmlinux -> ${target}"
+      ;;
+  esac
 }
 
 # component_versions root.
 COMPONENT_VERSIONS_ROOT="${COMPONENT_VERSIONS_ROOT:-/data/cubelet/root/component_versions}"
 
 # Inventory each present kernel variant by content short-hash.
-# Layout: vmlinux-bm|pvm, vmlinux symlink, variant, version=sha256:<64>.
+# Layout: vmlinux-bm|pvm|kvm, vmlinux symlink, variant, version=sha256:<64>.
 inventory_kernel_content_variants() {
   local src_dir="$1"
   local name="cube-kernel-scf"
@@ -1283,7 +1336,7 @@ inventory_kernel_content_variants() {
 
   [[ -d "${src_dir}" ]] || return 0
 
-  for variant in bm pvm; do
+  for variant in bm pvm kvm; do
     file="${src_dir}/vmlinux-${variant}"
     [[ -f "${file}" ]] || continue
     digest="$(file_sha256_hex "${file}")" || die "cannot hash ${file}"
@@ -1871,6 +1924,7 @@ mask_external_dep_services() {
 # to ensure we fail fast before installing or modifying any local system packages.
 check_hardware_preflight
 check_pvm_consistency_preflight
+check_kvm_variant_preflight
 check_cubelet_fs_preflight
 check_cgroup_cpu_preflight
 check_bpf_fs_preflight
@@ -2354,6 +2408,7 @@ elif [[ -f "${SCRIPT_DIR}/release-manifest.json" ]]; then
 fi
 upsert_env_kv "${RUNTIME_ENV_FILE}" "ONE_CLICK_DEPLOY_ROLE" "${DEPLOY_ROLE}"
 upsert_env_kv "${RUNTIME_ENV_FILE}" "CUBE_PVM_ENABLE" "${CUBE_PVM_ENABLE}"
+upsert_env_kv "${RUNTIME_ENV_FILE}" "CUBE_KVM_ENABLE" "${CUBE_KVM_ENABLE}"
 upsert_env_kv "${RUNTIME_ENV_FILE}" "OTEL_EXPORTER_OTLP_ENDPOINT" "${OTEL_EXPORTER_OTLP_ENDPOINT:-}"
 upsert_env_kv "${RUNTIME_ENV_FILE}" "OTEL_EXPORTER_OTLP_TRACES_ENDPOINT" "${OTEL_EXPORTER_OTLP_TRACES_ENDPOINT:-}"
 MIRROR="${MIRROR:-}"

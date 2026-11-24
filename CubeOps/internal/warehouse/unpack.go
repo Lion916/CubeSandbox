@@ -235,7 +235,7 @@ func readVersionFile(path string) string {
 
 func inventoryKernelVariants(src, staging string) ([]ExtractedComponent, error) {
 	var out []ExtractedComponent
-	for _, variant := range []string{"bm", "pvm"} {
+	for _, variant := range []string{"bm", "pvm", "kvm"} {
 		file := filepath.Join(src, "vmlinux-"+variant)
 		if !fileExists(file) {
 			continue
@@ -270,7 +270,7 @@ func inventoryKernelVariants(src, staging string) ([]ExtractedComponent, error) 
 		out = append(out, ExtractedComponent{Component: ComponentKernel, Version: ver, Dir: dst})
 	}
 	if len(out) == 0 {
-		return nil, fmt.Errorf("cube-kernel-scf has neither vmlinux-bm nor vmlinux-pvm")
+		return nil, fmt.Errorf("cube-kernel-scf has none of vmlinux-bm, vmlinux-pvm or vmlinux-kvm")
 	}
 	return out, nil
 }

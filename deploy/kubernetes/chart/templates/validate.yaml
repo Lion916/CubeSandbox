@@ -143,6 +143,9 @@ away from CubeMaster means one of the two Pods cannot attach the volume.
 {{- if and .Values.bootstrap.pvmHostKernel.enabled (not .Values.cubeNode.pvmGuestKernel.enabled) }}
 {{- fail "bootstrap.pvmHostKernel.enabled=true requires cubeNode.pvmGuestKernel.enabled=true to match one-click CUBE_PVM_ENABLE consistency" }}
 {{- end }}
+{{- if and .Values.cubeNode.pvmGuestKernel.enabled .Values.cubeNode.kvmGuestKernel.enabled }}
+{{- fail "cubeNode.pvmGuestKernel.enabled and cubeNode.kvmGuestKernel.enabled are mutually exclusive (PVM hosts do not expose nested VMX/SVM)" }}
+{{- end }}
 {{- end }}
 {{- if .Values.externalControlPlane.enabled }}
 {{- if not .Values.externalControlPlane.masterEndpoint }}
