@@ -1,0 +1,28 @@
+Makefile
+  s_74eec44bd651c1::t_5d76a520482718 650
+  s_74eec44bd651c1::t_86279f733cb792 45-47,51
+scripts/build-kernel.sh
+  s_74eec44bd651c1::t_96da9dc549a259 21
+.github/workflows/release-kernel.yml
+  s_74eec44bd651c1::t_36aa6471e5b27a 80
+docs/guide/nested-kvm.md
+  s_74eec44bd651c1::t_be0753f75efd1e 99-100
+docs/zh/guide/nested-kvm.md
+  s_74eec44bd651c1::t_d912295523d040 68
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.6.14",
+  "base_commit_sha": "9315c8a15cec40cb68c29de2c713bb7ebbea25b2",
+  "prompts": {},
+  "sessions": {
+    "s_74eec44bd651c1": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "b5016d14-7c65-486d-a992-d05e794ba876",
+        "model": "deepseek-v4.1-flash-1017"
+      },
+      "human_author": "wangshuai <ws13021151806@163.com>"
+    }
+  }
+}
