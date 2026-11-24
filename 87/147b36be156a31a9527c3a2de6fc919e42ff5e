@@ -1,0 +1,35 @@
+docs/zh/guide/nested-kvm.md
+  s_74eec44bd651c1::t_e78c88de849f56 1-67,69-110
+  s_74eec44bd651c1::t_d912295523d040 68
+.gitignore
+  s_74eec44bd651c1::t_3ea87dc120948c 80-82
+tests/e2e/nested_kvm/nested_kvm_e2e.py
+  s_74eec44bd651c1::t_960d43a44d94d8 31
+  s_74eec44bd651c1::t_22dfdec2ee1c18 39
+  s_74eec44bd651c1::t_03f23ad32545db 45,52,119
+  s_74eec44bd651c1::t_e0e0daa4e5e615 1-30,32-38,40-44,46-51,53-118,120-170
+docs/.vitepress/config.mjs
+  s_74eec44bd651c1::t_668da2ee314e55 433
+  s_74eec44bd651c1::t_3da111766789dd 184
+tests/e2e/nested_kvm/README.md
+  s_74eec44bd651c1::t_38e81270a0361e 1-51
+docs/guide/nested-kvm.md
+  s_74eec44bd651c1::t_be0753f75efd1e 99-100
+  s_74eec44bd651c1::t_185b8e1e27389a 1-98,101-161
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.6.14",
+  "base_commit_sha": "87147b36be156a31a9527c3a2de6fc919e42ff5e",
+  "prompts": {},
+  "sessions": {
+    "s_74eec44bd651c1": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "b5016d14-7c65-486d-a992-d05e794ba876",
+        "model": "deepseek-v4.1-flash-1017"
+      },
+      "human_author": "wangshuai <ws13021151806@163.com>"
+    }
+  }
+}
