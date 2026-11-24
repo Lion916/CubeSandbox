@@ -6,6 +6,7 @@
 # Build context must contain:
 #   artifacts/vmlinux-bm          # required
 #   artifacts/vmlinux-pvm         # required on amd64; optional on arm64 (no PVM guest)
+#   artifacts/vmlinux-kvm         # optional, amd64 only (nested-KVM guest kernel)
 #   scripts/component-entrypoint.sh
 #
 # Example:
@@ -37,6 +38,7 @@ COPY scripts/component-entrypoint.sh /usr/local/bin/component-entrypoint.sh
 ARG CUBE_VERSION=unknown
 ARG CUBE_KERNEL_BM_VERSION=
 ARG CUBE_KERNEL_PVM_VERSION=
+ARG CUBE_KERNEL_KVM_VERSION=
 RUN set -eux; \
     mkdir -p ${IMAGE_ROOT}/cube-kernel-scf; \
     test -f /tmp/kernel-artifacts/vmlinux-bm; \
@@ -50,9 +52,17 @@ RUN set -eux; \
       echo "vmlinux-pvm is required for TARGETARCH=${TARGETARCH:-amd64} cube-kernel images" >&2; \
       exit 1; \
     fi; \
+    if [ -f /tmp/kernel-artifacts/vmlinux-kvm ]; then \
+      if [ "${TARGETARCH}" != "amd64" ]; then \
+        echo "vmlinux-kvm is amd64-only, got TARGETARCH=${TARGETARCH}" >&2; \
+        exit 1; \
+      fi; \
+      cp /tmp/kernel-artifacts/vmlinux-kvm ${IMAGE_ROOT}/cube-kernel-scf/vmlinux-kvm; \
+    fi; \
     rm -rf /tmp/kernel-artifacts; \
     BM_TAG="${CUBE_KERNEL_BM_VERSION:-${CUBE_VERSION}}"; \
     PVM_TAG="${CUBE_KERNEL_PVM_VERSION:-${CUBE_VERSION}}"; \
+    KVM_TAG="${CUBE_KERNEL_KVM_VERSION:-${BM_TAG}}"; \
     BM_DIGEST="$(sha256sum -- ${IMAGE_ROOT}/cube-kernel-scf/vmlinux-bm | awk '{print $1}')"; \
     test -n "${BM_DIGEST}"; \
     BM_SHORT="sha256-$(printf '%s' "${BM_DIGEST}" | cut -c1-12)"; \
@@ -67,6 +77,13 @@ RUN set -eux; \
         PVM_SHORT="sha256-$(printf '%s' "${PVM_DIGEST}" | cut -c1-12)"; \
         printf ',\n    "pvm": {"version": "%s", "digest_sha256": "sha256:%s", "tag": "%s"}' \
           "${PVM_SHORT}" "${PVM_DIGEST}" "${PVM_TAG}"; \
+      fi; \
+      if [ -f ${IMAGE_ROOT}/cube-kernel-scf/vmlinux-kvm ]; then \
+        KVM_DIGEST="$(sha256sum -- ${IMAGE_ROOT}/cube-kernel-scf/vmlinux-kvm | awk '{print $1}')"; \
+        test -n "${KVM_DIGEST}"; \
+        KVM_SHORT="sha256-$(printf '%s' "${KVM_DIGEST}" | cut -c1-12)"; \
+        printf ',\n    "kvm": {"version": "%s", "digest_sha256": "sha256:%s", "tag": "%s"}' \
+          "${KVM_SHORT}" "${KVM_DIGEST}" "${KVM_TAG}"; \
       fi; \
       printf '\n  }\n}\n'; \
     } > ${IMAGE_ROOT}/cube-kernel-scf/version.json; \

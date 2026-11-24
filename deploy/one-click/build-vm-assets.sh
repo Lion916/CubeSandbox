@@ -24,6 +24,7 @@ RAW_ARTIFACTS_DIR="${SCRIPT_DIR}/assets/kernel-artifacts"
 
 CUBE_KERNEL_VMLINUX="${ONE_CLICK_CUBE_KERNEL_VMLINUX:-${RAW_ARTIFACTS_DIR}/vmlinux}"
 CUBE_KERNEL_PVM_VMLINUX="${ONE_CLICK_CUBE_KERNEL_PVM_VMLINUX:-${RAW_ARTIFACTS_DIR}/vmlinux-pvm}"
+CUBE_KERNEL_KVM_VMLINUX="${ONE_CLICK_CUBE_KERNEL_KVM_VMLINUX:-${RAW_ARTIFACTS_DIR}/vmlinux-kvm}"
 
 CUBE_SHIM_BUILD_MODE="${ONE_CLICK_CUBE_SHIM_BUILD_MODE:-local}"
 
@@ -141,6 +142,16 @@ else
   log "PVM kernel vmlinux not found; packaging ordinary kernel only"
 fi
 
+if [[ -f "${CUBE_KERNEL_KVM_VMLINUX}" ]]; then
+  log "copying KVM guest kernel vmlinux"
+  copy_file "${CUBE_KERNEL_KVM_VMLINUX}" "${RUNTIME_LAYOUT_DIR}/cube-kernel-scf/vmlinux-kvm"
+  ensure_file "${RUNTIME_LAYOUT_DIR}/cube-kernel-scf/vmlinux-kvm"
+elif [[ -n "${ONE_CLICK_CUBE_KERNEL_KVM_VMLINUX:-}" ]]; then
+  die "KVM kernel vmlinux file not found: ${CUBE_KERNEL_KVM_VMLINUX}"
+else
+  log "KVM guest kernel vmlinux not found; packaging without the kvm variant"
+fi
+
 # Kernel version.json: variants keyed by file digest.
 bm_digest="$(file_sha256_hex "${RUNTIME_LAYOUT_DIR}/cube-kernel-scf/vmlinux-bm")" \
   || die "cannot hash vmlinux-bm"
@@ -152,6 +163,13 @@ if [[ -f "${RUNTIME_LAYOUT_DIR}/cube-kernel-scf/vmlinux-pvm" ]]; then
     || die "cannot hash vmlinux-pvm"
   pvm_short="sha256-${pvm_digest:0:12}"
 fi
+kvm_digest=""
+kvm_short=""
+if [[ -f "${RUNTIME_LAYOUT_DIR}/cube-kernel-scf/vmlinux-kvm" ]]; then
+  kvm_digest="$(file_sha256_hex "${RUNTIME_LAYOUT_DIR}/cube-kernel-scf/vmlinux-kvm")" \
+    || die "cannot hash vmlinux-kvm"
+  kvm_short="sha256-${kvm_digest:0:12}"
+fi
 
 {
   printf '{\n  "schema_version": 1,\n  "variants": {\n'
@@ -159,10 +177,13 @@ fi
   if [[ -n "${pvm_digest}" ]]; then
     printf ',\n    "pvm": {"version": "%s", "digest_sha256": "sha256:%s"}' "${pvm_short}" "${pvm_digest}"
   fi
+  if [[ -n "${kvm_digest}" ]]; then
+    printf ',\n    "kvm": {"version": "%s", "digest_sha256": "sha256:%s"}' "${kvm_short}" "${kvm_digest}"
+  fi
   printf '\n  }\n}\n'
 } > "${RUNTIME_LAYOUT_DIR}/cube-kernel-scf/version.json"
 
 printf 'sha256:%s\n' "${bm_digest}" > "${RUNTIME_LAYOUT_DIR}/cube-kernel-scf/version"
-log "wrote cube-kernel-scf version.json (bm=${bm_short}${pvm_short:+ pvm=${pvm_short}})"
+log "wrote cube-kernel-scf version.json (bm=${bm_short}${pvm_short:+ pvm=${pvm_short}}${kvm_short:+ kvm=${kvm_short}})"
 
 log "runtime layout ready: ${RUNTIME_LAYOUT_DIR}"

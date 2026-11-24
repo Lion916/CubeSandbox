@@ -481,8 +481,9 @@ package_kernel_artifact_zip() {
   local src_vmlinux="$1"
   local output_zip="$2"
   local src_pvm_vmlinux="${3:-}"
+  local src_kvm_vmlinux="${4:-}"
   require_cmd python3
-  python3 - "${src_vmlinux}" "${output_zip}" "${src_pvm_vmlinux}" <<'PY'
+  python3 - "${src_vmlinux}" "${output_zip}" "${src_pvm_vmlinux}" "${src_kvm_vmlinux}" <<'PY'
 import os
 import sys
 import zipfile
@@ -490,6 +491,7 @@ import zipfile
 src_path = sys.argv[1]
 zip_path = sys.argv[2]
 pvm_src_path = sys.argv[3] if len(sys.argv) > 3 else ""
+kvm_src_path = sys.argv[4] if len(sys.argv) > 4 else ""
 
 os.makedirs(os.path.dirname(zip_path), exist_ok=True)
 with zipfile.ZipFile(zip_path, "w", compression=zipfile.ZIP_DEFLATED) as zf:
@@ -497,6 +499,8 @@ with zipfile.ZipFile(zip_path, "w", compression=zipfile.ZIP_DEFLATED) as zf:
     zf.write(src_path, arcname="vmlinux-bm")
     if pvm_src_path and os.path.isfile(pvm_src_path):
         zf.write(pvm_src_path, arcname="vmlinux-pvm")
+    if kvm_src_path and os.path.isfile(kvm_src_path):
+        zf.write(kvm_src_path, arcname="vmlinux-kvm")
 PY
 }
 
@@ -711,7 +715,8 @@ log "packaging fixed kernel artifact zip"
 package_kernel_artifact_zip \
   "${RUNTIME_LAYOUT_DIR}/cube-kernel-scf/vmlinux-bm" \
   "${KERNEL_ARTIFACT_ZIP}" \
-  "${RUNTIME_LAYOUT_DIR}/cube-kernel-scf/vmlinux-pvm"
+  "${RUNTIME_LAYOUT_DIR}/cube-kernel-scf/vmlinux-pvm" \
+  "${RUNTIME_LAYOUT_DIR}/cube-kernel-scf/vmlinux-kvm"
 
 rm -rf "${CORE_BIN_DIR}" "${PACKAGE_ROOT}" "${PACKAGE_TAR}" "${DIST_ROOT}" "${DIST_TAR}"
 mkdir -p "${CORE_BIN_DIR}"

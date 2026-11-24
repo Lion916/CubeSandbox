@@ -17,6 +17,9 @@
 #   KERNEL_OUTPUT_DIR   Out-of-tree build directory; image is written here.
 # Optional environment:
 #   KERNEL_TARGET_ARCH  x86_64 | aarch64 (default: host arch).
+#   KERNEL_FRAGMENT     Optional Kconfig fragment merged on top of KERNEL_CONFIG
+#                       (e.g. configs/kernel-oc9.x86_64-kvm.fragment). Merged with the
+#                       kernel tree's scripts/kconfig/merge_config.sh.
 #   KERNEL_CROSS_COMPILE  Cross-compiler prefix override (default: auto).
 #   KERNEL_BUILD_JOBS   Parallel jobs (default: 4).
 
@@ -26,6 +29,7 @@ err() { echo "ERROR: $*" >&2; exit 1; }
 
 KERNEL_SRC_DIR="${KERNEL_SRC_DIR:-}"
 KERNEL_CONFIG="${KERNEL_CONFIG:-}"
+KERNEL_FRAGMENT="${KERNEL_FRAGMENT:-}"
 KERNEL_OUTPUT_DIR="${KERNEL_OUTPUT_DIR:-}"
 KERNEL_TARGET_ARCH="${KERNEL_TARGET_ARCH:-$(uname -m | sed 's/^arm64$/aarch64/')}"
 KERNEL_CROSS_COMPILE="${KERNEL_CROSS_COMPILE:-}"
@@ -36,6 +40,12 @@ KERNEL_BUILD_JOBS="${KERNEL_BUILD_JOBS:-4}"
 [ -n "${KERNEL_CONFIG}" ]     || err "KERNEL_CONFIG is not set"
 [ -f "${KERNEL_CONFIG}" ]     || err "kernel config not found: ${KERNEL_CONFIG}"
 [ -n "${KERNEL_OUTPUT_DIR}" ] || err "KERNEL_OUTPUT_DIR is not set"
+
+MERGE_CONFIG="${KERNEL_SRC_DIR}/scripts/kconfig/merge_config.sh"
+if [ -n "${KERNEL_FRAGMENT}" ]; then
+  [ -f "${KERNEL_FRAGMENT}" ] || err "kernel fragment not found: ${KERNEL_FRAGMENT}"
+  [ -f "${MERGE_CONFIG}" ] || err "merge_config.sh not found in kernel source: ${MERGE_CONFIG}"
+fi
 
 host_arch="$(uname -m | sed 's/^arm64$/aarch64/')"
 
@@ -59,8 +69,17 @@ mkdir -p "${KERNEL_OUTPUT_DIR}"
 
 echo "[kernel] host=${host_arch} target=${KERNEL_TARGET_ARCH} ARCH=${kbuild_arch} CROSS_COMPILE=${cross_compile:-<native>} jobs=${KERNEL_BUILD_JOBS}"
 echo "[kernel] src=${KERNEL_SRC_DIR} config=${KERNEL_CONFIG} out=${KERNEL_OUTPUT_DIR}"
+if [ -n "${KERNEL_FRAGMENT}" ]; then
+  echo "[kernel] fragment=${KERNEL_FRAGMENT}"
+fi
 
-install -m 0644 "${KERNEL_CONFIG}" "${KERNEL_OUTPUT_DIR}/.config"
+if [ -n "${KERNEL_FRAGMENT}" ]; then
+  echo "[kernel] merging fragment ${KERNEL_FRAGMENT} on top of ${KERNEL_CONFIG}"
+  bash "${MERGE_CONFIG}" -m -O "${KERNEL_OUTPUT_DIR}" \
+    "${KERNEL_CONFIG}" "${KERNEL_FRAGMENT}"
+else
+  install -m 0644 "${KERNEL_CONFIG}" "${KERNEL_OUTPUT_DIR}/.config"
+fi
 
 make -C "${KERNEL_SRC_DIR}" O="${KERNEL_OUTPUT_DIR}" \
   ARCH="${kbuild_arch}" CROSS_COMPILE="${cross_compile}" olddefconfig

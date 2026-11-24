@@ -506,6 +506,19 @@ jobs:
             || { echo "missing Release asset vmlinux-${ARCH} on ${BM_RELEASE_TAG}" >&2; exit 1; }
           install -m 0644 "/tmp/cube-kernel-dl/vmlinux-${ARCH}" cube-kernel-ctx/artifacts/vmlinux-bm
 
+          # Nested-KVM guest kernel is amd64-only and optional: older kernel
+          # Releases predate the variant, so a miss is a warning, not a failure.
+          if [[ "${ARCH}" == "amd64" ]]; then
+            if gh release download "${BM_RELEASE_TAG}" \
+              --repo "${GITHUB_REPOSITORY}" \
+              --dir /tmp/cube-kernel-dl \
+              --pattern "vmlinux-kvm-${ARCH}" 2>/dev/null; then
+              install -m 0644 "/tmp/cube-kernel-dl/vmlinux-kvm-${ARCH}" cube-kernel-ctx/artifacts/vmlinux-kvm
+            else
+              echo "WARNING: no vmlinux-kvm-${ARCH} on ${BM_RELEASE_TAG}; cube-kernel image will not offer the kvm variant" >&2
+            fi
+          fi
+
           gh release download "${BM_RELEASE_TAG}" \
             --repo "${GITHUB_REPOSITORY}" \
             --dir /tmp/cube-kernel-dl/bm-meta \

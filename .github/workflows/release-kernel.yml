@@ -55,7 +55,7 @@ jobs:
               --notes "Dedicated kernel assets release (BM + PVM guest + PVM host)."
 
   build_bm:
-    name: Build BM vmlinux (${{ matrix.kernel_arch }})
+    name: Build BM vmlinux (${{ matrix.kernel_arch }}, ${{ matrix.variant }})
     needs: ensure_release
     runs-on: ${{ matrix.runner }}
     container:
@@ -68,15 +68,30 @@ jobs:
             kbuild_arch: x86
             bundle_arch: amd64
             runner: arc-runner-set-16c32g-containerd
+            variant: bm
+            variant_suffix: ""
+            fragment: ""
+          - kernel_arch: x86_64
+            kbuild_arch: x86
+            bundle_arch: amd64
+            runner: arc-runner-set-16c32g-containerd
+            variant: kvm
+            variant_suffix: "-kvm"
+            fragment: configs/kernel-oc9.x86_64-kvm.fragment
           - kernel_arch: aarch64
             kbuild_arch: arm64
             bundle_arch: arm64
             runner: ubuntu-24.04-arm
+            variant: bm
+            variant_suffix: ""
+            fragment: ""
     env:
       KERNEL_ARCH: ${{ matrix.kernel_arch }}
       KBUILD_ARCH: ${{ matrix.kbuild_arch }}
       BUNDLE_ARCH: ${{ matrix.bundle_arch }}
-      VMLINUX_CACHE_PATH: kernel-cache/${{ matrix.kernel_arch }}/vmlinux
+      KERNEL_VARIANT: ${{ matrix.variant }}
+      KERNEL_FRAGMENT: ${{ matrix.fragment }}
+      VMLINUX_CACHE_PATH: kernel-cache/${{ matrix.kernel_arch }}${{ matrix.variant_suffix }}/vmlinux
 
     steps:
       - name: Checkout
@@ -85,8 +100,12 @@ jobs:
       - name: Compute vmlinux cache metadata
         id: vmlinux_metadata
         run: |
-          config_hash="$(sha256sum "configs/kernel-oc9.${KERNEL_ARCH}.config" | awk '{print $1}')"
-          echo "cache_key=vmlinux-opencloudos-${KERNEL_TAG}-${KERNEL_ARCH}-${config_hash}-ubuntu-latest" >> "${GITHUB_OUTPUT}"
+          config_files=("configs/kernel-oc9.${KERNEL_ARCH}.config")
+          if [[ -n "${KERNEL_FRAGMENT}" ]]; then
+            config_files+=("${KERNEL_FRAGMENT}")
+          fi
+          config_hash="$(sha256sum "${config_files[@]}" | sha256sum | awk '{print $1}')"
+          echo "cache_key=vmlinux-opencloudos-${KERNEL_TAG}-${KERNEL_ARCH}-${KERNEL_VARIANT}-${config_hash}-ubuntu-latest" >> "${GITHUB_OUTPUT}"
 
       - name: Install kernel build dependencies
         run: |
@@ -127,8 +146,24 @@ jobs:
       - name: Configure kernel
         if: steps.restore_vmlinux.outputs.cache-hit != 'true'
         run: |
-          cp "configs/kernel-oc9.${KERNEL_ARCH}.config" "${KERNEL_SRC}/.config"
+          base_config="configs/kernel-oc9.${KERNEL_ARCH}.config"
+          if [[ -n "${KERNEL_FRAGMENT}" ]]; then
+            bash "${KERNEL_SRC}/scripts/kconfig/merge_config.sh" -m -O "${KERNEL_SRC}" \
+              "${GITHUB_WORKSPACE}/${base_config}" "${GITHUB_WORKSPACE}/${KERNEL_FRAGMENT}"
+            for sym in CONFIG_KVM CONFIG_KVM_INTEL CONFIG_KVM_AMD; do
+              grep -q "^${sym}=y$" "${KERNEL_SRC}/.config" \
+                || { echo "fragment ${KERNEL_FRAGMENT} did not enable ${sym}" >&2; exit 1; }
+            done
+          else
+            cp "${base_config}" "${KERNEL_SRC}/.config"
+          fi
           make -C "${KERNEL_SRC}" ARCH="${KBUILD_ARCH}" olddefconfig
+          if [[ -n "${KERNEL_FRAGMENT}" ]]; then
+            for sym in CONFIG_KVM CONFIG_KVM_INTEL CONFIG_KVM_AMD; do
+              grep -q "^${sym}=y$" "${KERNEL_SRC}/.config" \
+                || { echo "olddefconfig dropped ${sym} for variant ${KERNEL_VARIANT}" >&2; exit 1; }
+            done
+          fi
 
       - name: Build vmlinux
         if: steps.restore_vmlinux.outputs.cache-hit != 'true'
@@ -160,13 +195,17 @@ jobs:
         run: |
           rm -rf bm-release-assets
           mkdir -p bm-release-assets
-          install -D -m 0644 "${VMLINUX_CACHE_PATH}" "bm-release-assets/vmlinux-${BUNDLE_ARCH}"
+          asset_name="vmlinux-${BUNDLE_ARCH}"
+          if [[ "${KERNEL_VARIANT}" != "bm" ]]; then
+            asset_name="vmlinux-${KERNEL_VARIANT}-${BUNDLE_ARCH}"
+          fi
+          install -D -m 0644 "${VMLINUX_CACHE_PATH}" "bm-release-assets/${asset_name}"
 
       - name: Upload BM vmlinux artifact
         uses: actions/upload-artifact@v4
         with:
-          name: kernel-bm-${{ matrix.bundle_arch }}
-          path: bm-release-assets/vmlinux-${{ matrix.bundle_arch }}
+          name: kernel-${{ matrix.variant }}-${{ matrix.bundle_arch }}
+          path: bm-release-assets/*
           if-no-files-found: error
           retention-days: 14
 
@@ -356,6 +395,7 @@ jobs:
           ls -lhR kernel-release-assets
           test -f kernel-release-assets/vmlinux-amd64
           test -f kernel-release-assets/vmlinux-arm64
+          test -f kernel-release-assets/vmlinux-kvm-amd64
           test -f kernel-release-assets/vmlinux-pvm-amd64
 
           has_rpm=0
@@ -424,6 +464,7 @@ jobs:
             kernel-release-assets/kernel-metadata.json
             kernel-release-assets/vmlinux-amd64
             kernel-release-assets/vmlinux-arm64
+            kernel-release-assets/vmlinux-kvm-amd64
             kernel-release-assets/vmlinux-pvm-amd64
             kernel-release-assets/*.deb
             kernel-release-assets/*.rpm

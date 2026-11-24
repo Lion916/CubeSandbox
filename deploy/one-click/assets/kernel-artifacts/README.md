@@ -2,6 +2,7 @@
 
 - `vmlinux`
 - `vmlinux-pvm`（可选，PVM guest kernel）
+- `vmlinux-kvm`（可选，x86_64 嵌套虚拟化 guest kernel）
 
 guest image 默认在构建 one-click 发布包时基于 `deploy/guest-image/Dockerfile` 本地生成。
 也可通过 `ONE_CLICK_GUEST_IMAGE_TAR` 指向已有的 `cube-guest-image-*.tar.gz`
@@ -11,4 +12,5 @@ guest image 默认在构建 one-click 发布包时基于 `deploy/guest-image/Doc
 
 - `ONE_CLICK_CUBE_KERNEL_VMLINUX`
 - `ONE_CLICK_CUBE_KERNEL_PVM_VMLINUX`
+- `ONE_CLICK_CUBE_KERNEL_KVM_VMLINUX`
 - `ONE_CLICK_GUEST_IMAGE_TAR`

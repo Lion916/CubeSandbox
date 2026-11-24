@@ -40,9 +40,16 @@ TARGET_ARCH ?= $(shell uname -m | sed 's/^arm64$$/aarch64/')
 # KERNEL_TARGET_ARCH to cross-compile for an architecture other than the host;
 # the matching CROSS_COMPILE prefix is selected automatically (override with
 # KERNEL_CROSS_COMPILE if your toolchain uses a different prefix).
+#
+# KERNEL_VARIANT selects an optional fragment merged on top of KERNEL_CONFIG,
+# e.g. `KERNEL_VARIANT=kvm` merges configs/kernel-oc9.<arch>-kvm.fragment
+# (x86_64 only) to produce the opt-in nested-virtualization guest kernel. The
+# default kernel is unchanged when KERNEL_VARIANT is empty.
 KERNEL_TARGET_ARCH ?= $(TARGET_ARCH)
+KERNEL_VARIANT ?=
 KERNEL_CONFIG ?= $(ROOT_DIR)/configs/kernel-oc9.$(KERNEL_TARGET_ARCH).config
-KERNEL_OUTPUT_DIR ?= $(ROOT_DIR)/_output/kernel/$(KERNEL_TARGET_ARCH)
+KERNEL_FRAGMENT ?= $(if $(strip $(KERNEL_VARIANT)),$(ROOT_DIR)/configs/kernel-oc9.$(KERNEL_TARGET_ARCH)-$(KERNEL_VARIANT).fragment,)
+KERNEL_OUTPUT_DIR ?= $(ROOT_DIR)/_output/kernel/$(KERNEL_TARGET_ARCH)$(if $(strip $(KERNEL_VARIANT)),-$(KERNEL_VARIANT),)
 KERNEL_IMAGE_TARGET ?= vmlinux
 KERNEL_BUILD_JOBS ?=
 KERNEL_CROSS_COMPILE ?=
@@ -185,7 +192,7 @@ help:
 	@printf "  cube-lifecycle-manager-test Run cube-lifecycle-manager unit tests in Docker\n"
 	@printf "  agent-test    Run cube-agent unit tests in Docker\n"
 	@printf "  hypervisor-test Run hypervisor --lib --bins unit tests in Docker\n"
-	@printf "  guest-kernel  Build guest kernel vmlinux/Image (KERNEL_SRC=...; native or cross x86_64<->aarch64)\n"
+	@printf "  guest-kernel  Build guest kernel vmlinux/Image (KERNEL_SRC=...; native or cross x86_64<->aarch64; optional KERNEL_VARIANT=kvm)\n"
 	@printf "  all           Build all default binaries in Docker\n"
 	@printf "  manual-release Build binaries and package manual update tarball\n"
 	@printf "  clean         Remove local Go/Rust build artifacts (not global caches)\n"
@@ -637,21 +644,27 @@ shim: builder-image
 # Build a guest kernel image (vmlinux for x86_64, Image for aarch64) from an external kernel source tree.
 #   make guest-kernel KERNEL_SRC=/path/to/linux                            # native build for the host arch
 #   make guest-kernel KERNEL_SRC=/path/to/linux KERNEL_TARGET_ARCH=aarch64 # cross build
+#   make guest-kernel KERNEL_SRC=/path/to/linux KERNEL_VARIANT=kvm         # x86_64 + nested KVM (opt-in)
 # KERNEL_SRC is mounted into the builder at /kernel-src; the config is taken
-# from configs/kernel-oc9.$(KERNEL_TARGET_ARCH).config and the resulting Linux kernel image
-# is written to $(KERNEL_OUTPUT_DIR) on the host with name as vmlinux.
+# from configs/kernel-oc9.$(KERNEL_TARGET_ARCH).config (plus an optional
+# configs/kernel-oc9.<arch>-<variant>.fragment) and the resulting Linux kernel image is
+# written to $(KERNEL_OUTPUT_DIR) on the host with name as vmlinux.
 .PHONY: guest-kernel
 guest-kernel: kernel-precheck builder-image
 	@mkdir -p "$(KERNEL_OUTPUT_DIR)"
 	$(MAKE) builder-run \
 		BUILDER_RUN_EXTRA_MOUNTS='-v $(abspath $(KERNEL_SRC)):/kernel-src' \
-		BUILDER_CMD='KERNEL_SRC_DIR=/kernel-src KERNEL_TARGET_ARCH=$(KERNEL_TARGET_ARCH) KERNEL_CONFIG=/workspace/configs/kernel-oc9.$(KERNEL_TARGET_ARCH).config KERNEL_OUTPUT_DIR=/workspace/_output/kernel/$(KERNEL_TARGET_ARCH) KERNEL_CROSS_COMPILE=$(strip $(KERNEL_CROSS_COMPILE)) KERNEL_BUILD_JOBS=$(strip $(KERNEL_BUILD_JOBS)) bash /workspace/scripts/build-kernel.sh'
+		BUILDER_CMD='KERNEL_SRC_DIR=/kernel-src KERNEL_TARGET_ARCH=$(KERNEL_TARGET_ARCH) KERNEL_CONFIG=/workspace/configs/kernel-oc9.$(KERNEL_TARGET_ARCH).config KERNEL_FRAGMENT=$(patsubst $(ROOT_DIR)/%,/workspace/%,$(abspath $(KERNEL_FRAGMENT))) KERNEL_OUTPUT_DIR=$(patsubst $(ROOT_DIR)/%,/workspace/%,$(abspath $(KERNEL_OUTPUT_DIR))) KERNEL_CROSS_COMPILE=$(strip $(KERNEL_CROSS_COMPILE)) KERNEL_BUILD_JOBS=$(strip $(KERNEL_BUILD_JOBS)) bash /workspace/scripts/build-kernel.sh'
 
 .PHONY: kernel-precheck
 kernel-precheck:
 	@test -n "$(strip $(KERNEL_SRC))" || { echo "ERROR: KERNEL_SRC must point to a Linux kernel source tree (e.g. make guest-kernel KERNEL_SRC=/path/to/linux)"; exit 1; }
 	@test -d "$(KERNEL_SRC)" || { echo "ERROR: KERNEL_SRC '$(KERNEL_SRC)' is not a directory"; exit 1; }
 	@test -f "$(KERNEL_CONFIG)" || { echo "ERROR: kernel config not found: $(KERNEL_CONFIG)"; exit 1; }
+	@if [ -n "$(strip $(KERNEL_VARIANT))" ]; then \
+		test "$(KERNEL_TARGET_ARCH)" = "x86_64" || { echo "ERROR: KERNEL_VARIANT=$(KERNEL_VARIANT) is only supported for KERNEL_TARGET_ARCH=x86_64"; exit 1; }; \
+		test -f "$(KERNEL_FRAGMENT)" || { echo "ERROR: kernel fragment not found: $(KERNEL_FRAGMENT)"; exit 1; }; \
+	fi
 
 .PHONY: manual-release
 manual-release: all

@@ -1,0 +1,19 @@
+# Optional guest-kernel fragment: nested (L2) virtualization support.
+#
+# The default guest config (kernel-oc9.x86_64.config) deliberately leaves KVM
+# out to keep the microVM kernel small. This fragment is merged on top of it by
+# `make guest-kernel KERNEL_VARIANT=kvm ...`, producing the opt-in `kvm`
+# variant used by dedicated KVM node pools.
+#
+# Built-in (=y), never modules: the guest rootfs does not ship /lib/modules, so
+# a module could not be loaded at runtime.
+CONFIG_KVM=y
+CONFIG_KVM_INTEL=y
+CONFIG_KVM_AMD=y
+
+# OpenCloudOS' svm.c calls the Hygon PSP forwarding helpers implemented in the
+# CCP driver (drivers/crypto/ccp/hygon/vpsp.c). The base config builds that
+# driver as a module (=m), which cannot satisfy the built-in svm.o reference at
+# vmlinux link time (undefined reference to kvm_pv_psp_forward_op). Keep CCP
+# built-in for this variant.
+CONFIG_CRYPTO_DEV_CCP_DD=y
